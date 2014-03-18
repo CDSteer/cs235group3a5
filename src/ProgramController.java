@@ -368,39 +368,90 @@ public class ProgramController extends JFrame implements MouseListener,
 		}
     }
 
-	private void attemptMove(int x, int y) {
-
-	/**
+    /**
 	 *	Method that checks if the square user has clicked on is a valid move, if there are no
 	 *	more possible turns then the game is over and displayWinner method is called.
 	 *	/@param x
 	 *	/@param y
 	 */
+
+	private void attemptMove(int x, int y) {
+
+		int AIC4Col = 0;
+		int[] AIOthMoves;
+		int AIOthRow = 0;
+		int AIOthCol = 0;
 		Player[] players = new Player[2];
 		players[PLAYER_ONE] = getGame().getPlayer(PLAYER_ONE);
 		players[PLAYER_TWO] = getGame().getPlayer(PLAYER_TWO);
 		
-		boolean checkMoveIsValid = false;
-		checkMoveIsValid = players[getTurn() % 2].move(x, y, this);
-	    if(checkMoveIsValid == true) {
-			if (getGame().checkTakeableTurn(players[(getTurn() + 1) % 2]) == true) {
-				/** If it's 0 (player 1) turn this will change it  to 1 (player 2) turn*/
-				setTurn(getTurn() + 1);
-				getTurnNumberLabel().setText("Turn: " + (getTurn() + 1));
-				if((getTurn() % 2)==0){
-					System.out.println(getGame().getPlayer(PLAYER_ONE).getName());
-					getTurnLabel().setText(getGame().getPlayer(PLAYER_ONE).getName() + "'s turn");
-				} else {
-					System.out.println(getGame().getPlayer(PLAYER_TWO).getName());
-					getTurnLabel().setText(getGame().getPlayer(PLAYER_TWO).getName() + "'s turn");					
+		if(m_playerSelection == HUMAN) {
+			
+			boolean checkMoveIsValid = false;
+			checkMoveIsValid = players[getTurn() % 2].move(x, y, this);
+		    if(checkMoveIsValid == true) {
+				if (getGame().checkTakeableTurn(players[(getTurn() + 1) % 2]) == true) {
+					/** If it's 0 (player 1) turn this will change it  to 1 (player 2) turn*/
+					setTurn(getTurn() + 1);
+					getTurnNumberLabel().setText("Turn: " + (getTurn() + 1));
+					if((getTurn() % 2)==0){
+						System.out.println(getGame().getPlayer(PLAYER_ONE).getName());
+						getTurnLabel().setText(getGame().getPlayer(PLAYER_ONE).getName() + "'s turn");
+					} else {
+						System.out.println(getGame().getPlayer(PLAYER_TWO).getName());
+						getTurnLabel().setText(getGame().getPlayer(PLAYER_TWO).getName() + "'s turn");					
+					}
+					
+				} else if (getGame().checkTakeableTurn(players[0]) == false && getGame().checkTakeableTurn(players[1]) == false) {
+					try{
+						displayWinner();
+					}catch(IOException e){
+						System.out.println("IOException error @ ProgramController::attemptMove()");
+					}
 				}
+			}
+		} else if (m_playerSelection == EASY_AI) {
+			boolean checkAIMove = false;
+			boolean checkMoveIsValid = false;
+			if(getIsC4() == true) {
+				checkMoveIsValid = players[0].move(x, y, this);
 				
-			} else if (getGame().checkTakeableTurn(players[0]) == false && getGame().checkTakeableTurn(players[1]) == false) {
-				try{
-					displayWinner();
-				}catch(IOException e){
-					System.out.println("IOException error @ ProgramController::attemptMove()");
+				AIC4Col = c4EasyAI.selectCol(this);
+				checkAIMove = players[1].move(AIC4Col, C4_BOARD_HEIGHT, this);
+				checkWinner(players);
+				
+			} else {
+				checkMoveIsValid = players[0].move(x, y, this);
+				if(checkMoveIsValid == true) {
+					AIOthMoves = othEasyAI.selectMove(this);
+					AIOthRow = AIOthMoves[0];
+					AIOthCol = AIOthMoves[1];
+					checkAIMove = players[1].move(AIOthRow, AIOthCol, this);
+					checkWinner(players);				
+					
 				}
+			}
+		} else if (m_playerSelection == HARD_AI) {
+			boolean checkAIMove = false;
+			boolean checkMoveIsValid = false;
+			if(getIsC4() == true) {
+				checkMoveIsValid = players[0].move(x, y, this);			
+				AIC4Col = c4HardAI.selectCol(this);
+				checkAIMove = players[1].move(AIC4Col, C4_BOARD_HEIGHT, this);
+				checkWinner(players);
+			} else {
+				System.out.println("Error: No HARD AI for Othello");
+			}
+		}
+	}
+	
+	private void checkWinner(Player[] players) {
+		
+		if (getGame().checkTakeableTurn(players[0]) == false && getGame().checkTakeableTurn(players[1]) == false) {
+			try{
+				displayWinner();
+			}catch(IOException e){
+				System.out.println("IOException error @ ProgramController::attemptMove()");
 			}
 		}
 	}
@@ -466,9 +517,20 @@ public class ProgramController extends JFrame implements MouseListener,
 	 
 	void ProgramController() throws IOException{
 		
-        Object[] options = {"Connect 4",
+        Object[] player_types = {"Human", "Easy AI", "Hard AI"};
+		
+		Object[] options = {"Connect 4",
             "Othello"};
         
+        
+        m_playerSelection = JOptionPane.showOptionDialog(this, 
+        		"Select an Opponent Type", 
+        		"Opponent Selection", 
+        		JOptionPane.YES_NO_CANCEL_OPTION, 
+        		JOptionPane.QUESTION_MESSAGE, 
+        		null, 
+        		player_types, player_types[0]);
+        		
         String player1 = JOptionPane.showInputDialog("Enter player 1's name"); //accepts user's name before game starts
         String player2 = JOptionPane.showInputDialog("Enter player 2's name");
         
@@ -492,6 +554,19 @@ public class ProgramController extends JFrame implements MouseListener,
 		setTimerLabel();
 		
 		startTimer();
+		if(m_playerSelection == EASY_AI) {
+			if(this.getIsC4() == true) {
+				c4EasyAI = new C4EasyAI();
+			} else {
+				othEasyAI = new OthEasyAI();
+			}
+		} else if(m_playerSelection == HARD_AI) {
+			if(this.getIsC4() == true) {
+				c4HardAI = new C4HardAI();
+			} else {
+				System.out.println("HARD AI is not implemented for Othello");
+			}
+		}
 		update(getGame().getBoard(), "Black", "White");
 		
 		pack();
@@ -537,4 +612,14 @@ public class ProgramController extends JFrame implements MouseListener,
 	private JLabel m_TurnNumberLabel;
     private Container m_Container;
 	private GridBagConstraints m_Constraints;
+	private int m_playerSelection;
+	private final int HUMAN = 0;
+	private final int EASY_AI = 1;
+	private final int HARD_AI = 2;
+	private C4EasyAI c4EasyAI;
+	private C4HardAI c4HardAI;
+	private OthEasyAI othEasyAI;
+	// private OthHardAI (Not implemented
+	
+	private final int C4_BOARD_HEIGHT = 7;
 }

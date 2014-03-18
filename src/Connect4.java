@@ -70,7 +70,7 @@ public class Connect4 extends GameImplementation{
 	 *	A 'get' (access) method to get the piece at coordinates (column,row).
 	 *	\return	Piece	Existing or new Piece if position is not empty or empty.
 	 */
-	private Piece getPiece(int column, int row) { 
+	public Piece getPiece(int column, int row) { 
 		if (getBoard().isEmpty(column,row) == true) {
 			return new Piece("");
 		} else {

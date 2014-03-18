@@ -62,7 +62,9 @@ abstract public class GameImplementation {
 	 *	\param	y		Row value.
 	 *	\param	player	Player which wants to set the Piece.
 	 */
-    public void setPiece(int x, int y, Player player){}    
+    public void setPiece(int x, int y, Player player){}
+    
+    public abstract Piece getPiece(int y, int x);
 	
 	/* method to get the board object */
 	public Board getBoard(){

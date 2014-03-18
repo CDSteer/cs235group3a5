@@ -59,7 +59,7 @@ public class Othello extends GameImplementation {
 	 * \param y 		The y position of the Piece which you would like returned.
 	 * \return Piece	The Piece which is found at position (x,y) on the Board.
 	 */
-	private Piece getPiece(int x, int y) {
+	public Piece getPiece(int x, int y) {
 		if (getBoard().isEmpty(x,y) == false) {
 			return getBoard().getBoard()[x][y];
 		} else {
