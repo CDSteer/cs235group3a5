@@ -1,11 +1,11 @@
 /**
- * \file GameImplementation.java
+ * @file GameImplementation.java
  *
- * \author I.C. Skinner
+ * @author I.C. Skinner
  *
- * \date 18 Feb '14 
+ * @date 18 Feb '14 
  * 
- * \brief This class is inherited by Connect4 and Othello.
+ * @brief This class is inherited by Connect4 and Othello.
  * 
  * This class controls the "flow" of the game such as creating the 
  * board, instantiating the players and creating the methods to be 
@@ -17,7 +17,7 @@ abstract public class GameImplementation {
 
 	/**
 	 *	A 'get' (access) method which is used in Connect 4 
-	 *	\return	0	Return value is changed by subclass.
+	 *	@return	0	Return value is changed by subclass.
 	 */
 	public int getWinningMove(){
 		return 0;
@@ -25,7 +25,7 @@ abstract public class GameImplementation {
 	
     /**
 	 *	A 'get' (access) method which is used in Connect 4 
-	 *	\return	0	Return value is changed by subclass.
+	 *	@return	0	Return value is changed by subclass.
 	 */
 	public int getWinningi(){
 		return 0;
@@ -33,7 +33,7 @@ abstract public class GameImplementation {
 	
 	/**
 	 *	A 'get' (access) method which is used in Connect 4 
-	 *	\return	0	Return value is changed by subclass.
+	 *	@return	0	Return value is changed by subclass.
 	 */
 	public int getWinningj(){
 		return 0;
@@ -41,7 +41,7 @@ abstract public class GameImplementation {
 	
 	/**
 	 *	A 'get' (access) method which is used by both subclasses. 
-	 *	\return	m_Winner	Integer representation of the games winner.
+	 *	@return	m_Winner	Integer representation of the games winner.
 	 */
 	public int getWinner() {
 		return m_Winner;
@@ -49,8 +49,8 @@ abstract public class GameImplementation {
 
 	/**
 	 *	A setter method which is used in Connect 4.
-	 *	\param	playerNumber	Integer representation of a player.
-	 *	\return m_Winner		Returns variable m_Winner to be the winner.
+	 *	@param	playerNumber	Integer representation of a player.
+	 *	@return m_Winner		Returns variable m_Winner to be the winner.
 	 */
 	public int setWinner(int playerNumber) {
 		m_Winner = playerNumber;
@@ -58,15 +58,19 @@ abstract public class GameImplementation {
 	}
 	
 	/** A setter method inherited and changed by both subclasses.
-	 *	\param	x		Column value.
-	 *	\param	y		Row value.
-	 *	\param	player	Player which wants to set the Piece.
+	 *	@param	x		Column value.
+	 *	@param	y		Row value.
+	 *	@param	player	Player which wants to set the Piece.
+	 *	@return null
 	 */
     public void setPiece(int x, int y, Player player){}
     
     public abstract Piece getPiece(int y, int x);
 	
-	/* method to get the board object */
+	/** Method to get the board object 
+	*	@return m_Board		Return the current board object
+	*
+	*/
 	public Board getBoard(){
         return m_Board;
     }
@@ -74,8 +78,9 @@ abstract public class GameImplementation {
 	/**
 	 *	A setter method to instantiate the board object, this method is called 
 		in both games constructor.
-	 *	\param	boardWidth	The Board objects width.
-	 *	\param	boardHeight	The Board objects height.
+	 *	@param	boardWidth	The Board objects width.
+	 *	@param	boardHeight	The Board objects height.
+	 *	@return null
 	 */
     public void setBoard(int boardWidth, int boardHeight) {  
         System.out.println("GameImplementation::setBoard()"); 
@@ -86,8 +91,8 @@ abstract public class GameImplementation {
  
 	/**
 	 *	A 'get' (access) method to get player 1 or player 2.
-	 *	\param	playerNumber	Integer representation of a Player.
-	 *	\return	Player			Returns the Player object from the array at 
+	 *	@param	playerNumber	Integer representation of a Player.
+	 *	@return	Player			Returns the Player object from the array at 
 								index playerNumber.
 	 */
 	public Player getPlayer(int playerNumber){
@@ -97,8 +102,9 @@ abstract public class GameImplementation {
 	/**
 	 *	A setter method to set the players, this method is called in the
 		GameImplementation constructor.
-	 *	\param	playerNumber	Integer representation of a Player.
-	 *	\param	player			Player object.
+	 *	@param	playerNumber	Integer representation of a Player.
+	 *	@param	player			Player object.
+	 *	@return null
 	 */
 	private void setPlayer(int playerNumber, Player player) {
 		m_Player[playerNumber] = player;
@@ -106,7 +112,7 @@ abstract public class GameImplementation {
     
 	/** 
 	 *	GameImplementation constructor. Initially calls setPlayer to 
-		instantiate the games players.
+	 *	instantiate the games players.
 	 */
 	public GameImplementation() {
 		setPlayer(PLAYER_ONE, new Human());
@@ -115,9 +121,9 @@ abstract public class GameImplementation {
 	
 	/** 
 	 *	Method to check if either games board is full.
-	 *	\param	boardWidth	The Board width.
-	 *	\param	boardHeight	The Board height.
-	 *	\return	boolean		Returns true or false if board is full or not.
+	 *	@param	boardWidth	The Board width.
+	 *	@param	boardHeight	The Board height.
+	 *	@return	boolean		Returns true or false if board is full or not.
 	 */
     public boolean isBoardFull(int boardWidth, int boardHeight) {
         boolean boardFull = true;
@@ -133,8 +139,8 @@ abstract public class GameImplementation {
 	
 	/** 
 	 * 	Method to check is a turn is 'take-able', necessary for Othello. 
-	 *	\param	player	A Player object whose turn is to be taken.
-	 *	\return	boolean	Return value is changed by subclass.
+	 *	@param	player	A Player object whose turn is to be taken.
+	 *	@return	boolean	Return value is changed by subclass.
 	 */
 	public boolean checkTakeableTurn(Player player) {
 		return true;		
@@ -142,9 +148,9 @@ abstract public class GameImplementation {
 	
     /** 
 	 *	Method to check if a players move is valid. 
-	 *	\param	column	Column value of the Player move.
-	 *	\param	row		Row value of the Player move.
-	 *	\return	boolean	Return value is changed by subclass.
+	 *	@param	column	Column value of the Player move.
+	 *	@param	row		Row value of the Player move.
+	 *	@return	boolean	Return value is changed by subclass.
 	 */
 	public boolean checkValid(int column, int row, Player player){
         return false;
@@ -152,7 +158,7 @@ abstract public class GameImplementation {
 	
 	/** 
 	 *	Method to check to see if the game has been won by a Player.
-	 *	\return	boolean	Return value is changed by subclass.
+	 *	@return	boolean	Return value is changed by subclass.
 	 */
     public boolean checkWin(){
         return false;

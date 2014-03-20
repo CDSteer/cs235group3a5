@@ -1,11 +1,11 @@
 /**
- * \file ProgramController.java
+ * @file ProgramController.java
  *
- * \author I.C. Skinner & J. Bailey & S. Jones
+ * @author I.C. Skinner & J. Bailey & S. Jones
  *
- * \date 25 Feb '14 
+ * @date 25 Feb '14 
  * 
- * \brief This is the GUI for both games.
+ * @brief This is the GUI for both games.
  * 
 */
 
@@ -100,6 +100,7 @@ public class ProgramController extends JFrame implements MouseListener,
 
 	/**
 	 *	Create New game button  
+	 *	@return null
 	 */
 	private void setNewGameButton(){
 		m_NewGameButton = new JButton("New Game");
@@ -112,6 +113,7 @@ public class ProgramController extends JFrame implements MouseListener,
 	
 	/**
 	 *	Create label to display name of current player 
+	 *	@return null
 	 */
 	private void setTurnLabel(){
 		m_TurnLabel = new JLabel(m_Game.getPlayer(PLAYER_ONE).getName() + "'s turn");
@@ -124,6 +126,7 @@ public class ProgramController extends JFrame implements MouseListener,
 	
 	/**
 	 *	Create label to display time elapsed
+	 *	@return null
 	 */
 	private void setTimerLabel(){
 		m_TimerLabel = new JLabel("Time elapsed: 0s");
@@ -135,6 +138,7 @@ public class ProgramController extends JFrame implements MouseListener,
 
 	/**
 	 *	Create label to display number of turns taken
+	 *	@return null
 	 */
 	private void setTurnNumberLabel(String labelString){
 	
@@ -146,6 +150,7 @@ public class ProgramController extends JFrame implements MouseListener,
 	}
 	/**
 	 *	Create container to hold UI elements
+	 *	@return null
 	 */
 	private void setContainer(){
 		m_Container = getContentPane();
@@ -155,14 +160,14 @@ public class ProgramController extends JFrame implements MouseListener,
 	}
 
 	/** Getter method to return timer label value 
-	 * @return m_TimerLabel -JLabel object
+	 * 	@return m_TimerLabel -JLabel object
 	 */
 	private JLabel getTimerLabel(){
 		return m_TimerLabel;
 	}
 	
 	/** Getter method to return turn label value 
-	 * @return m_TurnLabel -JLabel object
+	 * 	@return m_TurnLabel -JLabel object
 	 */
 	private JLabel getTurnLabel(){
 		return m_TurnLabel;
@@ -170,40 +175,45 @@ public class ProgramController extends JFrame implements MouseListener,
 	
 	/** 
 	 *	Setter method to set current time elapsed value 
-	 * @param time -sets time variable to value given by timer
+	 * 	@param time -sets time variable to value given by timer
+	 *	@return null
 	 */
 	private void setTime(int time) {
 		m_Time = time;
 	}
 	
 	/** Setter method to set current who's turn it currently is 
-	 * @param turnNumber -int that stores number of taken turns
+	 * 	@param turnNumber -int that stores number of taken turns
+	 *	@return null
 	 */
 	private void setTurn(int turnNumber) {
 		m_Turn = turnNumber;
 	}
 	
 	/** Getter method that returns label object
-	 * @return m_TimerLabel -returns value for getTunNumberLabel
+	 *  @return m_TimerLabel -returns value for getTunNumberLabel
 	 */
 	private JLabel getTurnNumberLabel(){
 		return m_TurnNumberLabel;
 	}
 
-	/** Setter method that sets the board using the board and game classes */
+	/** Setter method that sets the board using the board and game classes 
+	*	@return null
+	*/
 	private void setBoard(){
 		m_Board = getGame().getBoard();
 	}
 	
 	/** Getter method that returns the background image of the board 
-	 * @return m_Background_Image -file extension of background image
+	 *  @return m_Background_Image -file extension of background image
 	 */
 	private BufferedImage getBGImage(){
 		return m_Background_Image;
 	}
 	
 	/** Setter method that sets a image file as the background of the board
-	 * @param background_File -file extension of image file
+	 *  @param background_File -file extension of image file
+	 *	@return null
 	 */
 	private void setBGImage(File background_File) throws IOException{
 		try{
@@ -214,8 +224,9 @@ public class ProgramController extends JFrame implements MouseListener,
 	}
 	
 	/** setter method that draws the labels that are used as the squares on the board
-	 * @param x -coordinates of label grid that user has clicked on
-	 * @param y
+	 * 	@param x -coordinates of label grid that user has clicked on
+	 * 	@param y
+	 *	@return null
 	 */
 	private void setLabels(int x, int y) {
 	
@@ -229,24 +240,26 @@ public class ProgramController extends JFrame implements MouseListener,
 	}
 	
 	/** Getter method that returns value of square user has clicked on
-	 * @param x -coordinates of label grid that user has clicked on
-	 * @param y
-	 * @return m_Image_Labels -specific label from the 2D array of labels
+	 * 	@param x -coordinates of label grid that user has clicked on
+	 * 	@param y
+	 *  @return m_Image_Labels -specific label from the 2D array of labels
 	 */
 	private JLabel getLabel(int x, int y) {
 		return m_Image_Labels[x][y];
 	}
 	
 	/** Setter method that sets image where user has clicked
-	 * @param x -coordinates of label grid that user has clicked on
-	 * @param y
-	 * @param image -image to be used as background of label
+	 *  @param x -coordinates of label grid that user has clicked on
+	 *  @param y
+	 *  @param image -image to be used as background of label
 	 */
 	private void setImage(int x, int y, ImageIcon image) {
 		m_Image_Labels[x][y].setIcon(image);
 	}
 
-	/** Setter method that sets an image for every square on the board */
+	/** Setter method that sets an image for every square on the board 
+	*	@return null
+	*/
 	private void setImages(){
 		setLabels(getBoard().getBoardWidth(),getBoard().getBoardHeight());
 		
@@ -262,7 +275,7 @@ public class ProgramController extends JFrame implements MouseListener,
 	
 	
 	/** Setter method that gets label from array
-	 * @return m_Image_Labels -an array of JLabels
+	 *  @return m_Image_Labels -an array of JLabels
 	 */
 	public JLabel[][] getLabels(){
 		return m_Image_Labels;
@@ -273,6 +286,7 @@ public class ProgramController extends JFrame implements MouseListener,
 	 *	Method that is performed when a user has taken their turn so the board's UI elements
 	 *	are updated to whomever's turn it is
 	 *	@param event - action performed event
+	 *	@return null
 	*/
 		String colour1 = getGame().getPlayer(PLAYER_ONE).getColour();
 		String colour2 = getGame().getPlayer(PLAYER_TWO).getColour();
@@ -296,7 +310,8 @@ public class ProgramController extends JFrame implements MouseListener,
 	/**
 	 *	Mouse event handler method that checks where user has clicked on board,
 	 *	then runs the attemptMove method with the coordinates of the move
-	 *	/@param e - mouse event
+	 *	@param e - mouse event
+	 *	@return null
 	*/
 		System.out.println("Clicked");
         if(getGame().checkWin() == false){
@@ -328,9 +343,10 @@ public class ProgramController extends JFrame implements MouseListener,
     public void update(Board board, String colour1, String colour2) throws IOException{
 	/**
 	 *	Method that updates the board with new moves that have been taken
-	 *	/@param board
-	 *	/@param colour1
-	 *	/@param colour2
+	 *	@param board
+	 *	@param colour1
+	 *	@param colour2
+	 *	@return null
 	*/
         System.out.println("ProgramController::update()");
         
@@ -371,8 +387,9 @@ public class ProgramController extends JFrame implements MouseListener,
     /**
 	 *	Method that checks if the square user has clicked on is a valid move, if there are no
 	 *	more possible turns then the game is over and displayWinner method is called.
-	 *	/@param x
-	 *	/@param y
+	 *	@param x
+	 *	@param y
+	 *	@return null
 	 */
 
 	private void attemptMove(int x, int y) {
@@ -444,7 +461,11 @@ public class ProgramController extends JFrame implements MouseListener,
 			}
 		}
 	}
-	
+	/**	
+	*	Method that check who has won the game
+	*	@param Player[]		
+	*	@return null
+	*/
 	private void checkWinner(Player[] players) {
 		
 		if (getGame().checkTakeableTurn(players[0]) == false && getGame().checkTakeableTurn(players[1]) == false) {
@@ -460,7 +481,8 @@ public class ProgramController extends JFrame implements MouseListener,
 
 	/**
 	 *	Method that checks who has won the game, displays the winner's name to a label
-	 *	Also highlights winning combination of pieces if playing connect4   
+	 *	Also highlights winning combination of pieces if playing connect4 
+	 *	@return null	 
 	 */	
 		if(getGame().getWinner() == 1 || getGame().getWinner() == 2){
 			System.out.println("Winner: Player " + (getGame().getWinner()) );
@@ -492,6 +514,7 @@ public class ProgramController extends JFrame implements MouseListener,
 	/**
 	 *	Timer method that starts a timer in intervals of 1 second, and is run whenever the game is
 	 *	declared to be running. current time elapsed is then set to a label and updated every second.
+	 *	@return null
 	 */	
 		ActionListener actListner = new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
@@ -513,6 +536,7 @@ public class ProgramController extends JFrame implements MouseListener,
 	 *	Method that is called when program is first run, it starts all the methods
 	 *  that create the UI elements, it also accepts input from the user such as their
 	 *  name and what game they'd like to play
+	 *	@return null
 	 */	
 	 
 	void ProgramController() throws IOException{
