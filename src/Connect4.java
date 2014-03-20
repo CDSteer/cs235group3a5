@@ -1,13 +1,13 @@
 /**
- * \file Connect4.java
+ * @file Connect4.java
  *
- * \author I.C. Skinner
+ * @author I.C. Skinner
  *
- * \date 18 Feb '14
+ * @date 18 Feb '14
  * 
- * \see GameImplementation.java
+ * @see GameImplementation.java
  *
- * \brief This class controls the Connect4 logic.
+ * @brief This class controls the Connect4 logic.
  *
  *	This class controls the 'flow' of the game, specific to Connect4 such as 
  *	checking if there are 4 of the same coloured pieces in a vertical, 
@@ -17,7 +17,7 @@ public class Connect4 extends GameImplementation{
 
 	/** 
 	 *	A 'get' (access) method for the winning move.
-	 *	\return	m_Winning_Move	Integer representing a winning connect4 move.
+	 *	@return	m_Winning_Move	Integer representing a winning connect4 move.
 	 */
 	public int getWinningMove(){
 		return m_Winning_Move;
@@ -25,8 +25,8 @@ public class Connect4 extends GameImplementation{
 
 	/** 
 	 *	A setter method for the winning move. 
-	 *	\param[in]	winningMove		Integer representing a winning connect4 move.
-	 *	\param[out] m_Winning_Move	Member variable storing the winning c4 move.
+	 *	@param	winningMove		Integer representing a winning connect4 move.
+	 *	@return null
 	 */
 	private void setWinningMove(int winningMove){
 		m_Winning_Move = winningMove;
@@ -34,7 +34,7 @@ public class Connect4 extends GameImplementation{
 	
 	/** 
 	 *	A 'get' (access) method for the winning column (i) position 
-	 * 	\return	m_Winning_i	Row position of a winning piece. 
+	 * 	@return	m_Winning_i	Row position of a winning piece. 
 	 */
 	public int getWinningi(){
 		return m_Winning_i;
@@ -42,8 +42,8 @@ public class Connect4 extends GameImplementation{
 	
     /** 
 	 *	A setter method for the winning column (i) position 
-	 *  \param[in]	i			Row position of a winning piece.
-	 *	\param[out]	m_Winning_i	Member variable storing a winning row position.
+	 *  @param i			Row position of a winning piece.
+	 *	@return null
 	 */
 	private void setWinningi(int i){
 		m_Winning_i = i;
@@ -51,7 +51,7 @@ public class Connect4 extends GameImplementation{
 	
 	/** 
 	 *	A 'get' (access) method for the winning row (j) position 
-	 *	\return	j	Column position of a winning piece.
+	 *	@return	j	Column position of a winning piece.
 	 */
 	public int getWinningj(){
 		return m_Winning_j;
@@ -59,8 +59,8 @@ public class Connect4 extends GameImplementation{
 	
 	/** 
 	 *	A setter method for the winning row (j) position 
-	 *	\param[in]	j			Column position of a winning piece.
-	 *	\param[out]	m_Winning_j	Member variable stores winning column position.
+	 *	@param j			Column position of a winning piece.
+	 *	@return null
 	 */
 	private void setWinningj(int j){
 		m_Winning_j = j;
@@ -68,7 +68,7 @@ public class Connect4 extends GameImplementation{
 
 	/** 
 	 *	A 'get' (access) method to get the piece at coordinates (column,row).
-	 *	\return	Piece	Existing or new Piece if position is not empty or empty.
+	 *	@return	Piece	Existing or new Piece if position is not empty or empty.
 	 */
 	public Piece getPiece(int column, int row) { 
 		if (getBoard().isEmpty(column,row) == true) {
@@ -80,9 +80,10 @@ public class Connect4 extends GameImplementation{
 	
 	/** 
 	 *	A setter method which sets a piece object at a position. 
-	 *	\param	column	Column position on a board.
-	 *	\param	row		Row Position on a board.
-	 *	\param	player	Player object which is the player setting a piece.
+	 *	@param	column	Column position on a board.
+	 *	@param	row		Row Position on a board.
+	 *	@param	player	Player object which is the player setting a piece.
+	 *	@return null
 	 */
 	public void setPiece(int column, int row, Player player){
         System.out.println("Connect4::setPiece()");
@@ -113,7 +114,8 @@ public class Connect4 extends GameImplementation{
 	
 	/** 
 	 *	A setter method which sets the winner games winner. 
-	 *	\param	p	Piece object used by the user.
+	 *	@param	p	Piece object used by the user.
+	 *	@return null
 	 */
 	public void setWinner(Piece p) { 
 		if (getPlayer(PLAYER_ONE).getColour().equals(p.getColour())) {
@@ -143,8 +145,8 @@ public class Connect4 extends GameImplementation{
 		override is necessary so that the moment the player enters their 
 		winning piece the game is done and doesn't require an additional click
 		to display winner.
-	 *	\param	player	Player object which is the player to take a turn.
-	 *	\return boolean	Returns true or false depending on conditions.
+	 *	@param	player	Player object which is the player to take a turn.
+	 *	@return boolean	Returns true or false depending on conditions.
 	 */
 	public boolean checkTakeableTurn(Player player) {
 		if(checkWin() == true){
@@ -157,10 +159,10 @@ public class Connect4 extends GameImplementation{
 	
 	/** 
 	 * 	checkValid method checks to see if the players attempted move is valid.
-	 *	\param	column	Column position of the attempted played piece.
-	 *	\param	row		Row position of the attempted played piece.
-	 *	\param	player	Player object which is the player attempting a move.
-	 *	\return	boolean	Returns true of false based depending on conditions.
+	 *	@param	column	Column position of the attempted played piece.
+	 *	@param	row		Row position of the attempted played piece.
+	 *	@param	player	Player object which is the player attempting a move.
+	 *	@return	boolean	Returns true of false based depending on conditions.
 	 */
 	public boolean checkValid(int column, int row, Player player){
         System.out.println("Connect4::checkValid()");
@@ -182,7 +184,7 @@ public class Connect4 extends GameImplementation{
 			-- Vertical connect 4
 			-- Diagonal right-facing connect 4
 			-- Diagonal left-facing connect 4
-	 *	\return	boolean	Returns true or false if there is a winner or not.
+	 *	@return	boolean	Returns true or false if there is a winner or not.
 	 */
     public boolean checkWin(){
         int j;
@@ -261,12 +263,12 @@ public class Connect4 extends GameImplementation{
     }
     */
 	
-	/* Member variables to store the winning move and position */
+	/** Member variables to store the winning move and position */
 	private int m_Winning_Move;
 	private int m_Winning_i;
 	private int m_Winning_j;
 	
-	/* Symbolic constants */
+	/** Symbolic constants */
 	private final int DRAW = 3;
 	
 	private final int TOP_ROW = 0;

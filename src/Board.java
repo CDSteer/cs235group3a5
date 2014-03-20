@@ -1,11 +1,11 @@
 /**
- * \file Board.java
+ * @file Board.java
  *
- * \author X. Chen
+ * @author X. Chen
  *
- * \date 22 Feb '14
+ * @date 22 Feb '14
  * 
- * \brief Stores information about a Piece object.
+ * @brief Stores information about a Piece object.
  *
  * Stores a piece object in a specific board position by having 2 identical 
  * 2D arrays where one stores an integer which corresponds to the other having
@@ -15,7 +15,9 @@
 
 public class Board {
 
-	/** Method to get the 2D array (board) of pieces */
+	/** Method to get the 2D array (board) of pieces 
+	*	@return m_Pieces
+	*/
 	public Piece[][] getBoard() {
 		return m_Pieces;
 	}
@@ -28,7 +30,10 @@ public class Board {
 		return m_BoardHeight;
 	}
      
-	/** Method to set the boards height */ 
+	/** Method to set the boards height 
+	*	@param boardHeigth	current height of the board
+	*	@return null
+	*/ 
 	public void setBoardHeight(int boardHeight){
 		m_BoardHeight = boardHeight;
 	}
@@ -41,7 +46,10 @@ public class Board {
 		return m_BoardWidth;
 	}
      
-	/** Method to set the boards width */ 
+	/** Method to set the boards width 
+	*	@param	boardWidth 	current width of the board
+	*	@return null
+	*/ 
 	public void setBoardWidth(int boardWidth){
 		m_BoardWidth = boardWidth;
 	}
@@ -51,7 +59,8 @@ public class Board {
 	 *  Method to "setBoard" which instantiate both 2D arrays 
 	 *  Initializes board for given board size values      
 	 *  @param set the the Width of the board      
-	 *  @param set the the height of the board        
+	 *  @param set the the height of the board       
+	 *	@return null
 	 */    
 	public void setBoard(int boardWidth, int boardHeight) {   
 		setBoardHeight(boardHeight);
@@ -71,6 +80,7 @@ public class Board {
 	 * @param set the the colour of the piece    
 	 * @param set the the row number of the piece
 	 * @param set the the column number of the piece
+	 *	@return null
 	 */     
 	public void setPiece(Piece piece, int column, int row) {
 		System.out.println("Board::setPiece()");
@@ -82,6 +92,9 @@ public class Board {
 
 	/**
 	 *  Method to check if a board has a piece object in it i.e. is not empty 
+	 *	@param column		
+	 *	@param row			
+	 *	@return m_Board[column][row] != HAS_PIECE_OBJECT
 	 */
 	public boolean isEmpty(int column, int row) {
 		return m_Board[column][row] != HAS_PIECE_OBJECT;   

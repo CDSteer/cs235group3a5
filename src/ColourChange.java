@@ -1,11 +1,11 @@
 /**
- * \file ColourChange.java
+ * @file ColourChange.java
  *
- * \author A. Keskin
+ * @author A. Keskin
  *
- * \date 25 Feb '14
+ * @date 25 Feb '14
  * 
- * \brief Animates the Othello board pieces.
+ * @brief Animates the Othello board pieces.
  * 
  * This classes, when passed a piece
  */
@@ -29,8 +29,8 @@ public class ColourChange extends JFrame {
 	/**
 	 *	Calls either blackToWhiteFlip() method or whiteToBlackFlip() method depending on the
 	 *	input from the getColour() method parsed in from the Piece class.
-	 *	\param p			Parses in the Piece class so that method can get colour of piece.
-	 *	\return	ImageIcon	This returns the gif image which represents 
+	 *	@param p			Parses in the Piece class so that method can get colour of piece.
+	 *	@return	ImageIcon	This returns the gif image which represents 
 	 the piece flipping when a colour is changed in the Othello game. 
 	 */
 	public ImageIcon flip(Piece p){
@@ -47,7 +47,7 @@ public class ColourChange extends JFrame {
 	
 	/**
 	 *	Fetches the gif which animates the piece flipping from black to white and returns it.
-	 *	\return	blackToWhite	The animated Gif which flips a piece from black to white. 
+	 *	@return	blackToWhite	The animated Gif which flips a piece from black to white. 
 	 */
 	private ImageIcon blackToWhiteFlip(){
 		ImageIcon blackToWhite = new ImageIcon("Images/BlackToWhitePiece.gif");
@@ -57,7 +57,7 @@ public class ColourChange extends JFrame {
 	
 	/**
 	 *	Fetches the gif which animates the piece flipping from white to black and returns it.
-	 *	\return	whiteToBlack	The animated Gif which flips a piece from white to black.
+	 *	@return	whiteToBlack	The animated Gif which flips a piece from white to black.
 	 */
 	private ImageIcon whiteToBlackFlip(){
 		ImageIcon whiteToBlack = new ImageIcon("Images/WhiteToBlackPiece.gif");
