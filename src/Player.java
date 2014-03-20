@@ -1,11 +1,11 @@
 /**
- * \file Player.java
+ * @file Player.java
  * 
- * \author A.Alakeel
+ * @author A.Alakeel
  * 
- * \date 25 Feb '14
+ * @date 25 Feb '14
  * 
- * \brief Store the name of the Player and their colour.
+ * @brief Store the name of the Player and their colour.
  * 
  *  This class describes that whether a Player can make a move or not. It can also tell
  *  if it is his turn. The Player can change his name, set the colour of a piece.
@@ -29,6 +29,7 @@ abstract public class Player {
 	 * and assigns it to attribute m_Colour
 	 * 
 	 * @param colour	Assign this colour to m_Colour of the piece
+	 * @return null
 	 */
 	public void setColour(String colour)
 	{
@@ -40,6 +41,7 @@ abstract public class Player {
 	 * and assigns it to the attribute m_Name
 	 * 
 	 * @param name	Sets the name of the player
+	 * @return null
 	 */
 	public void setName(String name)
 	{
@@ -87,6 +89,10 @@ abstract public class Player {
 	/**
 	 * This method is what the subclasses will use to control the move that
 	 *	the player will make.
+	 *	@param	x
+	 *	@param	y
+	 *	@param ProgramController
+	 *	@return false
 	 */
 	public boolean move(int x, int y, ProgramController PC)
 	{

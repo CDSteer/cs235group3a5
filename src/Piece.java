@@ -1,12 +1,12 @@
 
 /**
- * \file Piece.java
+ * @file Piece.java
  *
- * \author A.Alakeel
+ * @author A.Alakeel
  * 
- * \date 25 Feb '14
+ * @date 25 Feb '14
  *
- * \brief Change colour of a Piece
+ * @brief Change colour of a Piece
  *
  * This class can change the colour of a piece to any desired 
  * colour. It stores the colour of a Piece, so that it can then
@@ -20,7 +20,7 @@ public class Piece {
 	/**
 	 * This method simply returns the colour of piece
 	 * 
-	 * \return this.m_Colour returns the colour of type String
+	 * @return this.m_Colour returns the colour of type String
 	 */
 	public String getColour()
 	{
@@ -33,7 +33,8 @@ public class Piece {
 	 *
 	 * This method changes the colour of a piece
 	 * and assigns it to attribute m_Colour
-	 * \param colour assign this colour to m_Colour of the piece
+	 * @param colour assign this colour to m_Colour of the piece
+	 * @return null
 	 */
 	public void changeColour(String colour)
 	{
@@ -45,8 +46,8 @@ public class Piece {
 	 * Piece which changes the colour of the piece passed
 	 * to it.
 	 * 
-	 * \param colour this is the colour to which the piece is to be changed
-	 * 
+	 * @param colour this is the colour to which the piece is to be changed
+	 * @return null
 	 */
 	public Piece(String colour)
 	{

@@ -1,11 +1,11 @@
 /**
- * \file Highlight.java
+ * @file Highlight.java
  *
- * \author I.C. Skinner
+ * @author I.C. Skinner
  *
- * \date 18 Feb '14
+ * @date 18 Feb '14
  * 
- * \brief This highlights the winning pieces in Connect4.
+ * @brief This highlights the winning pieces in Connect4.
  * 
  * This class will highlight the winning pieces after a game of 
  * Connect4 has been played through to completion.
@@ -19,12 +19,13 @@ import javax.swing.*;
 public class Highlight{
 	/**
 	 * Method for highlighting the winning combination in connect 4.
-	 * \param column				The column which contains the Piece 
-	   which begins the chain of winning pieces in Connect 4.
-	 * \param row					The row which contains the Piece
-	    which begins the chain of winning pieces in Connect 4.
-	 * \param ProgramController		The program controller, so that the
-	   class can access various methods that it uses.
+	 * @param column				The column which contains the Piece 
+	 *	which begins the chain of winning pieces in Connect 4.
+	 * @param row					The row which contains the Piece
+	 *  which begins the chain of winning pieces in Connect 4.
+	 * @param ProgramController		The program controller, so that the
+	 *  class can access various methods that it uses.
+	 *	@return null
 	 */
 	public void C4Highlight(int column, int row, JLabel[][] board, 
 												 GameImplementation game) 
@@ -73,7 +74,7 @@ public class Highlight{
 		// Testing
 	}
 	*/
-	/* Symbolic constants */
+	/** Symbolic constants */
 	private final int HORIZONTAL_WIN = 0;
 	private final int VERTICAL_WIN = 1;
 	private final int RIGHT_DIAGONAL_WIN = 2;

@@ -1,11 +1,11 @@
 /**
- * \file Othello.java
+ * @file Othello.java
  *
- * \author J. Bailey
+ * @author J. Bailey
  *
- * \date 22 Feb '14
+ * @date 22 Feb '14
  *
- * \brief This controls the flow of the game, specific to Othello.
+ * @brief This controls the flow of the game, specific to Othello.
  * 
  * This controls how the game works when the user selects to play Othello,
  * such as when a flip is possible, and when a win is detected.
@@ -14,9 +14,9 @@
 public class Othello extends GameImplementation {
 	/**
 	 * Method for placing a piece on the board
-	 * \param x			The x position the Piece is placed on the board.
-	 * \param y			The y position the Piece is placed on the board.
-	 * \param player	the Player that is setting the piece.
+	 * @param x			The x position the Piece is placed on the board.
+	 * @param y			The y position the Piece is placed on the board.
+	 * @param player	the Player that is setting the piece.
 	*/
 	public void setPiece(int x, int y, Player player) {
         if (checkValid(x, y, player) == true) {
@@ -38,8 +38,9 @@ public class Othello extends GameImplementation {
 	/**
 	 * Creates the board, then place the starting pieces in the centre
 	 of the board.
-	 * \param width		The width of the board you would like to create.
-	 * \param height	The height of the board you would like to create.
+	 * @param width		The width of the board you would like to create.
+	 * @param height	The height of the board you would like to create.
+	 * @return null
 	 */
     public void setBoard(int width, int height) {
         super.setBoard(width, height);
@@ -53,11 +54,11 @@ public class Othello extends GameImplementation {
         getBoard().setPiece(new Piece(WHITE_PIECE),(width/2),(height/2));
     }
 
-	/*
+	/**
 	 * Finds the piece at a certain position (x,y) on the board.
-	 * \param x			The x position of the Piece which you would like returned.
-	 * \param y 		The y position of the Piece which you would like returned.
-	 * \return Piece	The Piece which is found at position (x,y) on the Board.
+	 * @param x			The x position of the Piece which you would like returned.
+	 * @param y 		The y position of the Piece which you would like returned.
+	 * @return Piece	The Piece which is found at position (x,y) on the Board.
 	 */
 	public Piece getPiece(int x, int y) {
 		if (getBoard().isEmpty(x,y) == false) {
@@ -69,7 +70,7 @@ public class Othello extends GameImplementation {
     
 	/**
 	 * Finds the winner of the game
-	 * \return playerNumber This returns an integer representing who won the game.
+	 * @return playerNumber This returns an integer representing who won the game.
 	 1 means Player 1 has won, 2 means Player 2 has won, 3 means a draw, -1 means the game
 	 hasn't been won yet.
 	 */
@@ -101,8 +102,8 @@ public class Othello extends GameImplementation {
 	
 	/**
 	 * Finds the colour of the player that wasn't passed in.
-	 * \param player	The Player you don't want the colour for
-	 * \return colour	The colour of the opponent to the Player passed in.
+	 * @param player	The Player you don't want the colour for
+	 * @return colour	The colour of the opponent to the Player passed in.
 	 */
 	private String getOtherPlayerColour(Player player) {
 		if (getPlayer(0) != player) {
@@ -112,18 +113,18 @@ public class Othello extends GameImplementation {
 		}
 	}
     
-	/* Constructor for Othello */
+	/** Constructor for Othello */
 	public Othello() {
         this.setBoard(BOARD_WIDTH, BOARD_HEIGHT);
         getPlayer(0).setColour("Black");
         getPlayer(1).setColour("White");
 	}
 	
-	/*
+	/**
 	 * Checks if it is possible for a Player to take their turn
-	 * \param player		The Player you want to check if it is possible to take
+	 * @param player		The Player you want to check if it is possible to take
 	 a turn for.
-	 * \return takeable		This will return true if a Player is able to take a turn.
+	 * @return takeable		This will return true if a Player is able to take a turn.
 	 */
 	public boolean checkTakeableTurn(Player player) {
 		boolean takeable = false;
@@ -138,9 +139,9 @@ public class Othello extends GameImplementation {
 		return takeable;
 	}
 	
-	/* 
+	/** 
 	 * Checks if a Player has won the game
-	 * \return gameComplete		returns true if the game is over, or false if the
+	 * @return gameComplete		returns true if the game is over, or false if the
 	 game is not over.
 	 */
     public boolean checkWin(){
@@ -175,16 +176,16 @@ public class Othello extends GameImplementation {
 		}
 	}
 	
-	/*
+	/**
 	 * Checks if a Piece above the Player will be
 	 * flipped if a Piece is placed at (x,y)
-	 * \param x			The x position of the Piece you want to check if there are
+	 * @param x			The x position of the Piece you want to check if there are
 	   flips above of.
-	 * \param y			The y position of the Piece you want to check if there are
+	 * @param y			The y position of the Piece you want to check if there are
 		   flips above of.
-	 * \param player	The Player which you are checking if there are checking if
+	 * @param player	The Player which you are checking if there are checking if
 	   there are flips above for.
-	 * \return flip		Returns if there is a Piece that will be flipped for the
+	 * @return flip		Returns if there is a Piece that will be flipped for the
 	 Player above the specified position.
 	 */
 	private boolean checkFlipNorth(int x, int y, Player player) {
@@ -211,16 +212,16 @@ public class Othello extends GameImplementation {
 		return validity;
 	}
 	
-	/*
+	/**
 	 * Checks if a Piece below the Player will be
 	 * flipped if a Piece is placed at (x,y)
-	 * \param x			The x position of the Piece you want to check if there are
+	 * @param x			The x position of the Piece you want to check if there are
 	   flips below of.
-	 * \param y			The y position of the Piece you want to check if there are
+	 * @param y			The y position of the Piece you want to check if there are
 	   flips below of.
-	 * \param player	The Player which you are checking if there are checking if
+	 * @param player	The Player which you are checking if there are checking if
 	   there are flips below for.
-	 * \return flip		Returns if there is a Piece that will be flipped for the
+	 * @return flip		Returns if there is a Piece that will be flipped for the
 	   Player below the specified position.
 	 */
 	private boolean checkFlipSouth(int x, int y, Player player) {
@@ -247,16 +248,16 @@ public class Othello extends GameImplementation {
 		return validity;
 	}
 	
-	/*
+	/**
 	 * Checks if a Piece left of the Player will be
 	 * flipped if a Piece is placed at (x,y)
-	 * \param x			The x position of the Piece you want to check if there are
+	 * @param x			The x position of the Piece you want to check if there are
 	   flips left of.
-	 * \param y			The y position of the Piece you want to check if there are
+	 * @param y			The y position of the Piece you want to check if there are
 	   flips left of.
-	 * \param player	The Player which you are checking if there are checking if
+	 * @param player	The Player which you are checking if there are checking if
 	   there are flips to the left for.
-	 * \return flip		Returns if there is a Piece that will be flipped for the
+	 * @return flip		Returns if there is a Piece that will be flipped for the
 	 Player left of the specified position.
 	 */
 	private boolean checkFlipWest(int x, int y, Player player) {
@@ -283,16 +284,16 @@ public class Othello extends GameImplementation {
         return validity;
 	}
 	
-	/*
+	/**
 	 * Checks if a Piece right of the Player will be
 	 * flipped if a Piece is placed at (x,y)
-	 * \param x			The x position of the Piece you want to check if there are
+	 * @param x			The x position of the Piece you want to check if there are
 	   flips right of.
-	 * \param y			The y position of the Piece you want to check if there are
+	 * @param y			The y position of the Piece you want to check if there are
 	   flips right of.
-	 * \param player	The Player which you are checking if there are checking if
+	 * @param player	The Player which you are checking if there are checking if
 	   there are flips to the right for.
-	 * \return flip		Returns if there is a Piece that will be flipped for the
+	 * @return flip		Returns if there is a Piece that will be flipped for the
 	 player right of the specified position.
 	 */
 	private boolean checkFlipEast(int x, int y, Player player) {
@@ -319,16 +320,16 @@ public class Othello extends GameImplementation {
         return validity;
 	}
 	
-	/*
+	/**
 	 * Checks if a Piece above and left of the Player will be
 	 * flipped if a Piece is placed at (x,y)
-	 * \param x			The x position of the Piece you want to check if there are
+	 * @param x			The x position of the Piece you want to check if there are
 	   flips above and left of.
-	 * \param y			The y position of the Piece you want to check if there are
+	 * @param y			The y position of the Piece you want to check if there are
 	   flips left of.
-	 * \param player	The Player which you are checking if there are checking if
+	 * @param player	The Player which you are checking if there are checking if
 	   there are flips right of for.
-	 * \return flip		Returns if there is a Piece that will be flipped for the
+	 * @return flip		Returns if there is a Piece that will be flipped for the
 	 player above and left of the specified position.
 	 */
 	private boolean checkFlipNorthWest(int x, int y, Player player) {
@@ -359,16 +360,16 @@ public class Othello extends GameImplementation {
 		return validity;
 	}
 	
-	/*
+	/**
 	 * Checks if a Piece above and right of the Player will be
 	 * flipped if a Piece is placed at (x,y)
-	 * \param x			The x position of the Piece you want to check if there are
+	 * @param x			The x position of the Piece you want to check if there are
 	   flips above and right of.
-	 * \param y			The y position of the Piece you want to check if there are
+	 * @param y			The y position of the Piece you want to check if there are
 	   flips right of.
-	 * \param player	The Player which you are checking if there are checking if
+	 * @param player	The Player which you are checking if there are checking if
 	   there are flips right of for.
-	 * \return flip		Returns if there is a Piece that will be flipped for the
+	 * @return flip		Returns if there is a Piece that will be flipped for the
 	 Player above and right of the specified position.
 	 */
 	private boolean checkFlipNorthEast(int x, int y, Player player) {
@@ -399,16 +400,16 @@ public class Othello extends GameImplementation {
 		return validity;
 	}
 	
-	/*
+	/**
 	 * Checks if a Piece below and right of the Player will be
 	 * flipped if a Piece is placed at (x,y)
-	 * \param x			The x position of the Piece you want to check if there are
+	 * @param x			The x position of the Piece you want to check if there are
 	   flips below and right of.
-	 * \param y			The y position of the Piece you want to check if there are
+	 * @param y			The y position of the Piece you want to check if there are
 	   flips below and right of.
-	 * \param player	The Player which you are checking if there are checking if
+	 * @param player	The Player which you are checking if there are checking if
 	   there are flips right of for.
-	 * \return flip		Returns if there is a Piece that will be flipped for the
+	 * @return flip		Returns if there is a Piece that will be flipped for the
 	 Player above and right of the specified position.
 	 */
 	private boolean checkFlipSouthEast(int x, int y, Player player) {
@@ -439,16 +440,16 @@ public class Othello extends GameImplementation {
 		return validity;
 	}
 	
-	/*
+	/**
 	 * Checks if a Piece below and left of the Player will be
 	 * flipped if a Piece is placed at (x,y)
-	 * \param x			The x position of the Piece you want to check if there are
+	 * @param x			The x position of the Piece you want to check if there are
 	   flips below and left of.
-	 * \param y			The y position of the Piece you want to check if there are
+	 * @param y			The y position of the Piece you want to check if there are
 	   flips below and left of.
-	 * \param player	The Player which you are checking if there are checking if
+	 * @param player	The Player which you are checking if there are checking if
 	   there are flips right of for.
-	 * \return flip		Returns if there is a Piece that will be flipped for the
+	 * @return flip		Returns if there is a Piece that will be flipped for the
 	 Player above and left of the specified position.
 	 */
 	private boolean checkFlipSouthWest(int x, int y, Player player) {
@@ -480,15 +481,15 @@ public class Othello extends GameImplementation {
 		return validity;
     }
 	
-	/*
+	/**
 	 * Checks if any Pieces will be flipped if a Piece is placed at (x,y)
-	 * \param x				The x position of the Piece you want to check if there are
+	 * @param x				The x position of the Piece you want to check if there are
 		Pieces that will be flipped if placed there.
-	 * \param y				The y position of the Piece you want to check if there are
+	 * @param y				The y position of the Piece you want to check if there are
 		Pieces that will be flipped if placed there
-	 * \param Player		The Player which you are checking if there are checking if
+	 * @param Player		The Player which you are checking if there are checking if
 	   there are flips for.
-	 * \return flip			Returns true if there is a Piece that will be flipped for the
+	 * @return flip			Returns true if there is a Piece that will be flipped for the
 	   Player at the specified position.
 	 */
 	private boolean checkFlip(int x, int y, Player player) {
@@ -537,15 +538,15 @@ public class Othello extends GameImplementation {
 		return validity;
 	}
 	
-	/* 
+	/** 
 	 * Checks if a move will be valid is a piece is place at (x,y) for a 
 	 * specified player.
-	 * \param x			The x position which you want to check if a move is
+	 * @param x			The x position which you want to check if a move is
 	   valid for.
-	 * \param y			The y position which you want to check if a move is
+	 * @param y			The y position which you want to check if a move is
 	   valid for.
-	 * \param player	The Player which you want to check a move is valid for.
-	 * \return valid	This will return true if a move is valid for a Player at
+	 * @param player	The Player which you want to check a move is valid for.
+	 * @return valid	This will return true if a move is valid for a Player at
 	   that position.
 	 */
 	public boolean checkValid(int x, int y, Player player){
@@ -556,12 +557,13 @@ public class Othello extends GameImplementation {
 		}
 	}
 	
-	/*
+	/**
 	 * Flips all pieces above the placed piece that will
 	 * should be flipped
-	 * \param x			The x position which the piece which causes a flip is placed at.
-	 * \param y			The y position which the piece which causes a flip is placed at.
-	 * \param player	The player which causes the flip.
+	 * @param x			The x position which the piece which causes a flip is placed at.
+	 * @param y			The y position which the piece which causes a flip is placed at.
+	 * @param player	The player which causes the flip.
+	 * @return null
 	 */
 	private void flipNorth(int x, int y, Player player) {
 		if (checkFlipNorth(x, y, player) == true) {
@@ -581,12 +583,13 @@ public class Othello extends GameImplementation {
 		}
 	}
 	
-	/* 
+	/** 
 	 * Flips all pieces below the placed piece that will
 	 * should be flipped
-	 * \param x			The x position which the Piece which causes a flip is placed at.
-	 * \param y			The y position which the Piece which causes a flip is placed at.
-	 * \param player	The player which causes the flip.
+	 * @param x			The x position which the Piece which causes a flip is placed at.
+	 * @param y			The y position which the Piece which causes a flip is placed at.
+	 * @param player	The player which causes the flip.
+	 * @return null
 	 */
 	private void flipSouth(int x, int y, Player player) {
 		if (checkFlipSouth(x, y, player) == true) {
@@ -607,12 +610,13 @@ public class Othello extends GameImplementation {
 		}
 	}
 	
-	/* 
+	/** 
 	 * Flips all pieces left of the placed piece that will
 	 * should be flipped
-	 * \param x			The x position which the Piece which causes a flip is placed at.
-	 * \param y			The y position which the Piece which causes a flip is placed at.
-	 * \param player	The player which causes the flip.
+	 * @param x			The x position which the Piece which causes a flip is placed at.
+	 * @param y			The y position which the Piece which causes a flip is placed at.
+	 * @param player	The player which causes the flip.
+	 * @return null
 	 */
 	private void flipWest(int x, int y, Player player) {
 		if (checkFlipWest(x, y, player) == true) {
@@ -632,12 +636,13 @@ public class Othello extends GameImplementation {
 		}
 	}
     
-	/* 
+	/** 
 	 * Flips all pieces left of the placed piece that will
 	 * should be flipped
-	 * \param x			The x position which the Piece which causes a flip is placed at.
-	 * \param y			The y position which the Piece which causes a flip is placed at.
-	 * \param player	The player which causes the flip.
+	 * @param x			The x position which the Piece which causes a flip is placed at.
+	 * @param y			The y position which the Piece which causes a flip is placed at.
+	 * @param player	The player which causes the flip.
+	 * @return null
 	 */
 	private void flipEast(int x, int y, Player player) {
 		if (checkFlipEast(x, y, player) == true) {
@@ -657,12 +662,13 @@ public class Othello extends GameImplementation {
 		}
 	}
 	
-	/* 
+	/** 
 	 *Flips all pieces above and left of the placed piece
 	 * that should be flipped
-	 * \param x			The x position which the Piece which causes a flip is placed at.
-	 * \param y			The y position which the Piece which causes a flip is placed at.
-	 * \param player	The player which causes the flip.
+	 * @param x			The x position which the Piece which causes a flip is placed at.
+	 * @param y			The y position which the Piece which causes a flip is placed at.
+	 * @param player	The player which causes the flip.
+	 * @return null
 	 */
 	private void flipNorthWest(int x, int y, Player player) {
 		if (checkFlipNorthWest(x, y, player) == true) {
@@ -685,12 +691,13 @@ public class Othello extends GameImplementation {
 		}
 	}
     
-	/*
+	/**
 	 * Flips all pieces above and right of the placed piece
 	 * that should be flipped
-	 * \param x			The x position which the Piece which causes a flip is placed at.
-	 * \param y			The y position which the Piece which causes a flip is placed at.
-	 * \param player	The player which causes the flip.
+	 * @param x			The x position which the Piece which causes a flip is placed at.
+	 * @param y			The y position which the Piece which causes a flip is placed at.
+	 * @param player	The player which causes the flip.
+	 * @return null
 	 */
 	private void flipNorthEast(int x, int y, Player player) {
 		if (checkFlipNorthEast(x, y, player) == true) {
@@ -712,12 +719,13 @@ public class Othello extends GameImplementation {
 		}
 	}
     
-	/* 
+	/** 
 	 * Flips all pieces below and right of the placed piece
 	 * that should be flipped
-	 * \param x			The x position which the Piece which causes a flip is placed at.
-	 * \param y			The y position which the Piece which causes a flip is placed at.
-	 * \param player	The player which causes the flip.
+	 * @param x			The x position which the Piece which causes a flip is placed at.
+	 * @param y			The y position which the Piece which causes a flip is placed at.
+	 * @param player	The player which causes the flip.
+	 * @return null
 	 */
 	private void flipSouthEast(int x, int y, Player player) {
 		if (checkFlipSouthEast(x, y, player) == true) {
@@ -739,12 +747,13 @@ public class Othello extends GameImplementation {
 		}
 	}
 	
-	/*
+	/**
 	 * Flips all pieces above and left of the placed piece
 	 * that should be flipped
-	 * \param x			The x position which the Piece which causes a flip is placed at.
-	 * \param y			The y position which the Piece which causes a flip is placed at.
-	 * \param player	The player which causes the flip.
+	 * @param x			The x position which the Piece which causes a flip is placed at.
+	 * @param y			The y position which the Piece which causes a flip is placed at.
+	 * @param player	The player which causes the flip.
+	 * @return null
 	 */
 	private void flipSouthWest(int x, int y, Player player) {
 		if (checkFlipSouthWest(x, y, player) == true) {
@@ -771,7 +780,7 @@ public class Othello extends GameImplementation {
 
     }
 
-	/* Symbollic Constants */
+	/** Symbollic Constants */
 	private final int NUMBER_OF_PLAYERS = 2;
 	private final int BOARD_HEIGHT = 8;
 	private final int BOARD_WIDTH = 8;
