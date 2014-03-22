@@ -25,8 +25,7 @@ public class Piece {
 	 *
 	 * @return this.m_Colour returns the colour of type String
 	 */
-	public String getColour()
-	{
+	public String getColour() {
 		return m_Colour;
 	}
 

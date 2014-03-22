@@ -16,6 +16,18 @@
 public class Connect4 extends GameImplementation{
 
 	/**
+	 *	Connect 4 constructor
+	 */
+	public Connect4(){
+		/* Set the board given the symbolic constants */
+    this.setBoard(BOARD_WIDTH, BOARD_HEIGHT);
+		/* Set player 1 piece colour to "Red" */
+    getPlayer(PLAYER_ONE).setColour(PLAYER_ONE_PIECE_COLOUR);
+		/* Set player 2 piece colour to "Yellow" */
+    getPlayer(PLAYER_TWO).setColour(PLAYER_TWO_PIECE_COLOUR);
+  }
+
+	/**
 	 *	A 'get' (access) method for the winning move.
 	 *	@return	m_Winning_Move	Integer representing a winning connect4 move.
 	 */
@@ -124,21 +136,6 @@ public class Connect4 extends GameImplementation{
 			super.setWinner(PLAYER_TWO_PIECE);
 		}
 	}
-
-	/**
-	 *	Connect 4 constructor
-	 */
-	public Connect4(){
-
-		/* Set the board given the symbolic constants */
-        this.setBoard(BOARD_WIDTH, BOARD_HEIGHT);
-
-		/* Set player 1 piece colour to "Red" */
-        getPlayer(PLAYER_ONE).setColour(PLAYER_ONE_PIECE_COLOUR);
-
-		/* Set player 2 piece colour to "Yellow" */
-        getPlayer(PLAYER_TWO).setColour(PLAYER_TWO_PIECE_COLOUR);
-    }
 
 	/**
 	 *	CheckTakeableTurn is a method used primarily for Othello however this

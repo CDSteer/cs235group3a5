@@ -17,12 +17,15 @@ abstract public class Player {
 
 	/** name of the player  */
 	private String m_Name;
-
 	/** the colour of piece */
 	private String m_Colour;
-
 	/** determines if player's turn or not */
 	private boolean m_CurrentTurn;
+
+	/**
+	 * This is the constructor for the Player class.
+	 */
+	public Player(){}
 
 	/**
 	 * This method sets the colour of a piece
@@ -31,8 +34,7 @@ abstract public class Player {
 	 * @param colour	Assign this colour to m_Colour of the piece
 	 * @return null
 	 */
-	public void setColour(String colour)
-	{
+	public void setColour(String colour) {
 		this.m_Colour = colour;
 	}
 
@@ -43,8 +45,7 @@ abstract public class Player {
 	 * @param name	Sets the name of the player
 	 * @return null
 	 */
-	public void setName(String name)
-	{
+	public void setName(String name) {
 		this.m_Name = name;
 	}
 
@@ -54,8 +55,7 @@ abstract public class Player {
 	 *
 	 * @return this.m_Name	Returns the name of the player
 	 */
-    public String getName()
-	{
+    public String getName() {
 		return this.m_Name;
 	}
 
@@ -64,16 +64,9 @@ abstract public class Player {
 	 *
 	 * @return this.m_Colour	Returns the colour of type String
 	 */
-	public String getColour()
-	{
+	public String getColour() {
 		return this.m_Colour;
 	}
-
-	/**
-	 * This is the constructor for the Player class.
-	 */
-	public Player(){
-    }
 
 	/**
 	 * The purpose of this method is check if it is turn of the player or not.
@@ -81,8 +74,7 @@ abstract public class Player {
 	 * @return boolean	Returns true if it is the player's turn
 	 * 					and false otherwise.
 	 */
-	public boolean isTurn()
-	{
+	public boolean isTurn() {
 		return this.m_CurrentTurn;
 	}
 
@@ -94,8 +86,7 @@ abstract public class Player {
 	 *	@param ProgramController
 	 *	@return false
 	 */
-	public boolean move(int x, int y, ProgramController PC)
-	{
-            return false;
+	public boolean move(int x, int y, ProgramController PC) {
+    return false;
 	}
 }

@@ -17,8 +17,7 @@ import javax.swing.*;
 import java.awt.event.*;
 import javax.swing.event.*;
 
-public class ProgramController extends JFrame implements MouseListener,
-												ActionListener{
+public class ProgramController extends JFrame implements MouseListener, ActionListener{
 
 	/** Method to get the GameImplementation member variable m_Game
 	 * @return m_game -game being played
@@ -55,30 +54,29 @@ public class ProgramController extends JFrame implements MouseListener,
 		return m_IsC4;
 	}
 
-	private void setIsC4(int userOption){
 	/**
 	 *	Sets connect4 option to be true
 	 *	@param userOption -int value given by dialog frame at start of the program
 	*/
+	private void setIsC4(int userOption){
 		if(userOption == 0){
 			m_IsC4 = true;
 		}else if(userOption == 1){
 			m_IsC4 = false;
-        }else{
-            System.out.println("Program exited");
+    }else{
+      System.out.println("Program exited");
 			System.exit(1);
-       	}
+    }
 	}
 
 
-
-	private void setGame(String player1, String player2){
 	/**
 	 *	Method to set the GameImplementation member variable m_Game that also
 	 *	calls setBGImage.
 	 *	@param player1 -stores name of player 1
 	 *	@param player2 -stores name of player 2
 	*/
+	private void setGame(String player1, String player2){
 		File background_File;
 		if(getIsC4() == true){
 			m_Game = new Connect4();
@@ -154,7 +152,7 @@ public class ProgramController extends JFrame implements MouseListener,
 	 */
 	private void setContainer(){
 		m_Container = getContentPane();
-       		m_Container.setLayout(new GridBagLayout());
+    m_Container.setLayout(new GridBagLayout());
 		m_Constraints = new GridBagConstraints();
 		this.setMinimumSize(new Dimension(64 * getBoard().getBoardWidth(), 64 * getBoard().getBoardHeight() + 22));
 	}
@@ -305,19 +303,18 @@ public class ProgramController extends JFrame implements MouseListener,
 		getTurnNumberLabel().setText("Turn: 1");
 	}
 
-
-    public void mouseClicked(MouseEvent e) {
 	/**
 	 *	Mouse event handler method that checks where user has clicked on board,
 	 *	then runs the attemptMove method with the coordinates of the move
 	 *	@param e - mouse event
 	 *	@return null
 	*/
+  public void mouseClicked(MouseEvent e) {
 		System.out.println("Clicked");
-        if(getGame().checkWin() == false){
-            for(int y = 0; y<getBoard().getBoardHeight(); y++){
-                for(int x = 0; x<getBoard().getBoardWidth(); x++){
-                    if(getIsC4() == false){
+  	if(getGame().checkWin() == false){
+      for(int y = 0; y<getBoard().getBoardHeight(); y++){
+        for(int x = 0; x<getBoard().getBoardWidth(); x++){
+          if(getIsC4() == false){
 						if(e.getSource()==getLabel(x,y)){
 							attemptMove(x,y);
 						}
@@ -336,62 +333,62 @@ public class ProgramController extends JFrame implements MouseListener,
 				System.out.println("IOException error @ ProgramController::mouseClicked()");
 			}
 
-        }
-
     }
 
-    public void update(Board board, String colour1, String colour2) throws IOException{
-	/**
-	 *	Method that updates the board with new moves that have been taken
-	 *	@param board
-	 *	@param colour1
-	 *	@param colour2
-	 *	@return null
-	*/
-        System.out.println("ProgramController::update()");
+  }
 
-        int boardHeight = board.getBoard()[0].length;
-        int boardWidth = board.getBoard().length;
+  /**
+   *	Method that updates the board with new moves that have been taken
+   *	@param board
+   *	@param colour1
+   *	@param colour2
+   *	@return null
+  */
+  public void update(Board board, String colour1, String colour2) throws IOException{
+    System.out.println("ProgramController::update()");
+    int boardHeight = board.getBoard()[0].length;
+    int boardWidth = board.getBoard().length;
 
-        for(int y = 0; y<boardHeight; y++){
-            for(int x = 0; x<boardWidth; x++){
+    for(int y = 0; y<boardHeight; y++){
+      for(int x = 0; x<boardWidth; x++){
 				int hidden = getLabel(x,y).getDisplayedMnemonic();
+					if(board.isEmpty(x,y) == true) {
+            setImage(x,y,(new ImageIcon(getBGImage())));
+						getLabel(x,y).setDisplayedMnemonic(100);
+          } else if (board.getBoard()[x][y].getColour().equals(colour1)) {
 
-                if(board.isEmpty(x,y) == true) {
-                   	setImage(x,y,(new ImageIcon(getBGImage())));
-					getLabel(x,y).setDisplayedMnemonic(100);
+						if (hidden == 300 || hidden == 500) {
+	            setImage(x,y,(new ColourChange().flip(board.getBoard()[x][y])));
+							getLabel(x,y).setDisplayedMnemonic(400);
+						} else {
+							BufferedImage piece_Image = ImageIO.read(new File("../Images/" + colour1 + "Piece.png"));
+							setImage(x,y,(new ImageIcon(piece_Image)));
+							getLabel(x,y).setDisplayedMnemonic(200);
+						}
 
-                }else if(board.getBoard()[x][y].getColour().equals(colour1)){
-					if (hidden == 300 || hidden == 500) {
-                    	setImage(x,y,(new ColourChange().flip(board.getBoard()[x][y])));
-						getLabel(x,y).setDisplayedMnemonic(400);
-					} else {
-						BufferedImage piece_Image = ImageIO.read(new File("../Images/" + colour1 + "Piece.png"));
-						setImage(x,y,(new ImageIcon(piece_Image)));
-						getLabel(x,y).setDisplayedMnemonic(200);
-					}
-                }else if(board.getBoard()[x][y].getColour().equals(colour2)){
-					if (hidden == 200 || hidden == 400) {
-                    	setImage(x,y,(new ColourChange().flip(board.getBoard()[x][y])));
-						getLabel(x,y).setDisplayedMnemonic(500);
-					} else {
-						BufferedImage piece_Image = ImageIO.read(new File("../Images/" + colour2 + "Piece.png"));
-						setImage(x,y,(new ImageIcon(piece_Image)));
-						getLabel(x,y).setDisplayedMnemonic(300);
-					}
-                }else{}
-            }
+	        } else if (board.getBoard()[x][y].getColour().equals(colour2)) {
+						if (hidden == 200 || hidden == 400) {
+	            setImage(x,y,(new ColourChange().flip(board.getBoard()[x][y])));
+							getLabel(x,y).setDisplayedMnemonic(500);
+						} else {
+							BufferedImage piece_Image = ImageIO.read(new File("../Images/" + colour2 + "Piece.png"));
+							setImage(x,y,(new ImageIcon(piece_Image)));
+							getLabel(x,y).setDisplayedMnemonic(300);
+						}
+	        }else{
+	            //else what??
+	        }
+  		}
 		}
-    }
+  }
 
-    /**
+   /**
 	 *	Method that checks if the square user has clicked on is a valid move, if there are no
 	 *	more possible turns then the game is over and displayWinner method is called.
 	 *	@param x
 	 *	@param y
 	 *	@return null
 	 */
-
 	private void attemptMove(int x, int y) {
 
 		int AIC4Col = 0;
@@ -403,10 +400,9 @@ public class ProgramController extends JFrame implements MouseListener,
 		players[PLAYER_TWO] = getGame().getPlayer(PLAYER_TWO);
 
 		if(m_playerSelection == HUMAN) {
-
 			boolean checkMoveIsValid = false;
 			checkMoveIsValid = players[getTurn() % 2].move(x, y, this);
-		    if(checkMoveIsValid == true) {
+		  if(checkMoveIsValid == true) {
 				if (getGame().checkTakeableTurn(players[(getTurn() + 1) % 2]) == true) {
 					/** If it's 0 (player 1) turn this will change it  to 1 (player 2) turn*/
 					setTurn(getTurn() + 1);
@@ -504,18 +500,17 @@ public class ProgramController extends JFrame implements MouseListener,
 		}else{}
 	}
 
-    public void mousePressed(MouseEvent e) {}
-    public void mouseReleased(MouseEvent e) {}
-    public void mouseEntered(MouseEvent e) {}
-    public void mouseExited(MouseEvent e) {}
+  public void mousePressed(MouseEvent e) {}
+  public void mouseReleased(MouseEvent e) {}
+  public void mouseEntered(MouseEvent e) {}
+  public void mouseExited(MouseEvent e) {}
 
-   private void startTimer() {
-
-	/**
-	 *	Timer method that starts a timer in intervals of 1 second, and is run whenever the game is
-	 *	declared to be running. current time elapsed is then set to a label and updated every second.
-	 *	@return null
-	 */
+  /**
+   *	Timer method that starts a timer in intervals of 1 second, and is run whenever the game is
+   *	declared to be running. current time elapsed is then set to a label and updated every second.
+   *	@return null
+   */
+  private void startTimer() {
 		ActionListener actListner = new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				if(getGame().checkWin() == false) { //checks whether game is still running. if so timer can start
