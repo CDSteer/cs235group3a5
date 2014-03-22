@@ -4,10 +4,10 @@
  * @author I.C. Skinner
  *
  * @date 18 Feb '14
- * 
+ *
  * @brief This highlights the winning pieces in Connect4.
- * 
- * This class will highlight the winning pieces after a game of 
+ *
+ * This class will highlight the winning pieces after a game of
  * Connect4 has been played through to completion.
  */
 
@@ -19,7 +19,7 @@ import javax.swing.*;
 public class Highlight{
 	/**
 	 * Method for highlighting the winning combination in connect 4.
-	 * @param column				The column which contains the Piece 
+	 * @param column				The column which contains the Piece
 	 *	which begins the chain of winning pieces in Connect 4.
 	 * @param row					The row which contains the Piece
 	 *  which begins the chain of winning pieces in Connect 4.
@@ -27,22 +27,19 @@ public class Highlight{
 	 *  class can access various methods that it uses.
 	 *	@return null
 	 */
-	public void C4Highlight(int column, int row, JLabel[][] board, 
-												 GameImplementation game) 
-															throws IOException{
+	public void C4Highlight(int column, int row, JLabel[][] board, GameImplementation game) throws IOException{
 		BufferedImage highlight_Piece = null;
-		
 		int winningMove = game.getWinningMove();
-		
+
 		if(game.getWinner() == PLAYER_ONE){
-			String directory = "Images/RedPieceHighlighted.png";
+			String directory = "../Images/RedPieceHighlighted.png";
 			highlight_Piece = ImageIO.read(new File(directory));
 		}else if(game.getWinner() == PLAYER_TWO){
-			String directory = "Images/YellowPieceHighlighted.png";
+			String directory = "../Images/YellowPieceHighlighted.png";
 			highlight_Piece = ImageIO.read(new File(directory));
 		}else{
-			
-		}	
+
+		}
 		try{
 			if(winningMove == HORIZONTAL_WIN){
 				board[column][row].setIcon(new ImageIcon(highlight_Piece));
@@ -79,7 +76,7 @@ public class Highlight{
 	private final int VERTICAL_WIN = 1;
 	private final int RIGHT_DIAGONAL_WIN = 2;
 	private final int LEFT_DIAGONAL_WIN = 3;
-	
+
 	private final int PLAYER_ONE = 1;
 	private final int PLAYER_TWO = 2;
 }

@@ -532,22 +532,18 @@ public class ProgramController extends JFrame implements MouseListener,
 			m_Timer.start(); //timer starts
 		}
 	}
+
 	/**
 	 *	Method that is called when program is first run, it starts all the methods
 	 *  that create the UI elements, it also accepts input from the user such as their
 	 *  name and what game they'd like to play
 	 *	@return null
 	 */
-
 	void ProgramController() throws IOException{
 
-        Object[] player_types = {"Human", "Easy AI", "Hard AI"};
-
-		Object[] options = {"Connect 4",
-            "Othello"};
-
-
-        m_playerSelection = JOptionPane.showOptionDialog(this,
+    Object[] player_types = {"Human", "Easy AI", "Hard AI"};
+		Object[] options = {"Connect 4", "Othello"};
+		m_playerSelection = JOptionPane.showOptionDialog(this,
         		"Select an Opponent Type",
         		"Opponent Selection",
         		JOptionPane.YES_NO_CANCEL_OPTION,
@@ -555,10 +551,10 @@ public class ProgramController extends JFrame implements MouseListener,
         		null,
         		player_types, player_types[0]);
 
-        String player1 = JOptionPane.showInputDialog("Enter player 1's name"); //accepts user's name before game starts
-        String player2 = JOptionPane.showInputDialog("Enter player 2's name");
+    String player1 = JOptionPane.showInputDialog("Enter player 1's name"); //accepts user's name before game starts
+    String player2 = JOptionPane.showInputDialog("Enter player 2's name");
 
-        int userOption = JOptionPane.showOptionDialog(this,
+    int userOption = JOptionPane.showOptionDialog(this,
                                              "Would you like to play Connect 4 "
                                              + "or Othello", "Pick a game",
                                              JOptionPane.YES_NO_CANCEL_OPTION,
@@ -567,11 +563,11 @@ public class ProgramController extends JFrame implements MouseListener,
                                              options,
                                              options[1]);
 		setIsC4(userOption);
-	    setGame(player1, player2);
+	  setGame(player1, player2);
 		setBoard();
 		setContainer();
 		setImages();
-        setTurnLabel();
+    setTurnLabel();
 		setNewGameButton();
 		setTurnNumberLabel("Turn: 1");
 
@@ -594,21 +590,13 @@ public class ProgramController extends JFrame implements MouseListener,
 		update(getGame().getBoard(), "Black", "White");
 
 		pack();
-	  	setLocationRelativeTo(null);
+	  setLocationRelativeTo(null);
 		setVisible(true);
     }
 
-	public static void main(String[] args) throws IOException{
-	/**
-	 *	Program's main method
-	 */
-        ProgramController controller = new ProgramController();
-        controller.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        controller.ProgramController();
-    }
 
 	/* Symbolic constants */
-    private final int PLAYER_ONE = 0;
+  private final int PLAYER_ONE = 0;
 	private final int PLAYER_TWO = 1;
 
 	/* Member variables that store player info */
@@ -620,21 +608,21 @@ public class ProgramController extends JFrame implements MouseListener,
 	private static int m_Time;
 
 	/* Member variable that stores which game is being played, if false then othello is being played */
-    private static boolean m_IsC4;
+  private static boolean m_IsC4;
 
 	/* Member variable that stores game being palayed */
-    private static GameImplementation m_Game;
+  private static GameImplementation m_Game;
 
 
 	/** Initialisation of UI elements */
 	private static BufferedImage m_Background_Image;
-    private Board m_Board;
-    private JLabel[][] m_Image_Labels;
+  private Board m_Board;
+  private JLabel[][] m_Image_Labels;
 	private JButton m_NewGameButton;
 	private JLabel m_TurnLabel;
 	private JLabel m_TimerLabel;
 	private JLabel m_TurnNumberLabel;
-    private Container m_Container;
+  private Container m_Container;
 	private GridBagConstraints m_Constraints;
 	private int m_playerSelection;
 	private final int HUMAN = 0;

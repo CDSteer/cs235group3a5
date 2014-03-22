@@ -6,7 +6,7 @@
  * @date 22 Feb '14
  *
  * @brief This controls the flow of the game, specific to Othello.
- * 
+ *
  * This controls how the game works when the user selects to play Othello,
  * such as when a flip is possible, and when a win is detected.
  */
@@ -21,9 +21,9 @@ public class Othello extends GameImplementation {
 	public void setPiece(int x, int y, Player player) {
         if (checkValid(x, y, player) == true) {
 			String playerColour = player.getColour();
-            
+
             getBoard().setPiece(new Piece(playerColour), x, y);
-            
+
             flipNorth(x, y, player);
             flipSouth(x, y, player);
             flipWest(x, y, player);
@@ -34,10 +34,10 @@ public class Othello extends GameImplementation {
             flipSouthEast(x, y, player);
         }
     }
-    
+
 	/**
 	 * Creates the board, then place the starting pieces in the centre
-	 of the board.
+	 * of the board.
 	 * @param width		The width of the board you would like to create.
 	 * @param height	The height of the board you would like to create.
 	 * @return null
@@ -67,12 +67,12 @@ public class Othello extends GameImplementation {
 			return new Piece("");
 		}
 	}
-    
+
 	/**
 	 * Finds the winner of the game
 	 * @return playerNumber This returns an integer representing who won the game.
-	 1 means Player 1 has won, 2 means Player 2 has won, 3 means a draw, -1 means the game
-	 hasn't been won yet.
+	 * 1 means Player 1 has won, 2 means Player 2 has won, 3 means a draw, -1 means the game
+	 * hasn't been won yet.
 	 */
 	public int getWinner() {
 		int totalPieces[] = new int[NUMBER_OF_PLAYERS];
@@ -99,7 +99,7 @@ public class Othello extends GameImplementation {
 			return -1;
 		}
 	}
-	
+
 	/**
 	 * Finds the colour of the player that wasn't passed in.
 	 * @param player	The Player you don't want the colour for
@@ -112,18 +112,17 @@ public class Othello extends GameImplementation {
 			return getPlayer(1).getColour();
 		}
 	}
-    
+
 	/** Constructor for Othello */
 	public Othello() {
         this.setBoard(BOARD_WIDTH, BOARD_HEIGHT);
         getPlayer(0).setColour("Black");
         getPlayer(1).setColour("White");
 	}
-	
+
 	/**
 	 * Checks if it is possible for a Player to take their turn
-	 * @param player		The Player you want to check if it is possible to take
-	 a turn for.
+	 * @param player		The Player you want to check if it is possible to take a turn for.
 	 * @return takeable		This will return true if a Player is able to take a turn.
 	 */
 	public boolean checkTakeableTurn(Player player) {
@@ -138,16 +137,15 @@ public class Othello extends GameImplementation {
 		System.out.println("Takeable: " + takeable);
 		return takeable;
 	}
-	
-	/** 
+
+	/**
 	 * Checks if a Player has won the game
-	 * @return gameComplete		returns true if the game is over, or false if the
-	 game is not over.
+	 * @return gameComplete		returns true if the game is over, or false if the game is not over.
 	 */
     public boolean checkWin(){
 		boolean boardFull = true;
 		boolean validMoves = false;
-        
+
 		for (int i = 0; i < BOARD_WIDTH; i++) {
 			for (int j = 0; j < BOARD_HEIGHT; j++) {
 				if (getBoard().isEmpty(i,j)) {
@@ -155,17 +153,17 @@ public class Othello extends GameImplementation {
 				}
 			}
 		}
-		
+
 		if (boardFull == true) {
 			return true;
 		}
-		
+
 		for (int i = 0; i < BOARD_WIDTH; i++) {
             for (int j = 0; j < BOARD_HEIGHT; j++) {
                 for (int k = 0; k < NUMBER_OF_PLAYERS; k++) {
                 // Only check for the player who's current turn it is.
                 // Skip turn if no valid move.
-                    if(checkFlip(i,j,getPlayer(k)) == true) validMoves = true; 
+                    if(checkFlip(i,j,getPlayer(k)) == true) validMoves = true;
                 }
             }
         }
@@ -175,18 +173,14 @@ public class Othello extends GameImplementation {
 			return false;
 		}
 	}
-	
+
 	/**
 	 * Checks if a Piece above the Player will be
 	 * flipped if a Piece is placed at (x,y)
-	 * @param x			The x position of the Piece you want to check if there are
-	   flips above of.
-	 * @param y			The y position of the Piece you want to check if there are
-		   flips above of.
-	 * @param player	The Player which you are checking if there are checking if
-	   there are flips above for.
-	 * @return flip		Returns if there is a Piece that will be flipped for the
-	 Player above the specified position.
+	 * @param x			The x position of the Piece you want to check if there are flips above of.
+	 * @param y			The y position of the Piece you want to check if there are flips above of.
+	 * @param player	The Player which you are checking if there are checking if there are flips above for.
+	 * @return flip		Returns if there is a Piece that will be flipped for the Player above the specified position.
 	 */
 	private boolean checkFlipNorth(int x, int y, Player player) {
 		String playerColour = player.getColour();
@@ -194,7 +188,7 @@ public class Othello extends GameImplementation {
 
 		boolean validity = false;
 		boolean partValid = false;
-        
+
 		if (y - 1 >= 0) {
 			if (getPiece(x,y-1).getColour().equals(otherPlayerColour)) {
 				partValid = true;
@@ -211,26 +205,26 @@ public class Othello extends GameImplementation {
 		}
 		return validity;
 	}
-	
+
 	/**
 	 * Checks if a Piece below the Player will be
 	 * flipped if a Piece is placed at (x,y)
 	 * @param x			The x position of the Piece you want to check if there are
-	   flips below of.
+	 *  flips below of.
 	 * @param y			The y position of the Piece you want to check if there are
-	   flips below of.
+	 *  flips below of.
 	 * @param player	The Player which you are checking if there are checking if
-	   there are flips below for.
+	 *  there are flips below for.
 	 * @return flip		Returns if there is a Piece that will be flipped for the
-	   Player below the specified position.
+	 *  Player below the specified position.
 	 */
 	private boolean checkFlipSouth(int x, int y, Player player) {
 		String playerColour = player.getColour();
        	String otherPlayerColour = getOtherPlayerColour(player);
-		
+
 		boolean validity = false;
 		boolean partValid = false;
-        
+
 		if (y + 1 < BOARD_HEIGHT) {
 			if (getPiece(x,y+1).getColour().equals(otherPlayerColour)) {
 				partValid = true;
@@ -247,26 +241,26 @@ public class Othello extends GameImplementation {
 		}
 		return validity;
 	}
-	
+
 	/**
 	 * Checks if a Piece left of the Player will be
 	 * flipped if a Piece is placed at (x,y)
 	 * @param x			The x position of the Piece you want to check if there are
-	   flips left of.
+	 *  flips left of.
 	 * @param y			The y position of the Piece you want to check if there are
-	   flips left of.
+	 *  flips left of.
 	 * @param player	The Player which you are checking if there are checking if
-	   there are flips to the left for.
+	 *  there are flips to the left for.
 	 * @return flip		Returns if there is a Piece that will be flipped for the
-	 Player left of the specified position.
+	 * Player left of the specified position.
 	 */
 	private boolean checkFlipWest(int x, int y, Player player) {
         String playerColour = player.getColour();
 		String otherPlayerColour = getOtherPlayerColour(player);
-        
+
         boolean validity = false;
         boolean partValid = false;
-        
+
         if (x - 1 >= 0) {
             if (getPiece(x-1,y).getColour().equals(otherPlayerColour)) {
                 partValid = true;
@@ -283,26 +277,26 @@ public class Othello extends GameImplementation {
         }
         return validity;
 	}
-	
+
 	/**
 	 * Checks if a Piece right of the Player will be
 	 * flipped if a Piece is placed at (x,y)
 	 * @param x			The x position of the Piece you want to check if there are
-	   flips right of.
+	 *  flips right of.
 	 * @param y			The y position of the Piece you want to check if there are
-	   flips right of.
+	 *  flips right of.
 	 * @param player	The Player which you are checking if there are checking if
-	   there are flips to the right for.
+	 *  there are flips to the right for.
 	 * @return flip		Returns if there is a Piece that will be flipped for the
-	 player right of the specified position.
+	 * player right of the specified position.
 	 */
 	private boolean checkFlipEast(int x, int y, Player player) {
 		String playerColour = player.getColour();
         String otherPlayerColour = getOtherPlayerColour(player);
-		
+
 		boolean validity = false;
 		boolean partValid = false;
-        
+
 		if (x + 1 < BOARD_WIDTH) {
 			if (getPiece(x+1,y).getColour().equals(otherPlayerColour)) {
 				partValid = true;
@@ -319,26 +313,26 @@ public class Othello extends GameImplementation {
 		}
         return validity;
 	}
-	
+
 	/**
 	 * Checks if a Piece above and left of the Player will be
 	 * flipped if a Piece is placed at (x,y)
 	 * @param x			The x position of the Piece you want to check if there are
-	   flips above and left of.
+	 *  flips above and left of.
 	 * @param y			The y position of the Piece you want to check if there are
-	   flips left of.
+	 *  flips left of.
 	 * @param player	The Player which you are checking if there are checking if
-	   there are flips right of for.
+	 *  there are flips right of for.
 	 * @return flip		Returns if there is a Piece that will be flipped for the
-	 player above and left of the specified position.
+	 * player above and left of the specified position.
 	 */
 	private boolean checkFlipNorthWest(int x, int y, Player player) {
 		String playerColour = player.getColour();
 		String otherPlayerColour = getOtherPlayerColour(player);
-		
+
 		boolean validity = false;
 		boolean partValid = false;
-        
+
 		if (x - 1 >= 0 && y - 1 >= 0) {
 			if (getPiece(x-1,y-1).getColour().equals(otherPlayerColour)) {
 				partValid = true;
@@ -359,26 +353,26 @@ public class Othello extends GameImplementation {
 		}
 		return validity;
 	}
-	
+
 	/**
 	 * Checks if a Piece above and right of the Player will be
 	 * flipped if a Piece is placed at (x,y)
 	 * @param x			The x position of the Piece you want to check if there are
-	   flips above and right of.
+	 *  flips above and right of.
 	 * @param y			The y position of the Piece you want to check if there are
-	   flips right of.
+	 *  flips right of.
 	 * @param player	The Player which you are checking if there are checking if
-	   there are flips right of for.
+	 *  there are flips right of for.
 	 * @return flip		Returns if there is a Piece that will be flipped for the
-	 Player above and right of the specified position.
+	 * Player above and right of the specified position.
 	 */
 	private boolean checkFlipNorthEast(int x, int y, Player player) {
 		String playerColour = player.getColour();
         String otherPlayerColour = getOtherPlayerColour(player);
-        
+
 		boolean validity = false;
 		boolean partValid = false;
-        
+
 		if (x + 1 < BOARD_WIDTH && y - 1 >= 0) {
 			if (getPiece(x+1,y-1).getColour().equals(otherPlayerColour)) {
 				partValid = true;
@@ -399,26 +393,26 @@ public class Othello extends GameImplementation {
 		}
 		return validity;
 	}
-	
+
 	/**
 	 * Checks if a Piece below and right of the Player will be
 	 * flipped if a Piece is placed at (x,y)
 	 * @param x			The x position of the Piece you want to check if there are
-	   flips below and right of.
+	 *  flips below and right of.
 	 * @param y			The y position of the Piece you want to check if there are
-	   flips below and right of.
+	 *  flips below and right of.
 	 * @param player	The Player which you are checking if there are checking if
-	   there are flips right of for.
+	 *  there are flips right of for.
 	 * @return flip		Returns if there is a Piece that will be flipped for the
-	 Player above and right of the specified position.
+	 * Player above and right of the specified position.
 	 */
 	private boolean checkFlipSouthEast(int x, int y, Player player) {
 		String playerColour = player.getColour();
         String otherPlayerColour = getOtherPlayerColour(player);
-		
+
 		boolean validity = false;
 		boolean partValid = false;
-        
+
 		if (x + 1 < BOARD_WIDTH && y + 1 < BOARD_HEIGHT) {
 			if (getPiece(x+1,y+1).getColour().equals(otherPlayerColour)) {
 				partValid = true;
@@ -439,26 +433,26 @@ public class Othello extends GameImplementation {
 		}
 		return validity;
 	}
-	
+
 	/**
 	 * Checks if a Piece below and left of the Player will be
 	 * flipped if a Piece is placed at (x,y)
 	 * @param x			The x position of the Piece you want to check if there are
-	   flips below and left of.
+	 *  flips below and left of.
 	 * @param y			The y position of the Piece you want to check if there are
-	   flips below and left of.
+	 *  flips below and left of.
 	 * @param player	The Player which you are checking if there are checking if
-	   there are flips right of for.
+	 *  there are flips right of for.
 	 * @return flip		Returns if there is a Piece that will be flipped for the
-	 Player above and left of the specified position.
+	 * Player above and left of the specified position.
 	 */
 	private boolean checkFlipSouthWest(int x, int y, Player player) {
 		String playerColour = player.getColour();
         String otherPlayerColour = getOtherPlayerColour(player);
-        
+
         boolean validity = false;
         boolean partValid = false;
-        
+
         if (x - 1 >= 0 && y + 1 < BOARD_HEIGHT) {
             if (getPiece(x-1,y+1).getColour()
 						   .equals(otherPlayerColour)) {
@@ -480,74 +474,74 @@ public class Othello extends GameImplementation {
         }
 		return validity;
     }
-	
+
 	/**
 	 * Checks if any Pieces will be flipped if a Piece is placed at (x,y)
 	 * @param x				The x position of the Piece you want to check if there are
-		Pieces that will be flipped if placed there.
+	 *	Pieces that will be flipped if placed there.
 	 * @param y				The y position of the Piece you want to check if there are
-		Pieces that will be flipped if placed there
+	 *	Pieces that will be flipped if placed there
 	 * @param Player		The Player which you are checking if there are checking if
-	   there are flips for.
+	 *  there are flips for.
 	 * @return flip			Returns true if there is a Piece that will be flipped for the
-	   Player at the specified position.
+	 *  Player at the specified position.
 	 */
 	private boolean checkFlip(int x, int y, Player player) {
 		boolean validity = false;
-		
+
 		// Checking if there is a flip above the selected position
 		if (validity == false) {
 			validity = checkFlipNorth(x, y, player);
 		}
-		
+
 		// Checking if there is a flip below the selected position
 		if (validity == false) {
 			validity = checkFlipSouth(x, y, player);
 		}
-		
+
 		// Checking if there is a flip left of the selected position
 		if (validity == false) {
 			validity = checkFlipWest(x, y, player);
 		}
-        
+
 		// Checking if there is a flip right of the selected position
 		if (validity == false) {
 			validity = checkFlipEast(x, y, player);
 		}
-		
+
 		// Checking if there is a flip above and left of the selected position
 		if (validity == false) {
 			validity = checkFlipNorthWest(x, y, player);
 		}
-		
+
 		// Checking if there is a flip above and right of the selected position
 		if (validity == false) {
 			validity = checkFlipNorthEast(x, y, player);
 		}
-		
+
 		// Checking if there is a flip below and right of the selected position
 		if (validity == false) {
 			validity = checkFlipSouthEast(x, y, player);
 		}
-		
+
 		// Checking if there is a flip below and left of the selected position
 		if (validity == false) {
         	validity = checkFlipSouthWest(x, y, player);
 		}
-		
+
 		return validity;
 	}
-	
-	/** 
-	 * Checks if a move will be valid is a piece is place at (x,y) for a 
+
+	/**
+	 * Checks if a move will be valid is a piece is place at (x,y) for a
 	 * specified player.
 	 * @param x			The x position which you want to check if a move is
-	   valid for.
+	 *  valid for.
 	 * @param y			The y position which you want to check if a move is
-	   valid for.
+	 *  valid for.
 	 * @param player	The Player which you want to check a move is valid for.
 	 * @return valid	This will return true if a move is valid for a Player at
-	   that position.
+	 *  that position.
 	 */
 	public boolean checkValid(int x, int y, Player player){
 		if (getBoard().isEmpty(x,y) == true) {
@@ -556,7 +550,7 @@ public class Othello extends GameImplementation {
 			return false;
 		}
 	}
-	
+
 	/**
 	 * Flips all pieces above the placed piece that will
 	 * should be flipped
@@ -582,8 +576,8 @@ public class Othello extends GameImplementation {
 			}
 		}
 	}
-	
-	/** 
+
+	/**
 	 * Flips all pieces below the placed piece that will
 	 * should be flipped
 	 * @param x			The x position which the Piece which causes a flip is placed at.
@@ -599,7 +593,7 @@ public class Othello extends GameImplementation {
 			boolean flipping = true;
 			int i = y + 1;
 			while (i < BOARD_HEIGHT && flipping == true) {
-				
+
 				if (getPiece(x,i).getColour().equals(otherPlayerColour)) {
 					getBoard().getBoard()[x][i].changeColour(playerColour);
 				} else {
@@ -609,8 +603,8 @@ public class Othello extends GameImplementation {
 			}
 		}
 	}
-	
-	/** 
+
+	/**
 	 * Flips all pieces left of the placed piece that will
 	 * should be flipped
 	 * @param x			The x position which the Piece which causes a flip is placed at.
@@ -635,8 +629,8 @@ public class Othello extends GameImplementation {
 			}
 		}
 	}
-    
-	/** 
+
+	/**
 	 * Flips all pieces left of the placed piece that will
 	 * should be flipped
 	 * @param x			The x position which the Piece which causes a flip is placed at.
@@ -661,8 +655,8 @@ public class Othello extends GameImplementation {
 			}
 		}
 	}
-	
-	/** 
+
+	/**
 	 *Flips all pieces above and left of the placed piece
 	 * that should be flipped
 	 * @param x			The x position which the Piece which causes a flip is placed at.
@@ -679,7 +673,7 @@ public class Othello extends GameImplementation {
 			int i = x - 1;
 			int j = y - 1;
 			while (i >= 0 && flipping == true) {
-				
+
 				if (getPiece(i,j).getColour().equals(otherPlayerColour)) {
 					getBoard().getBoard()[i][j].changeColour(playerColour);
 				} else {
@@ -690,7 +684,7 @@ public class Othello extends GameImplementation {
 			}
 		}
 	}
-    
+
 	/**
 	 * Flips all pieces above and right of the placed piece
 	 * that should be flipped
@@ -718,8 +712,8 @@ public class Othello extends GameImplementation {
 			}
 		}
 	}
-    
-	/** 
+
+	/**
 	 * Flips all pieces below and right of the placed piece
 	 * that should be flipped
 	 * @param x			The x position which the Piece which causes a flip is placed at.
@@ -746,7 +740,7 @@ public class Othello extends GameImplementation {
 			}
 		}
 	}
-	
+
 	/**
 	 * Flips all pieces above and left of the placed piece
 	 * that should be flipped
@@ -759,12 +753,12 @@ public class Othello extends GameImplementation {
 		if (checkFlipSouthWest(x, y, player) == true) {
 			String playerColour = player.getColour();
             String otherPlayerColour = getOtherPlayerColour(player);
-            
+
 			boolean flipping = true;
 			int i = x - 1;
 			int j = y + 1;
 			while (i >= 0 && flipping == true) {
-				
+
 				if (getPiece(i,j).getColour().equals(otherPlayerColour)) {
 					getBoard().getBoard()[i][j].changeColour(playerColour);
 				} else {
