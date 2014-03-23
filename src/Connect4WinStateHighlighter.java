@@ -43,24 +43,24 @@ public class Connect4WinStateHighlighter{
 		try{
 			if(winningMove == HORIZONTAL_WIN){
 				board[column][row].setIcon(new ImageIcon(highlight_Piece));
-				board[column+1][row].setIcon(new ImageIcon(highlight_Piece));
-				board[column+2][row].setIcon(new ImageIcon(highlight_Piece));
-				board[column+3][row].setIcon(new ImageIcon(highlight_Piece));
+				board[column+ COORDINATE_ONE][row].setIcon(new ImageIcon(highlight_Piece));
+				board[column+ COORDINATE_TWO][row].setIcon(new ImageIcon(highlight_Piece));
+				board[column+ COORDINATE_THREE][row].setIcon(new ImageIcon(highlight_Piece));
 			}else if(winningMove == VERTICAL_WIN){
 				board[column][row].setIcon(new ImageIcon(highlight_Piece));
-				board[column][row+1].setIcon(new ImageIcon(highlight_Piece));
-				board[column][row+2].setIcon(new ImageIcon(highlight_Piece));
-				board[column][row+3].setIcon(new ImageIcon(highlight_Piece));
+				board[column][row+ COORDINATE_ONE].setIcon(new ImageIcon(highlight_Piece));
+				board[column][row+ COORDINATE_TWO].setIcon(new ImageIcon(highlight_Piece));
+				board[column][row+ COORDINATE_THREE].setIcon(new ImageIcon(highlight_Piece));
 			}else if(winningMove == RIGHT_DIAGONAL_WIN){
 				board[column][row].setIcon(new ImageIcon(highlight_Piece));
-				board[column+1][row+1].setIcon(new ImageIcon(highlight_Piece));
-				board[column+2][row+2].setIcon(new ImageIcon(highlight_Piece));
-				board[column+3][row+3].setIcon(new ImageIcon(highlight_Piece));
+				board[column+ COORDINATE_ONE][row+ COORDINATE_ONE].setIcon(new ImageIcon(highlight_Piece));
+				board[column+ COORDINATE_TWO][row+ COORDINATE_TWO].setIcon(new ImageIcon(highlight_Piece));
+				board[column+ COORDINATE_THREE][row+ COORDINATE_THREE].setIcon(new ImageIcon(highlight_Piece));
 			}else if(winningMove == LEFT_DIAGONAL_WIN){
 				board[column][row].setIcon(new ImageIcon(highlight_Piece));
-				board[column-1][row+1].setIcon(new ImageIcon(highlight_Piece));
-				board[column-2][row+2].setIcon(new ImageIcon(highlight_Piece));
-				board[column-3][row+3].setIcon(new ImageIcon(highlight_Piece));
+				board[column- COORDINATE_ONE][row+ COORDINATE_ONE].setIcon(new ImageIcon(highlight_Piece));
+				board[column- COORDINATE_TWO][row+ COORDINATE_TWO].setIcon(new ImageIcon(highlight_Piece));
+				board[column- COORDINATE_THREE][row+ COORDINATE_THREE].setIcon(new ImageIcon(highlight_Piece));
 			}else{}
 		}catch(NullPointerException e){
 			System.out.println("Must have been a draw!");
@@ -79,4 +79,7 @@ public class Connect4WinStateHighlighter{
 
 	private final int PLAYER_ONE = 1;
 	private final int PLAYER_TWO = 2;
+    private final int COORDINATE_ONE = 1;
+    private final int COORDINATE_TWO = 2;
+    private final int COORDINATE_THREE = 3;
 }
