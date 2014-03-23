@@ -8,6 +8,15 @@ import java.util.*;
 import java.io.*;
 import javax.swing.*;
 
+/**
+ *
+ * @file C4SaveManager.java
+ * @author Cameron Steer
+ * @brief Saves and loads a connect 4 games
+ * @detail Reads in a CSV file in order to load a game state,
+ * or writes to a CSV file in order to save the games state.
+ *
+ */
 public class C4SaveManager{
 
   private static boolean test = true;
@@ -18,10 +27,21 @@ public class C4SaveManager{
   private String[][] m_LoadBoard = new String[BOARD_ROWS][BOARD_COLS];
   private int m_option;
 
+  /**
+   * Returns the board thats loaded from the CSV file
+   *
+   * @return m_LoadBoard
+   */
   public String[][] getLoadBoard(){
     return m_LoadBoard;
   }
 
+  /**
+   * Writes the current sate of the board to a new CSV file, named by the user
+   *
+   * @param the current games board state
+   * @return boolean
+   */
   public boolean saveData(String[][] board) throws IOException{
     nameFile(SAVE);
     m_FileName = PATH+ m_FileName +FILETYPE;
@@ -37,6 +57,11 @@ public class C4SaveManager{
     return true;
   }
 
+  /**
+   * Called the save file sected by the user, if sucessful the data is loaded else false is retured
+   *
+   * @return boolean
+   */
   public boolean loadData() throws IOException{
     nameFile(LOAD);
     m_FileName = PATH + m_FileName + FILETYPE;
@@ -48,6 +73,11 @@ public class C4SaveManager{
     return true;
   }
 
+  /**
+   * Reads the data from the selected file and adds it to the temp 2d array for baord
+   *
+   * @return boolean
+   */
   private boolean readGrid() throws IOException{
     String[] row = null;
     while((row = m_CSVReader.readNext()) != null) {
@@ -57,6 +87,11 @@ public class C4SaveManager{
     return true;
   }
 
+  /**
+   * Checks if the slected file exists
+   *
+   * @return boolean
+   */
   private boolean fileFound(){
     try{
       m_CSVReader = new CSVReader(new FileReader(m_FileName));
@@ -67,6 +102,11 @@ public class C4SaveManager{
     return true;
   }
 
+  /**
+   * Uses a input box to get a name of a file from the user
+   *
+   * @return boolean
+   */
   private boolean nameFile(String op) throws IOException{
     try{
       m_FileName = JOptionPane.showInputDialog("Enter "+ op +" Name");
