@@ -65,7 +65,8 @@ public class C4SaveManager {
    * @return boolean
    */
   public boolean loadData() throws IOException{
-    fileChooser();
+    nameFile(LOAD);
+    m_FileName = PATH+ m_FileName +FILETYPE;
     if (fileFound()){
       readGrid();
     } else {
@@ -88,16 +89,16 @@ public class C4SaveManager {
     return true;
   }
 
-  private boolean fileChooser(){
-    JFileChooser chooser = new JFileChooser();
-    FileNameExtensionFilter filter = new FileNameExtensionFilter("csv");
-    chooser.setFileFilter(filter);
-    int returnVal = chooser.showOpenDialog(parent);
-    if(returnVal == JFileChooser.APPROVE_OPTION) {
-      m_FileName = chooser.getSelectedFile().toString();
-    }
-    return true;
-  }
+  // private boolean fileChooser(){
+  //   JFileChooser chooser = new JFileChooser();
+  //   FileNameExtensionFilter filter = new FileNameExtensionFilter("csv");
+  //   chooser.setFileFilter(filter);
+  //   int returnVal = chooser.showOpenDialog(parent);
+  //   if(returnVal == JFileChooser.APPROVE_OPTION) {
+  //     m_FileName = chooser.getSelectedFile().toString();
+  //   }
+  //   return true;
+  // }
 
   /**
    * Checks if the slected file exists
