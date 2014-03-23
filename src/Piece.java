@@ -2,7 +2,7 @@
 /**
  * @file Piece.java
  *
- * @author A.Alakeel
+ * @author A.Alakeel, Cameron Steer
  *
  * @date 25 Feb '14
  *
@@ -30,6 +30,23 @@ public class Piece {
 	}
 
 	/**
+	 * This method simply returns the name of the owner of the piece
+	 *
+	 * @return this.m_Name returns the name of type String
+	 */
+	public String getName() {
+		return m_Name;
+	}
+	/**
+	 * This method simply returns the PlayerType of the piece
+	 *
+	 * @return this.m_PlayerType returns the m_PlayerType of type String
+	 */
+	public String getPlayerType() {
+		return m_PlayerType;
+	}
+
+	/**
 	 * Technically a setColour method. Renamed changeColour to reflect
 	 * its singular use in the Othello game.
 	 *
@@ -53,4 +70,5 @@ public class Piece {
 	public Piece(String colour) {
 		changeColour(colour);
 	}
+	//, String name, String playerType
 }
