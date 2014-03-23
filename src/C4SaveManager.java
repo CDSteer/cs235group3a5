@@ -1,6 +1,8 @@
 import lib.opencsv.CSVReader;
 import lib.opencsv.CSVWriter;
 
+import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.JComponent;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.StringWriter;
@@ -17,7 +19,7 @@ import javax.swing.*;
  * or writes to a CSV file in order to save the games state.
  *
  */
-public class C4SaveManager{
+public class C4SaveManager {
 
   private static boolean test = true;
   private String m_FileName;
@@ -64,7 +66,7 @@ public class C4SaveManager{
    */
   public boolean loadData() throws IOException{
     nameFile(LOAD);
-    m_FileName = PATH + m_FileName + FILETYPE;
+    m_FileName = PATH+ m_FileName +FILETYPE;
     if (fileFound()){
       readGrid();
     } else {
@@ -86,6 +88,17 @@ public class C4SaveManager{
     m_CSVReader.close();
     return true;
   }
+
+  // private boolean fileChooser(){
+  //   JFileChooser chooser = new JFileChooser();
+  //   FileNameExtensionFilter filter = new FileNameExtensionFilter("csv");
+  //   chooser.setFileFilter(filter);
+  //   int returnVal = chooser.showOpenDialog(parent);
+  //   if(returnVal == JFileChooser.APPROVE_OPTION) {
+  //     m_FileName = chooser.getSelectedFile().toString();
+  //   }
+  //   return true;
+  // }
 
   /**
    * Checks if the slected file exists
