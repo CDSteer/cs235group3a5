@@ -45,13 +45,13 @@ public class OthelloGameLogic extends AbstractGameImplementation {
     public void setBoard(int width, int height) {
         super.setBoard(width, height);
         // (3,3) is the position this Piece is placed on the board
-        getBoard().setPiece(new Piece(WHITE_PIECE),(width/2)-1,(height/2)-1);
+        getBoard().setPiece(new Piece(WHITE_PIECE),(width/DIVIDED_BY_TWO)-1,(height/DIVIDED_BY_TWO)-1);
         // (3,4) is the position this Piece is placed on the board
-        getBoard().setPiece(new Piece(BLACK_PIECE),(width/2)-1,(height/2));
+        getBoard().setPiece(new Piece(BLACK_PIECE),(width/DIVIDED_BY_TWO)-1,(height/DIVIDED_BY_TWO));
         // (4,3) is the position this Piece is placed on the board
-        getBoard().setPiece(new Piece(BLACK_PIECE),(width/2),(height/2)-1);
+        getBoard().setPiece(new Piece(BLACK_PIECE),(width/DIVIDED_BY_TWO),(height/DIVIDED_BY_TWO)-1);
         // (4,4) is the position this Piece is placed on the board
-        getBoard().setPiece(new Piece(WHITE_PIECE),(width/2),(height/2));
+        getBoard().setPiece(new Piece(WHITE_PIECE),(width/DIVIDED_BY_TWO),(height/DIVIDED_BY_TWO));
     }
 
 	/**
@@ -89,14 +89,14 @@ public class OthelloGameLogic extends AbstractGameImplementation {
 			}
 			/* The winner is the player with the most pieces */
 			if (totalPieces[0] > totalPieces[1]) {
-				return 1;
+				return PLAYER_ONE_WIN;
 			} else if (totalPieces[1] > totalPieces[0]) {
-				return 2;
+				return PLAYER_TWO_WIN;
 			} else {
-				return 3; // draw
+				return DRAW;
 			}
 		} else {
-			return -1;
+			return CONTINUE_GAME;
 		}
 	}
 
@@ -774,8 +774,15 @@ public class OthelloGameLogic extends AbstractGameImplementation {
 
     }
 
-	/** Symbollic Constants */
+	/** Symbolic Constants */
+
+    private final int PLAYER_ONE_WIN = 1;
+    private final int PLAYER_TWO_WIN = 2;
+    private final int CONTINUE_GAME = -1;
+    private final int DRAW = 3;
+
 	private final int NUMBER_OF_PLAYERS = 2;
+    private final int DIVIDED_BY_TWO = 2;
 	private final int BOARD_HEIGHT = 8;
 	private final int BOARD_WIDTH = 8;
 	private final String BLACK_PIECE = "Black";
