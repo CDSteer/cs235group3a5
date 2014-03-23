@@ -1,5 +1,5 @@
 src/*.class
-src/lib/bean/*
+src/lib/bean/
 
 # Package Files #
 *.jar
