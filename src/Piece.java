@@ -29,22 +29,6 @@ public class Piece {
 		return m_Colour;
 	}
 
-	/**
-	 * This method simply returns the name of the owner of the piece
-	 *
-	 * @return this.m_Name returns the name of type String
-	 */
-	public String getName() {
-		return m_Name;
-	}
-	/**
-	 * This method simply returns the PlayerType of the piece
-	 *
-	 * @return this.m_PlayerType returns the m_PlayerType of type String
-	 */
-	public String getPlayerType() {
-		return m_PlayerType;
-	}
 
 	/**
 	 * Technically a setColour method. Renamed changeColour to reflect
