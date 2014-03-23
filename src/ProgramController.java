@@ -102,9 +102,9 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 	 */
 	private void setNewGameButton(){
 		m_NewGameButton = new JButton("New Game");
-		m_Constraints.gridy = getBoard().getBoardHeight() + 2;
-		m_Constraints.gridx = getBoard().getBoardWidth() / 2 - 1;
-		m_Constraints.gridwidth = 2;
+		m_Constraints.gridy = getBoard().getBoardHeight() + ADD_TWO;
+		m_Constraints.gridx = getBoard().getBoardWidth() / DIVIDE_BY_TWO - 1;
+		m_Constraints.gridwidth = NEW_GAME_GRID_WIDTH;
 		m_Container.add(m_NewGameButton, m_Constraints);
 		m_NewGameButton.addActionListener(this);
 	}
@@ -116,9 +116,9 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 	private void setTurnLabel(){
 		m_TurnLabel = new JLabel(m_Game.getPlayer(PLAYER_ONE).getName() + "'s turn");
 		System.out.println(m_Game.getPlayer(PLAYER_ONE).getName());
-		m_Constraints.gridy = getBoard().getBoardHeight() + 1;
-		m_Constraints.gridx = (getBoard().getBoardWidth() / 2) - 4;
-		m_Constraints.gridwidth = 8;
+		m_Constraints.gridy = getBoard().getBoardHeight() + ADD_TWO;
+		m_Constraints.gridx = (getBoard().getBoardWidth() / DIVIDE_BY_TWO) - SUBTRACT_FOUR;
+		m_Constraints.gridwidth = TURN_GRID_WIDTH;
 		m_Container.add(m_TurnLabel, m_Constraints);
 	}
 
@@ -128,9 +128,9 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 	 */
 	private void setTimerLabel(){
 		m_TimerLabel = new JLabel("Time elapsed: 0s");
-		m_Constraints.gridy = getBoard().getBoardHeight() + 2;
-		m_Constraints.gridx = getBoard().getBoardWidth() / 2 + 1;
-		m_Constraints.gridwidth = 10;
+		m_Constraints.gridy = getBoard().getBoardHeight() + ADD_TWO;
+		m_Constraints.gridx = getBoard().getBoardWidth() / DIVIDE_BY_TWO + 1;
+		m_Constraints.gridwidth = TIMER_GRID_WIDTH;
 		m_Container.add(m_TimerLabel, m_Constraints);
 	}
 
@@ -141,8 +141,8 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 	private void setTurnNumberLabel(String labelString){
 
 		m_TurnNumberLabel = new JLabel(labelString);
-		m_Constraints.gridy = getBoard().getBoardHeight() + 2;
-		m_Constraints.gridx = getBoard().getBoardWidth() / 2 - 4;
+		m_Constraints.gridy = getBoard().getBoardHeight() + ADD_TWO;
+		m_Constraints.gridx = getBoard().getBoardWidth() / DIVIDE_BY_TWO - SUBTRACT_FOUR;
 		m_Constraints.gridwidth = 2;
 		m_Container.add(m_TurnNumberLabel, m_Constraints);
 	}
@@ -154,7 +154,7 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 		m_Container = getContentPane();
     m_Container.setLayout(new GridBagLayout());
 		m_Constraints = new GridBagConstraints();
-		this.setMinimumSize(new Dimension(64 * getBoard().getBoardWidth(), 64 * getBoard().getBoardHeight() + 22));
+		this.setMinimumSize(new Dimension(CONTAINER_64 * getBoard().getBoardWidth(), CONTAINER_64 * getBoard().getBoardHeight() + CONTAINER_22));
 	}
 
 	/** Getter method to return timer label value
@@ -354,26 +354,26 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 				int hidden = getLabel(x,y).getDisplayedMnemonic();
 					if(board.isEmpty(x,y) == true) {
             setImage(x,y,(new ImageIcon(getBGImage())));
-						getLabel(x,y).setDisplayedMnemonic(100);
+						getLabel(x,y).setDisplayedMnemonic(IMAGE_SIZE_100);
           } else if (board.getBoard()[x][y].getColour().equals(colour1)) {
 
-						if (hidden == 300 || hidden == 500) {
+						if (hidden == IMAGE_SIZE_300 || hidden == IMAGE_SIZE_500) {
 	            setImage(x,y,(new OthelloPieceColourChanger().flip(board.getBoard()[x][y])));
-							getLabel(x,y).setDisplayedMnemonic(400);
+							getLabel(x,y).setDisplayedMnemonic(IMAGE_SIZE_400);
 						} else {
 							BufferedImage piece_Image = ImageIO.read(new File("../Images/" + colour1 + "Piece.png"));
 							setImage(x,y,(new ImageIcon(piece_Image)));
-							getLabel(x,y).setDisplayedMnemonic(200);
+							getLabel(x,y).setDisplayedMnemonic(IMAGE_SIZE_200);
 						}
 
 	        } else if (board.getBoard()[x][y].getColour().equals(colour2)) {
-						if (hidden == 200 || hidden == 400) {
+						if (hidden == IMAGE_SIZE_200 || hidden == IMAGE_SIZE_400) {
 	            setImage(x,y,(new OthelloPieceColourChanger().flip(board.getBoard()[x][y])));
-							getLabel(x,y).setDisplayedMnemonic(500);
+							getLabel(x,y).setDisplayedMnemonic(IMAGE_SIZE_500);
 						} else {
 							BufferedImage piece_Image = ImageIO.read(new File("../Images/" + colour2 + "Piece.png"));
 							setImage(x,y,(new ImageIcon(piece_Image)));
-							getLabel(x,y).setDisplayedMnemonic(300);
+							getLabel(x,y).setDisplayedMnemonic(IMAGE_SIZE_300);
 						}
 	        }else{
 	            //else what??
@@ -395,19 +395,19 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 		int[] AIOthMoves;
 		int AIOthRow = 0;
 		int AIOthCol = 0;
-		AbstractPlayer[] players = new AbstractPlayer[2];
+		AbstractPlayer[] players = new AbstractPlayer[PLAYER_2];
 		players[PLAYER_ONE] = getGame().getPlayer(PLAYER_ONE);
 		players[PLAYER_TWO] = getGame().getPlayer(PLAYER_TWO);
 
 		if(m_playerSelection == HUMAN) {
 			boolean checkMoveIsValid = false;
-			checkMoveIsValid = players[getTurn() % 2].move(x, y, this);
+			checkMoveIsValid = players[getTurn() % PLAYER_2].move(x, y, this);
 		  if(checkMoveIsValid == true) {
 				if (getGame().checkTakeableTurn(players[(getTurn() + 1) % 2]) == true) {
 					/** If it's 0 (player 1) turn this will change it  to 1 (player 2) turn*/
 					setTurn(getTurn() + 1);
 					getTurnNumberLabel().setText("Turn: " + (getTurn() + 1));
-					if((getTurn() % 2)==0){
+					if((getTurn() % PLAYER_2)==0){
 						System.out.println(getGame().getPlayer(PLAYER_ONE).getName());
 						getTurnLabel().setText(getGame().getPlayer(PLAYER_ONE).getName() + "'s turn");
 					} else {
@@ -480,15 +480,15 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 	 *	Also highlights winning combination of pieces if playing connect4
 	 *	@return null
 	 */
-		if(getGame().getWinner() == 1 || getGame().getWinner() == 2){
+		if(getGame().getWinner() == PLAYER_1 || getGame().getWinner() == PLAYER_2){
 			System.out.println("Winner: Player " + (getGame().getWinner()) );
-			if(getGame().getWinner() == 1){
+			if(getGame().getWinner() == PLAYER_1){
 				getTurnLabel().setText(m_Game.getPlayer(PLAYER_ONE).getName() + " is the winner!");
 			}else{
 				getTurnLabel().setText(m_Game.getPlayer(PLAYER_TWO).getName() + " is the winner!");
 			}
 
-		}else if(getGame().getWinner() == 3){
+		}else if(getGame().getWinner() == DRAW){
 			System.out.println("Draw!");
 			getTurnLabel().setText("It's a draw!");
 		}else{}
@@ -519,7 +519,7 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 				}
 			}
 		};
-		m_Timer = new Timer(1000, actListner); //sets timer to 1 second intervals
+		m_Timer = new Timer(ONE_SECOND_INTERVAL, actListner); //sets timer to 1 second intervals
 		System.out.println("Timer started");
 		if(getGame().checkWin() == true) {
 			m_Timer.stop();
@@ -558,11 +558,11 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
                                              options,
                                              options[1]);
 		setIsC4(userOption);
-	  setGame(player1, player2);
+	    setGame(player1, player2);
 		setBoard();
 		setContainer();
 		setImages();
-    setTurnLabel();
+        setTurnLabel();
 		setNewGameButton();
 		setTurnNumberLabel("Turn: 1");
 
@@ -591,7 +591,7 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 
 
 	/* Symbolic constants */
-  private final int PLAYER_ONE = 0;
+    private final int PLAYER_ONE = 0;
 	private final int PLAYER_TWO = 1;
 
 	/* Member variables that store player info */
@@ -605,19 +605,19 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 	/* Member variable that stores which game is being played, if false then othello is being played */
   private static boolean m_IsC4;
 
-	/* Member variable that stores game being palayed */
+	/* Member variable that stores game being played */
   private static AbstractGameImplementation m_Game;
 
 
 	/** Initialisation of UI elements */
 	private static BufferedImage m_Background_Image;
-  private C4AndOthelloBoardStore m_Board;
-  private JLabel[][] m_Image_Labels;
+    private C4AndOthelloBoardStore m_Board;
+    private JLabel[][] m_Image_Labels;
 	private JButton m_NewGameButton;
 	private JLabel m_TurnLabel;
 	private JLabel m_TimerLabel;
 	private JLabel m_TurnNumberLabel;
-  private Container m_Container;
+    private Container m_Container;
 	private GridBagConstraints m_Constraints;
 	private int m_playerSelection;
 	private final int HUMAN = 0;
@@ -627,6 +627,23 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 	private C4HardAI c4HardAI;
 	private OthEasyAI othEasyAI;
 	// private OthHardAI (Not implemented
-
 	private final int C4_BOARD_HEIGHT = 7;
+    private final int ONE_SECOND_INTERVAL = 1000;
+    private final int DRAW = 3;
+    private final int TIMER_GRID_WIDTH = 10;
+    private final int TURN_GRID_WIDTH = 8;
+    private final int NEW_GAME_GRID_WIDTH = 2;
+    private final int DIVIDE_BY_TWO = 2;
+    private final int CONTAINER_64 = 64;
+    private final int CONTAINER_22 = 22;
+    private final int ADD_TWO = 2;
+    private final int SUBTRACT_FOUR = 4;
+    private final int IMAGE_SIZE_100 = 100;
+    private final int IMAGE_SIZE_200 = 200;
+    private final int IMAGE_SIZE_300 = 300;
+    private final int IMAGE_SIZE_400 = 400;
+    private final int IMAGE_SIZE_500 = 500;
+    private final int PLAYER_1 = 1;
+    private final int PLAYER_2 = 2;
+
 }
