@@ -188,10 +188,10 @@ public class Connect4GameLogic extends AbstractGameImplementation{
         int i;
 
         for(j = 0; j<(BOARD_HEIGHT); j++){
-            for(i = 0; i<(BOARD_WIDTH-3); i++){ /* horizontal win */
-                if(getPiece(i,j).getColour() == getPiece(i+1,j).getColour() &&
-                   getPiece(i,j).getColour() == getPiece(i+2,j).getColour() &&
-                   getPiece(i,j).getColour() == getPiece(i+3,j).getColour() &&
+            for(i = 0; i<(BOARD_WIDTH-BOARD_BOUNDARY); i++){ /* horizontal win */
+                if(getPiece(i,j).getColour() == getPiece(i+COORDINATE_ONE,j).getColour() &&
+                   getPiece(i,j).getColour() == getPiece(i+COORDINATE_TWO,j).getColour() &&
+                   getPiece(i,j).getColour() == getPiece(i+COORDINATE_THREE,j).getColour() &&
                    getBoard().isEmpty(i,j) == false){
 					setWinner(getPiece(i,j));
 					setWinningi(i);
@@ -203,10 +203,10 @@ public class Connect4GameLogic extends AbstractGameImplementation{
 		}
 
 		for(i = 0; i<(BOARD_WIDTH); i++){ /* vertical win */
-			for(j = 0; j<(BOARD_HEIGHT-3); j++){
-				if(getPiece(i,j).getColour() == getPiece(i,j+1).getColour() &&
-                   getPiece(i,j).getColour() == getPiece(i,j+2).getColour() &&
-                   getPiece(i,j).getColour() == getPiece(i,j+3).getColour() &&
+			for(j = 0; j<(BOARD_HEIGHT-BOARD_BOUNDARY); j++){
+				if(getPiece(i,j).getColour() == getPiece(i,j+COORDINATE_ONE).getColour() &&
+                   getPiece(i,j).getColour() == getPiece(i,j+COORDINATE_TWO).getColour() &&
+                   getPiece(i,j).getColour() == getPiece(i,j+COORDINATE_THREE).getColour() &&
                    getBoard().isEmpty(i,j) == false){
 					setWinner(getPiece(i,j));
 					setWinningi(i);
@@ -217,11 +217,11 @@ public class Connect4GameLogic extends AbstractGameImplementation{
 			}
 		}
 
-		for(j = 0; j<(BOARD_HEIGHT-3); j++){ /* diagonal right facing win */
-			for(i = 0; i<(BOARD_WIDTH-3); i++){
-				if(getPiece(i,j).getColour() == getPiece(i+1,j+1).getColour() &&
-				   getPiece(i,j).getColour() == getPiece(i+2,j+2).getColour() &&
-				   getPiece(i,j).getColour() == getPiece(i+3,j+3).getColour() &&
+		for(j = 0; j<(BOARD_HEIGHT-BOARD_BOUNDARY); j++){ /* diagonal right facing win */
+			for(i = 0; i<(BOARD_WIDTH-BOARD_BOUNDARY); i++){
+				if(getPiece(i,j).getColour() == getPiece(i+COORDINATE_ONE,j+COORDINATE_ONE).getColour() &&
+				   getPiece(i,j).getColour() == getPiece(i+COORDINATE_TWO,j+COORDINATE_TWO).getColour() &&
+				   getPiece(i,j).getColour() == getPiece(i+COORDINATE_THREE,j+COORDINATE_THREE).getColour() &&
                    getBoard().isEmpty(i,j) == false){
 					setWinner(getPiece(i,j));
 					setWinningi(i);
@@ -232,11 +232,11 @@ public class Connect4GameLogic extends AbstractGameImplementation{
 			}
 		}
 
-		for(j = 0; j<(BOARD_HEIGHT-3); j++){ /* diagonal left facing win */
-			for(i = 3; i<(BOARD_WIDTH); i++){
-				if(getPiece(i,j).getColour() == getPiece(i-1,j+1).getColour() &&
-				   getPiece(i,j).getColour() == getPiece(i-2,j+2).getColour() &&
-                   getPiece(i,j).getColour() == getPiece(i-3,j+3).getColour() &&
+		for(j = 0; j<(BOARD_HEIGHT-BOARD_BOUNDARY); j++){ /* diagonal left facing win */
+			for(i = COORDINATE_THREE; i<(BOARD_WIDTH); i++){
+				if(getPiece(i,j).getColour() == getPiece(i-COORDINATE_ONE,j+COORDINATE_ONE).getColour() &&
+				   getPiece(i,j).getColour() == getPiece(i-COORDINATE_TWO,j+COORDINATE_TWO).getColour() &&
+                   getPiece(i,j).getColour() == getPiece(i-COORDINATE_THREE,j+COORDINATE_THREE).getColour() &&
                    getBoard().isEmpty(i,j) == false){
 					setWinner(getPiece(i,j));
 					setWinningi(i);
@@ -283,6 +283,10 @@ public class Connect4GameLogic extends AbstractGameImplementation{
 	private final int PLAYER_TWO_PIECE = 2;
 	private final String PLAYER_TWO_PIECE_COLOUR = "Yellow";
 
-  private final int BOARD_HEIGHT = 7;
-  private final int BOARD_WIDTH = 10;
+    private final int BOARD_HEIGHT = 7;
+    private final int BOARD_WIDTH = 10;
+    private final int BOARD_BOUNDARY = 3;
+    private final int COORDINATE_ONE = 1;
+    private final int COORDINATE_TWO = 2;
+    private final int COORDINATE_THREE = 3;
 }
