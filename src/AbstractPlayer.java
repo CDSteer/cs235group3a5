@@ -1,5 +1,5 @@
 /**
- * @file Player.java
+ * @file AbstractPlayer.java
  *
  * @author A.Alakeel
  *
@@ -13,7 +13,7 @@
 
 import java.awt.event.*;
 
-abstract public class Player {
+abstract public class AbstractPlayer {
 
 	/** name of the player  */
 	private String m_Name;
@@ -25,7 +25,7 @@ abstract public class Player {
 	/**
 	 * This is the constructor for the Player class.
 	 */
-	public Player(){}
+	public AbstractPlayer(){}
 
 	/**
 	 * This method sets the colour of a piece

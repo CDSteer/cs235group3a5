@@ -22,7 +22,7 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 	/** Method to get the GameImplementation member variable m_Game
 	 * @return m_game -game being played
 	 */
-	public GameImplementation getGame(){
+	public AbstractGameImplementation getGame(){
        return m_Game;
    }
 
@@ -43,7 +43,7 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 	/** Getter method to get the object m_Board
 	 * @return m_Board -object from board class
 	 */
-	public Board getBoard(){
+	public C4AndOthelloBoardStore getBoard(){
 		return m_Board;
 	}
 
@@ -79,10 +79,10 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 	private void setGame(String player1, String player2){
 		File background_File;
 		if(getIsC4() == true){
-			m_Game = new Connect4();
+			m_Game = new Connect4GameLogic();
 			background_File = new File("../Images/Connect4Background.png");
 		}else{
-			m_Game = new Othello();
+			m_Game = new OthelloGameLogic();
 			background_File = new File("../Images/OthelloBackground.png");
 		}
 		try{
@@ -344,7 +344,7 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
    *	@param colour2
    *	@return null
   */
-  public void update(Board board, String colour1, String colour2) throws IOException{
+  public void update(C4AndOthelloBoardStore board, String colour1, String colour2) throws IOException{
     System.out.println("ProgramController::update()");
     int boardHeight = board.getBoard()[0].length;
     int boardWidth = board.getBoard().length;
@@ -358,7 +358,7 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
           } else if (board.getBoard()[x][y].getColour().equals(colour1)) {
 
 						if (hidden == 300 || hidden == 500) {
-	            setImage(x,y,(new ColourChange().flip(board.getBoard()[x][y])));
+	            setImage(x,y,(new OthelloPieceColourChanger().flip(board.getBoard()[x][y])));
 							getLabel(x,y).setDisplayedMnemonic(400);
 						} else {
 							BufferedImage piece_Image = ImageIO.read(new File("../Images/" + colour1 + "Piece.png"));
@@ -368,7 +368,7 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 
 	        } else if (board.getBoard()[x][y].getColour().equals(colour2)) {
 						if (hidden == 200 || hidden == 400) {
-	            setImage(x,y,(new ColourChange().flip(board.getBoard()[x][y])));
+	            setImage(x,y,(new OthelloPieceColourChanger().flip(board.getBoard()[x][y])));
 							getLabel(x,y).setDisplayedMnemonic(500);
 						} else {
 							BufferedImage piece_Image = ImageIO.read(new File("../Images/" + colour2 + "Piece.png"));
@@ -395,7 +395,7 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 		int[] AIOthMoves;
 		int AIOthRow = 0;
 		int AIOthCol = 0;
-		Player[] players = new Player[2];
+		AbstractPlayer[] players = new AbstractPlayer[2];
 		players[PLAYER_ONE] = getGame().getPlayer(PLAYER_ONE);
 		players[PLAYER_TWO] = getGame().getPlayer(PLAYER_TWO);
 
@@ -459,10 +459,10 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 	}
 	/**
 	*	Method that check who has won the game
-	*	@param Player[]
+	*
 	*	@return null
 	*/
-	private void checkWinner(Player[] players) {
+	private void checkWinner(AbstractPlayer[] players) {
 
 		if (getGame().checkTakeableTurn(players[0]) == false && getGame().checkTakeableTurn(players[1]) == false) {
 			try{
@@ -493,10 +493,10 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 			getTurnLabel().setText("It's a draw!");
 		}else{}
 
-		Highlight highlight = new Highlight();
+		Connect4WinStateHighlighter highlight = new Connect4WinStateHighlighter();
 
 		if(getIsC4() == true){
-			highlight.C4Highlight(getGame().getWinningi(), getGame().getWinningj(), getLabels(), getGame());
+			highlight.Connect4WinStateHighlighter(getGame().getWinningi(), getGame().getWinningj(), getLabels(), getGame());
 		}else{}
 	}
 
@@ -606,12 +606,12 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
   private static boolean m_IsC4;
 
 	/* Member variable that stores game being palayed */
-  private static GameImplementation m_Game;
+  private static AbstractGameImplementation m_Game;
 
 
 	/** Initialisation of UI elements */
 	private static BufferedImage m_Background_Image;
-  private Board m_Board;
+  private C4AndOthelloBoardStore m_Board;
   private JLabel[][] m_Image_Labels;
 	private JButton m_NewGameButton;
 	private JLabel m_TurnLabel;

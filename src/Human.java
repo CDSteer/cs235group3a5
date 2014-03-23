@@ -14,7 +14,7 @@
 
 import java.io.*;
 
-public class Human extends Player{
+public class Human extends AbstractPlayer{
 	/**
 	*  Method move is used to make a move by a player at position (x,y).
 	*  \param  	x	Column position on a Board to move Piece.
