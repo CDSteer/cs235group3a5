@@ -283,10 +283,10 @@ public class Connect4GameLogic extends AbstractGameImplementation{
 	private final int PLAYER_TWO_PIECE = 2;
 	private final String PLAYER_TWO_PIECE_COLOUR = "Yellow";
 
-    private final int BOARD_HEIGHT = 7;
-    private final int BOARD_WIDTH = 10;
-    private final int BOARD_BOUNDARY = 3;
-    private final int COORDINATE_ONE = 1;
-    private final int COORDINATE_TWO = 2;
-    private final int COORDINATE_THREE = 3;
+  private final int BOARD_HEIGHT = 7;
+  private final int BOARD_WIDTH = 10;
+  private final int BOARD_BOUNDARY = 3;
+  private final int COORDINATE_ONE = 1;
+  private final int COORDINATE_TWO = 2;
+  private final int COORDINATE_THREE = 3;
 }

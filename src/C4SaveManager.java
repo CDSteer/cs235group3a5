@@ -1,14 +1,18 @@
 import lib.opencsv.CSVReader;
 import lib.opencsv.CSVWriter;
 
-import javax.swing.filechooser.FileNameExtensionFilter;
-import javax.swing.JComponent;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.*;
 import java.io.*;
 import javax.swing.*;
+
+/**TODO:
+* - If empty saves file as null
+* - Overwrites save if same name
+* -
+*/
 
 /**
  *
@@ -26,16 +30,17 @@ public class C4SaveManager {
   private CSVWriter m_Writer;
   private CSVReader m_CSVReader;
   private List<String[]> m_Data;
-  private String[][] m_LoadBoard = new String[BOARD_ROWS][BOARD_COLS];
+  private Piece[][] m_LoadBoard;
   private int m_option;
+  private Connect4GameLogic m_Connect4GameLogic = new Connect4GameLogic();
 
   /**
    * Returns the board thats loaded from the CSV file
    *
    * @return m_LoadBoard
    */
-  public String[][] getLoadBoard(){
-    return m_LoadBoard;
+  public Connect4GameLogic getLoadGame(){
+    return m_Connect4GameLogic;
   }
 
   /**
@@ -44,16 +49,18 @@ public class C4SaveManager {
    * @param the current games board state
    * @return boolean
    */
-  public boolean saveData(String[][] board) throws IOException{
+  public boolean saveData(C4AndOthelloBoardStore board) throws IOException{
     nameFile(SAVE);
     m_FileName = PATH+ m_FileName +FILETYPE;
     m_Writer = new CSVWriter(new FileWriter(m_FileName));
     m_Data = new ArrayList<String[]>();
+    m_LoadBoard = board.getBoard();
     for (int i = 0; i < BOARD_ROWS; i++) {
       for (int j = 0; j < BOARD_COLS; j++) {
-        m_Data.add(new String[] {String.valueOf(i), String.valueOf(j), board[i][j]});
+        m_Data.add(new String[] { String.valueOf(j), String.valueOf(i), m_LoadBoard[j][i].getColour()});
       }
     }
+
     m_Writer.writeAll(m_Data);
     m_Writer.close();
     return true;
@@ -83,7 +90,10 @@ public class C4SaveManager {
   private boolean readGrid() throws IOException{
     String[] row = null;
     while((row = m_CSVReader.readNext()) != null) {
-      m_LoadBoard[Integer.parseInt(row[0])][Integer.parseInt(row[1])] = row[2];
+      AbstractPlayer player = new Human();
+      player.setColour(row[2]);
+      m_Connect4GameLogic.setPiece(Integer.parseInt(row[0]), Integer.parseInt(row[1]), player);
+
     }
     m_CSVReader.close();
     return true;
@@ -130,23 +140,30 @@ public class C4SaveManager {
   }
 
   public static void main(String[] args) throws IOException{
-    String[][] board = new String[BOARD_ROWS][BOARD_COLS];
-    String[][] newBoard = new String[BOARD_ROWS][BOARD_COLS];
+    Piece[][] newBoard = new Piece[BOARD_ROWS][BOARD_COLS];
+    Connect4GameLogic connect4GameLogic = new Connect4GameLogic();
     C4SaveManager c4SaveManager = new C4SaveManager();
+    C4AndOthelloBoardStore board = new C4AndOthelloBoardStore();
+
 
     for (int i = 0; i < BOARD_ROWS; i++) {
       for (int j = 0; j < BOARD_COLS; j++) {
-        board[i][j] = "yellow";
+        if (i == 5){
+          connect4GameLogic.setPiece(j, i, connect4GameLogic.getPlayer(0));
+        }
+        connect4GameLogic.setPiece(j, i, connect4GameLogic.getPlayer(1));
       }
     }
 
-    c4SaveManager.saveData(board);
+    c4SaveManager.saveData(connect4GameLogic.getBoard());
     if (c4SaveManager.loadData()) {
-      newBoard = c4SaveManager.getLoadBoard();
+      connect4GameLogic = c4SaveManager.getLoadGame();
       if (test){
+        board = connect4GameLogic.getBoard();
+        newBoard = board.getBoard();
         for (int i = 0; i < BOARD_ROWS; i++) {
           for (int j = 0; j < BOARD_COLS; j++) {
-            System.out.println(newBoard[i][j]);
+            System.out.println(newBoard[j][i].getColour());
           }
         }
       }
@@ -156,8 +173,8 @@ public class C4SaveManager {
   }
   private static final String PATH = "../SAVEDATA/";
   private static final String FILETYPE = ".csv";
-  private static final int BOARD_ROWS = 8;
-  private static final int BOARD_COLS = 8;
+  private static final int BOARD_ROWS = 7;
+  private static final int BOARD_COLS = 10;
   private static final String LOAD = "load";
   private static final String SAVE = "save";
 }

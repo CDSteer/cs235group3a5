@@ -12,7 +12,6 @@
  * a piece at the same index location.
  *
  */
-
 public class C4AndOthelloBoardStore {
 
     /** Method to get the 2D array (board) of pieces */
