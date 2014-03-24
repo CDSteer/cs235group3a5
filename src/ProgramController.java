@@ -105,8 +105,7 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 		m_Container.add(m_NewGameButton, m_Constraints);
 		m_NewGameButton.addActionListener(this);
 
-		// EDITTED OUT: Save button
-		// m_Container.add(m_SaveButton, m_Constraints);
+		
 	}
 	
 	/**
@@ -115,10 +114,10 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 	 */
 	private void setSaveButton(){
 		m_SaveButton = new JButton("Save Game");
-		m_Constraints.gridy = getBoard().getBoardHeight() + ADD_TWO;
-		m_Constraints.gridx = getBoard().getBoardWidth() / DIVIDE_BY_TWO - 1;
-		m_Constraints.gridwidth = NEW_GAME_GRID_WIDTH;
-		m_Container.add(m_NewGameButton, m_Constraints);
+		m_Constraints.gridy = getBoard().getBoardHeight() + 4;
+		m_Constraints.gridx = getBoard().getBoardWidth() / DIVIDE_BY_TWO - 7;
+		m_Constraints.gridwidth = NEW_GAME_GRID_WIDTH;	
+		m_Container.add(m_SaveButton, m_Constraints);
 		m_SaveButton.addActionListener(this);
 	}
 
