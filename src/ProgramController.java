@@ -629,6 +629,8 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 	/* Member variable that stores game being played */
   private static AbstractGameImplementation m_Game;
 
+  private C4SaveManager c4SaveManager;
+
 	/** Initialisation of UI elements */
 	private static BufferedImage m_Background_Image;
   private C4AndOthelloBoardStore m_Board;
