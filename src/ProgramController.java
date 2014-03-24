@@ -1,10 +1,7 @@
 /**
  * @file ProgramController.java
- *
- * @author I.C. Skinner & J. Bailey & S. Jones
- *
+ * @author I.C. Skinner, J. Bailey, S. Jones
  * @date 25 Feb '14
- *
  * @brief This is the GUI for both games.
  *
 */
@@ -110,6 +107,19 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 
 		// EDITTED OUT: Save button
 		// m_Container.add(m_SaveButton, m_Constraints);
+	}
+	
+	/**
+	 *	Create Save Game button
+	 *	@return null
+	 */
+	private void setSaveButton(){
+		m_SaveButton = new JButton("Save Game");
+		m_Constraints.gridy = getBoard().getBoardHeight() + ADD_TWO;
+		m_Constraints.gridx = getBoard().getBoardWidth() / DIVIDE_BY_TWO - 1;
+		m_Constraints.gridwidth = NEW_GAME_GRID_WIDTH;
+		m_Container.add(m_NewGameButton, m_Constraints);
+		m_SaveButton.addActionListener(this);
 	}
 
 	/**
@@ -575,6 +585,7 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 		setImages();
     setTurnLabel();
 		setNewGameButton();
+		setSaveButton();
 		setTurnNumberLabel("Turn: 1");
 
 		setTimerLabel();
