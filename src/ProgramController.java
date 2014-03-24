@@ -108,7 +108,8 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 		m_Container.add(m_NewGameButton, m_Constraints);
 		m_NewGameButton.addActionListener(this);
 
-		m_Container.add(m_SaveButton, m_Constraints);
+		// EDITTED OUT: Save button
+		// m_Container.add(m_SaveButton, m_Constraints);
 	}
 
 	/**
@@ -455,7 +456,15 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 				checkAIMove = players[1].move(AIC4Col, C4_BOARD_HEIGHT, this);
 				checkWinner(players);
 			} else {
-				System.out.println("Error: No HARD AI for Othello");
+				checkMoveIsValid = players[0].move(x, y, this);
+				if(checkMoveIsValid == true) {
+					AIOthMoves = othHardAI.selectMove(this);
+					AIOthRow = AIOthMoves[0];
+					AIOthCol = AIOthMoves[1];
+					checkAIMove = players[1].move(AIOthRow, AIOthCol, this);
+					checkWinner(players);				
+					
+				}
 			}
 		}
 	}
@@ -581,7 +590,7 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 			if(this.getIsC4() == true) {
 				c4HardAI = new C4HardAI();
 			} else {
-				System.out.println("HARD AI is not implemented for Othello");
+				othHardAI = new OthHardAI();
 			}
 		}
 		update(getGame().getBoard(), "Black", "White");
@@ -628,7 +637,7 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 	private C4EasyAI c4EasyAI;
 	private C4HardAI c4HardAI;
 	private OthEasyAI othEasyAI;
-	// private OthHardAI (Not implemented
+	private OthHardAI othHardAI;
 	private final int C4_BOARD_HEIGHT = 7;
   private final int ONE_SECOND_INTERVAL = 1000;
   private final int DRAW = 3;
