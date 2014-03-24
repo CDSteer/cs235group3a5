@@ -78,6 +78,15 @@ abstract public class AbstractPlayer {
 		return this.m_CurrentTurn;
 	}
 
+	public void switchTurn() {
+		if (m_CurrentTurn == true){
+			this.m_CurrentTurn = false;
+		} else {
+			m_CurrentTurn = true;
+		}
+	}
+
+
 	/**
 	 * This method is what the subclasses will use to control the move that
 	 *	the player will make.

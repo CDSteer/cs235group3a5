@@ -104,6 +104,8 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 		m_Constraints.gridwidth = NEW_GAME_GRID_WIDTH;
 		m_Container.add(m_NewGameButton, m_Constraints);
 		m_NewGameButton.addActionListener(this);
+
+		m_Container.add(m_SaveButton, m_Constraints);
 	}
 	
 	/**
@@ -568,11 +570,11 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
                                              options,
                                              options[1]);
 		setIsC4(userOption);
-	    setGame(player1, player2);
+	  setGame(player1, player2);
 		setBoard();
 		setContainer();
 		setImages();
-        setTurnLabel();
+    setTurnLabel();
 		setNewGameButton();
 		setSaveButton();
 		setTurnNumberLabel("Turn: 1");
@@ -619,17 +621,16 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 	/* Member variable that stores game being played */
   private static AbstractGameImplementation m_Game;
 
-
 	/** Initialisation of UI elements */
 	private static BufferedImage m_Background_Image;
-    private C4AndOthelloBoardStore m_Board;
-    private JLabel[][] m_Image_Labels;
+  private C4AndOthelloBoardStore m_Board;
+  private JLabel[][] m_Image_Labels;
 	private JButton m_NewGameButton;
 	private JButton m_SaveButton;
 	private JLabel m_TurnLabel;
 	private JLabel m_TimerLabel;
 	private JLabel m_TurnNumberLabel;
-    private Container m_Container;
+  private Container m_Container;
 	private GridBagConstraints m_Constraints;
 	private int m_playerSelection;
 	private final int HUMAN = 0;
@@ -640,22 +641,22 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 	private OthEasyAI othEasyAI;
 	// private OthHardAI (Not implemented
 	private final int C4_BOARD_HEIGHT = 7;
-    private final int ONE_SECOND_INTERVAL = 1000;
-    private final int DRAW = 3;
-    private final int TIMER_GRID_WIDTH = 10;
-    private final int TURN_GRID_WIDTH = 8;
-    private final int NEW_GAME_GRID_WIDTH = 2;
-    private final int DIVIDE_BY_TWO = 2;
-    private final int CONTAINER_64 = 64;
-    private final int CONTAINER_22 = 22;
-    private final int ADD_TWO = 2;
-    private final int SUBTRACT_FOUR = 4;
-    private final int IMAGE_SIZE_100 = 100;
-    private final int IMAGE_SIZE_200 = 200;
-    private final int IMAGE_SIZE_300 = 300;
-    private final int IMAGE_SIZE_400 = 400;
-    private final int IMAGE_SIZE_500 = 500;
-    private final int PLAYER_1 = 1;
-    private final int PLAYER_2 = 2;
+  private final int ONE_SECOND_INTERVAL = 1000;
+  private final int DRAW = 3;
+  private final int TIMER_GRID_WIDTH = 10;
+  private final int TURN_GRID_WIDTH = 8;
+  private final int NEW_GAME_GRID_WIDTH = 2;
+  private final int DIVIDE_BY_TWO = 2;
+  private final int CONTAINER_64 = 64;
+  private final int CONTAINER_22 = 22;
+  private final int ADD_TWO = 2;
+  private final int SUBTRACT_FOUR = 4;
+  private final int IMAGE_SIZE_100 = 100;
+  private final int IMAGE_SIZE_200 = 200;
+  private final int IMAGE_SIZE_300 = 300;
+  private final int IMAGE_SIZE_400 = 400;
+  private final int IMAGE_SIZE_500 = 500;
+  private final int PLAYER_1 = 1;
+  private final int PLAYER_2 = 2;
 
 }
