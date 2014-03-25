@@ -29,7 +29,8 @@ public class SplashScreen extends JFrame{
     private static String player2Option;
     private static Boolean player2Human = false;
     private static int difficulty = 0; // 0 for easy, 1 for hard
-    private static String gameChoice;
+    private static int gameChoice;
+    private static int playState; // 0 for human, 1 for easy, 2 for hard
     private static String player1name;
     private static String player2name;
 
@@ -66,7 +67,7 @@ public class SplashScreen extends JFrame{
                 
             	//call the options splash screen
                 System.out.println("Play Connect 4...");
-                gameChoice = "Connect 4";
+                gameChoice = 0;
                 m_splash.setVisible(false);
                 initPlayerOptions();
                 
@@ -78,7 +79,7 @@ public class SplashScreen extends JFrame{
             public void actionPerformed(ActionEvent event) {
                 //call the options splash screen
                 System.out.println("Play Othello...");
-                gameChoice = "Othello";
+                gameChoice = 1;
                 m_splash.setVisible(false);
                 
                 initPlayerOptions();
@@ -122,6 +123,7 @@ public class SplashScreen extends JFrame{
                 //change p2 label on name selection and set p2human state to false
                 player2Option = "Player 2 Name: ";
                 player2Human = true;
+                playState = 0;
                 System.out.println("...Successful");
                 initPlayerNaming();
             }
@@ -139,6 +141,7 @@ public class SplashScreen extends JFrame{
                 System.out.println("...Successful");
                 //set difficulty to easy
                 difficulty = 0;
+                playState = 1;
                 initPlayerNaming();
             }
         });
@@ -157,6 +160,7 @@ public class SplashScreen extends JFrame{
                 System.out.println("...Successful");
               //set difficulty to hard
                 difficulty = 1;
+                playState = 2;
                 initPlayerNaming();
             }
         });
@@ -235,7 +239,16 @@ public class SplashScreen extends JFrame{
         	//store entered player names
         	player1name = player1.getText();
         	player2name = player2.getText();
-        	System.out.println("p1:" + player1name + " p2: " + player2name);
+        	System.out.println("choice: " + gameChoice + "playstate: " + playState + "p1:" + player1name + " p2: " + player2name);
+        	
+        	ProgramController controller = new ProgramController();
+            controller.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            try {
+				controller.ProgramController(gameChoice, playState, player1name, player2name);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
         }
         });
         

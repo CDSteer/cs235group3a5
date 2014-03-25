@@ -591,16 +591,41 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 			m_Timer.start(); //timer starts
 		}
 	}
+  
+  	public void setUpGame(int gameState, int playerState, String player1Name, String player2Name) {
+  		//connect 4: 1, othello: 0
+  		
+  	}
 
-	/**
-	 *	Method that is called when program is first run, it starts all the methods
+  	/**
+	 * Method that is called when program is first run, it starts all the methods
 	 *  that create the UI elements, it also accepts input from the user such as their
 	 *  name and what game they'd like to play
-	 *	@return null
+	 * @param gameState
+	 * @param playerState
+	 * @param player1Name
+	 * @param player2Name
+	 * @throws IOException
 	 */
-	void ProgramController() throws IOException{
+	void ProgramController(int gameState, int playerState, String player1Name, String player2Name) throws IOException{
+		
+		player1 = player1Name;
+  		player2 = player2Name;
+  		
+  		setIsC4(gameState);
+  		
+  		if (playerState == 0) {
+  			m_playerSelection = HUMAN;
+  		} else if (playerState == 1) {
+  			m_playerSelection = EASY_AI;
+  		} else if (playerState == 2) {
+  			m_playerSelection = HARD_AI;
+  		}
+  		
+  		setGame(player1, player2);
 
-    Object[] player_types = {"Human", "Easy AI", "Hard AI"};
+    /*
+		Object[] player_types = {"Human", "Easy AI", "Hard AI"};
 		Object[] options = {"Connect 4", "Othello"};
 		m_playerSelection = JOptionPane.showOptionDialog(this,
         		"Select an Opponent Type",
@@ -621,10 +646,10 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
                                              null,
                                              options,
                                              options[1]);
-
+*/
     //shit load of method calls
-	setIsC4(userOption);
-	setGame(player1, player2);
+	//setIsC4(userOption); //userOption
+	//setGame(player1, player2); //player1, player2 
 	setBoard();
 	setContainer();
 	setImages();
@@ -717,5 +742,10 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
   private final int IMAGE_SIZE_500 = 500;
   private final int PLAYER_1 = 1;
   private final int PLAYER_2 = 2;
+  private String player1;
+  private String player2;
+  private int userOption;
+  private int gameState = 0;
+  private int playerState = 0;
 
 }
