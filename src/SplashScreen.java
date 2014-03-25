@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.swing.event.DocumentListener;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -29,11 +30,25 @@ public class SplashScreen extends JFrame{
     private static final int PLAYNAMES_JFRAME_WIDTH = 280;
     private static final int PLAYNAMES_JFRAME_HEIGHT = 300;
     private static final int SPLASH_GRID_COLS = 2;
+<<<<<<< HEAD
     private static final int PLAYER_GRID_COLS = 3;
     private static final int PLAYER_GRID_ROWS = 1;
     private static final int PLAYNAMES_GRID_COLS = 5;
     private static final int PLAYNAMES_GRID_ROWS = 5;
     private static String gameChoice;
+=======
+    private static final int PLAYER_GRID_COLS = 1;
+    private static final int PLAYER_GRID_ROWS = 2;  
+    private static String player2Option;
+    private static Boolean player2Human = false;
+    private static int difficulty = 0; // 0 for easy, 1 for hard
+    private static int gameChoice;
+    private static int playState; // 0 for human, 1 for easy, 2 for hard
+    private static String player1name;
+    private static String player2name;
+    private static boolean player1blank;
+    private static boolean player2blank;
+>>>>>>> FETCH_HEAD
 
     /**
      * Set splash screen to visible
@@ -111,11 +126,19 @@ public class SplashScreen extends JFrame{
             @Override
             public void actionPerformed(ActionEvent event) {
                 m_options.setVisible(true);
+<<<<<<< HEAD
             	/*
                  * play game here
                  */
                 System.out.println("Human Players..");
                 m_options.setVisible(false);
+=======
+                m_options.setVisible(false);
+                //change p2 label on name selection and set p2human state to false
+                player2Option = "Player 2 Name: ";
+                player2Human = true;
+                playState = 0;
+>>>>>>> FETCH_HEAD
                 initPlayerNaming();
             }
         });
@@ -123,20 +146,51 @@ public class SplashScreen extends JFrame{
             easyAIButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent event) {
+<<<<<<< HEAD
             	m_options.setVisible(true);
 
                 System.out.println("Easy AI...");
+=======
+            	m_options.setVisible(false);
+                //change p2 label on name selection and set p2human state to false
+                player2Option = "Computer Name: ";
+                player2Human = false;
+                //set difficulty to easy
+                difficulty = 0;
+                playState = 1;
+                initPlayerNaming();
+>>>>>>> FETCH_HEAD
             }
         });
          // action listener for the hard AI button
             hardAIButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent event) {
+<<<<<<< HEAD
             	m_options.setVisible(true);
             	/*
                  * game here
                  */
                 System.out.println("Hard AI...");
+=======
+            	m_options.setVisible(false);
+                //change p2 label on name selection and set p2human state to false
+                player2Option = "Computer Name: ";
+                player2Human = false;
+              //set difficulty to hard
+                difficulty = 1;
+                playState = 2;
+                initPlayerNaming();
+            }
+        });
+            
+         // action listener for the load button
+            loadButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent event) {
+            	
+                System.out.println("Loading game...no file found.");
+>>>>>>> FETCH_HEAD
             }
         });
 
@@ -203,6 +257,7 @@ public class SplashScreen extends JFrame{
         playButton.addActionListener(new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent event) {
+<<<<<<< HEAD
         	m_options.setVisible(true);
         	/*
              * game here
@@ -214,6 +269,40 @@ public class SplashScreen extends JFrame{
             System.out.println("Play Games");
         }
     });
+=======
+        	//store entered player names
+        	player1name = player1.getText();
+        	player2name = player2.getText();
+        	System.out.println("choice: " + gameChoice + " playstate: " + playState + " p1:" + player1name + " p2: " + player2name);
+        	
+        	if (player1name.equals("")) {
+            	player1blank = true;
+            } else if (player2name.equals("")) {
+            	player2blank = true;
+            } else {
+            	player1blank = false;
+            	player2blank = false;
+            }
+            
+            System.out.println("p1blank?: " + player1blank + " p2blank?: " + player2blank);
+        	
+        	//checks the validation for the input player names
+            if (player1blank == true | player2blank == true) {
+            	JOptionPane.showMessageDialog(m_playerNames, "Sorry, you haven't entered valid player name input!", "Player Name Input Error!", JOptionPane.WARNING_MESSAGE);
+        	} else { 
+        		ProgramController controller = new ProgramController();
+                controller.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                try {
+    				controller.ProgramController(gameChoice, playState, player1name, player2name);
+    			} catch (IOException e) {
+    				// TODO Auto-generated catch block
+    				e.printStackTrace();
+    			}
+        	}
+            
+        }
+        });
+>>>>>>> FETCH_HEAD
         //initialise JFrame
         m_playerNames.setTitle("Set Player Names");
         m_playerNames.setSize(PLAYNAMES_JFRAME_WIDTH, PLAYNAMES_JFRAME_HEIGHT);
@@ -229,8 +318,11 @@ public class SplashScreen extends JFrame{
     }
 
     public static void main(String args[]) {
-        /** testing to call GUI method */
+        /* testing to call GUI method
         SplashScreen splashScreen = new SplashScreen();
         splashScreen.initSplash();
+        */
+    	
+    	
     }
 }
