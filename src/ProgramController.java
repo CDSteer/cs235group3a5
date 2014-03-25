@@ -1,8 +1,9 @@
 /**
  * @file ProgramController.java
- * @author I.C. Skinner, J. Bailey, S. Jones
+ * @author Jamie I Davies, Martin Hui, Cameron Steer, I.C. Skinner, J. Bailey, S. Jones
  * @date 25 Feb '14
- * @brief This is the GUI for both games.
+ * @brief class that builds the board for either C4 or Othello
+ * @detail ProgramController has all setup variables such and the game state and player names called into it
  *
 */
 
@@ -14,8 +15,6 @@ import javax.imageio.*;
 import javax.swing.*;
 
 import java.awt.event.*;
-
-import javax.swing.event.*;
 
 public class ProgramController extends JFrame implements MouseListener, ActionListener{
 
