@@ -28,7 +28,7 @@ public class SplashScreen extends JFrame{
     private static final int SPLASH_GRID_COLS = 2;
     private static final int PLAYER_GRID_COLS = 2;
     private static final int PLAYER_GRID_ROWS = 5;
-    private static final int PLAYNAMES_GRID_COLS = 2;
+    private static final int PLAYNAMES_GRID_COLS = 5;
     private static final int PLAYNAMES_GRID_ROWS = 5;    
     private static String gameChoice;
 
@@ -40,10 +40,8 @@ public class SplashScreen extends JFrame{
         m_splash.setVisible(true);
         
         m_options = new Main();
-        m_options.setVisible(true);
         
         m_playerNames = new Main();
-        m_playerNames.setVisible(true);
         
     }
 
@@ -64,7 +62,8 @@ public class SplashScreen extends JFrame{
         c4Button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent event) {
-                //call the options splash screen
+                
+            	//call the options splash screen
                 System.out.println("Play Connect 4...");
                 gameChoice = "Connect 4";
                 m_splash.setVisible(false);
@@ -94,7 +93,8 @@ public class SplashScreen extends JFrame{
     }
     
     public void initPlayerOptions() {
-        /** 2 cols 2 rows JPanel */
+    	m_options.setVisible(true);
+    	/** 2 cols 2 rows JPanel */
         JPanel playerOptionsPanel = new JPanel(new GridLayout(PLAYER_GRID_ROWS,PLAYER_GRID_COLS));
         m_options.getContentPane().add(playerOptionsPanel);
         ImageIcon humanPlayerIMG = new ImageIcon("../Images/HumanImageWD.png");
@@ -107,7 +107,8 @@ public class SplashScreen extends JFrame{
         humanButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent event) {
-                /*
+                m_options.setVisible(true);
+            	/*
                  * play game here
                  */
                 System.out.println("Human Players.."); 
@@ -119,7 +120,8 @@ public class SplashScreen extends JFrame{
             easyAIButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent event) {
-                /*
+            	m_options.setVisible(true);
+            	/*
                  * game here
                  */
                 System.out.println("Easy AI...");
@@ -129,7 +131,8 @@ public class SplashScreen extends JFrame{
             hardAIButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent event) {
-                /*
+            	m_options.setVisible(true);
+            	/*
                  * game here
                  */
                 System.out.println("Hard AI...");
@@ -149,8 +152,10 @@ public class SplashScreen extends JFrame{
     
     public void initPlayerNaming() {
         /** 2 cols 2 rows JPanel */
-        JPanel playerNamesPanel = new JPanel(new GridLayout(PLAYNAMES_GRID_ROWS,PLAYNAMES_GRID_COLS));
-        m_options.getContentPane().add(playerNamesPanel);
+        m_playerNames.setVisible(true);
+    	JPanel playerNamesPanel = new JPanel(new GridBagLayout());
+    	GridBagConstraints c = new GridBagConstraints();
+        m_playerNames.getContentPane().add(playerNamesPanel);
         JButton playButton = new JButton("Play ");
         JTextField player1 = new JTextField();
         JTextField player2 = new JTextField();
@@ -168,16 +173,52 @@ public class SplashScreen extends JFrame{
             }
         });
         //add buttons to panel
-        playerNamesPanel.add(label1);
-        playerNamesPanel.add(label2);
-        playerNamesPanel.add(player1);
-        playerNamesPanel.add(player2);
-        playerNamesPanel.add(playButton);
+        c.gridx = 0;
+        c.gridy = 0;
+        playerNamesPanel.add(label1, c);
+        
+        c.gridx = 0;
+        c.gridy = 1;
+        playerNamesPanel.add(label2, c);
+        
+        c.gridx = 1;
+        c.gridy = 0;
+        c.weightx=1.;
+        c.fill=GridBagConstraints.HORIZONTAL;
+        playerNamesPanel.add(player1, c);
+        
+        c.gridx = 1;
+        c.gridy = 1;
+        c.weightx=1.;
+        c.fill=GridBagConstraints.HORIZONTAL;
+        playerNamesPanel.add(player2, c);
+        
+        c.gridx = 0;
+        c.gridy = 3;
+        c.gridwidth = 2;
+        playerNamesPanel.add(playButton, c);
+        
+     // action listener for the hard AI button
+        playButton.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent event) {
+        	m_options.setVisible(true);
+        	/*
+             * game here
+             */
+            System.out.println("Set text fields to name variables...");
+            System.out.println("...Not Done");
+            System.out.println("Set check selected game...");
+            System.out.println("...Not Done");
+            System.out.println("Play Games");
+        }
+    });
         //initialise JFrame
         m_playerNames.setTitle("Set Player Names");
         m_playerNames.setSize(PLAYNAMES_JFRAME_WIDTH, PLAYNAMES_JFRAME_HEIGHT);
         m_playerNames.setLocationRelativeTo(null);
         m_playerNames.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        
     }
     
     public static void main(String args[]) {
