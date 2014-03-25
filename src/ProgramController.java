@@ -369,7 +369,7 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 	*	@return null
 	*/
 	public void dropPiece(int x, int y, BufferedImage piece_Image) throws IOException{
-		int boardHeight = C4_BOARD_HEIGHT - 1;
+		final int boardHeight = C4_BOARD_HEIGHT - 1;
 		final int width = x;
 		final int height = y;
 		final int hidden = getLabel(x,y).getDisplayedMnemonic();
@@ -380,7 +380,7 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 				public void run(){
 					if(hidden == IMAGE_SIZE_100){ 
 						try{
-							for(int i = 0; i < 6; i++){
+							for(int i = 0; i < height; i++){
 								setImage(width,i,(new ImageIcon(piece_Image1)));
 								Thread.sleep(100);
 								setImage(width,i,(new ImageIcon(blank_Image)));
