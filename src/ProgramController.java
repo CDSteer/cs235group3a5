@@ -9,9 +9,12 @@
 import java.awt.*;
 import java.awt.image.*;
 import java.io.*;
+
 import javax.imageio.*;
 import javax.swing.*;
+
 import java.awt.event.*;
+
 import javax.swing.event.*;
 
 public class ProgramController extends JFrame implements MouseListener, ActionListener{
@@ -109,17 +112,26 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 	}
 	
 	/**
-	 *	Create Save Game button
+	 *	Create Save Game button and actionlistener
 	 *	@return null
 	 */
 	private void setSaveButton(){
 		m_SaveButton = new JButton("Save Game");
-		m_Constraints.gridy = getBoard().getBoardHeight() + 4;
-		m_Constraints.gridx = getBoard().getBoardWidth() / DIVIDE_BY_TWO - 7;
+		m_Constraints.gridy = getBoard().getBoardHeight() + ADD_FOUR;
+		m_Constraints.gridx = getBoard().getBoardWidth() / DIVIDE_BY_TWO - SUBTRACT_SEVEN;
 		m_Constraints.gridwidth = NEW_GAME_GRID_WIDTH;	
 		m_Container.add(m_SaveButton, m_Constraints);
-		m_SaveButton.addActionListener(this);
+		//m_SaveButton.addActionListener(this);
+		
+		// action listener for the save button
+	    m_SaveButton.addActionListener(new ActionListener() {
+	        @Override
+	        public void actionPerformed(ActionEvent event) {
+	            System.out.println("Test save button");
+	        }
+	    });
 	}
+	
 
 	/**
 	 *	Create label to display name of current player
@@ -577,19 +589,21 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
                                              null,
                                              options,
                                              options[1]);
-		setIsC4(userOption);
-	  setGame(player1, player2);
-		setBoard();
-		setContainer();
-		setImages();
+    
+    //shit load of method calls
+	setIsC4(userOption);
+	setGame(player1, player2);
+	setBoard();
+	setContainer();
+	setImages();
     setTurnLabel();
-		setNewGameButton();
-		setSaveButton();
-		setTurnNumberLabel("Turn: 1");
-
-		setTimerLabel();
-
-		startTimer();
+	setNewGameButton();
+	setSaveButton();
+	setTurnNumberLabel("Turn: 1");
+	setTimerLabel();
+	startTimer();
+		
+	//AI stuff
 		if(m_playerSelection == EASY_AI) {
 			if(this.getIsC4() == true) {
 				c4EasyAI = new C4EasyAI();
@@ -605,6 +619,7 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 		}
 		update(getGame().getBoard(), "Black", "White");
 
+		//no idea
 		pack();
 	  setLocationRelativeTo(null);
 		setVisible(true);
@@ -661,6 +676,8 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
   private final int CONTAINER_22 = 22;
   private final int ADD_TWO = 2;
   private final int SUBTRACT_FOUR = 4;
+  private final int SUBTRACT_SEVEN = 7;
+  private final int ADD_FOUR = 4;
   private final int IMAGE_SIZE_100 = 100;
   private final int IMAGE_SIZE_200 = 200;
   private final int IMAGE_SIZE_300 = 300;
