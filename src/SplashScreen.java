@@ -183,6 +183,6 @@ public class SplashScreen extends JFrame{
     public static void main(String args[]) {
         /** testing to call GUI method */
         SplashScreen splashScreen = new SplashScreen();
-        splashScreen.initPlayerNaming();
+        splashScreen.initSplash();
     }
 }
