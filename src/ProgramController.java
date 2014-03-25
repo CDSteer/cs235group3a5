@@ -124,7 +124,7 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 			public void actionPerformed(ActionEvent event) {
 				System.out.println("Test save button");
 				try{
-				  c4SaveManager.saveData();
+				  c4SaveManager.saveData(m_Board);
 				} catch (IOException e){
 					System.out.println("Can't Save Data");
 				  e.printStackTrace();
@@ -452,7 +452,7 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
    *	@param colour2
    *	@return null
   */
-  public void update(C4AndOthelloBoardStore board, String colour1, String colour2) throws IOException{
+  synchronized public void update(C4AndOthelloBoardStore board, String colour1, String colour2) throws IOException{
     System.out.println("ProgramController::update()");
     int boardHeight = board.getBoard()[0].length;
     int boardWidth = board.getBoard().length;
@@ -486,7 +486,6 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 					//else what??
 				}
   		}
-  		//c4SaveManager.setBoard(getGame().getBoard());
 	}
   }
 
@@ -749,7 +748,7 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 	/* Member variable that stores game being played */
   private static AbstractGameImplementation m_Game;
 
-  private C4SaveManager c4SaveManager;
+  private C4SaveManager c4SaveManager =  new C4SaveManager();
 
 	/** Initialisation of UI elements */
 	private static BufferedImage m_Background_Image;

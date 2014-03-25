@@ -34,8 +34,6 @@ public class C4SaveManager {
   private int m_option;
   private Connect4GameLogic m_Connect4GameLogic = new Connect4GameLogic();
 
-  private C4AndOthelloBoardStore board;
-
   /**
    * Returns the board thats loaded from the CSV file
    *
@@ -45,17 +43,13 @@ public class C4SaveManager {
     return m_Connect4GameLogic;
   }
 
-  public void setBoard(C4AndOthelloBoardStore board){
-    this.board = board;
-  }
-
   /**
    * Writes the current sate of the board to a new CSV file, named by the user
    *
    * @param the current games board state
    * @return boolean
    */
-  public boolean saveData() throws IOException{
+  public boolean saveData(C4AndOthelloBoardStore board) throws IOException{
     System.out.println("Saving....");
     nameFile(SAVE);
     m_FileName = PATH+ m_FileName +FILETYPE;
@@ -162,7 +156,7 @@ public class C4SaveManager {
       }
     }
 
-    c4SaveManager.saveData();
+    c4SaveManager.saveData(connect4GameLogic.getBoard());
     if (c4SaveManager.loadData()) {
       connect4GameLogic = c4SaveManager.getLoadGame();
       if (test){
