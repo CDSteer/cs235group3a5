@@ -486,7 +486,7 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 					//else what??
 				}
   		}
-  		c4SaveManager.setBoard(m_Board);
+  		//c4SaveManager.setBoard(getGame().getBoard());
 	}
   }
 
@@ -619,7 +619,7 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
   public void mousePressed(MouseEvent e) {}
   public void mouseReleased(MouseEvent e) {}
 
-  public void mouseEntered(MouseEvent e) {}
+  // public void mouseEntered(MouseEvent e) {}
 
   public void mouseExited(MouseEvent e) {}
 
@@ -645,11 +645,6 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 			m_Timer.start(); //timer starts
 		}
 	}
-
-  	public void setUpGame(int gameState, int playerState, String player1Name, String player2Name) {
-  		//connect 4: 1, othello: 0
-
-  	}
 
   	/**
 	 * Method that is called when program is first run, it starts all the methods
