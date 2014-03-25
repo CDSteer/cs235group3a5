@@ -367,6 +367,39 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 
   }
 
+	/**
+	* Animation of falling piece
+	*	@param  x	x coordinate of mouse clicked postion
+	*	@param	y   y coordinate of mouse clicked postion
+	*	@param	piece_Image      pieces image
+	*	@return null
+	*/
+	public void dropPiece(int x, int y, BufferedImage piece_Image) throws IOException{
+		int boardHeight = C4_BOARD_HEIGHT - 1;
+		final int width = x;
+		final int height = y;
+		final int hidden = getLabel(x,y).getDisplayedMnemonic();
+		final BufferedImage piece_Image1 = piece_Image;
+		final BufferedImage blank_Image = ImageIO.read(new File("../Images/Connect4Background.png"));
+		new Thread(
+			new Runnable(){
+				public void run(){
+					if(hidden == IMAGE_SIZE_100){ 
+						try{
+							for(int i = 0; i < 6; i++){
+								setImage(width,i,(new ImageIcon(piece_Image1)));
+								Thread.sleep(100);
+								setImage(width,i,(new ImageIcon(blank_Image)));
+							}
+						}catch(InterruptedException e){
+						}
+					}
+					setImage(width,height,(new ImageIcon(piece_Image1)));
+				}
+			}
+		).start();
+		
+	}
   /**
    *	Method that updates the board with new moves that have been taken
    *	@param board
@@ -381,35 +414,34 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 
     for(int y = 0; y<boardHeight; y++){
       for(int x = 0; x<boardWidth; x++){
-				int hidden = getLabel(x,y).getDisplayedMnemonic();
+			int hidden = getLabel(x,y).getDisplayedMnemonic();
 				if(board.isEmpty(x,y) == true) {
-          setImage(x,y,(new ImageIcon(getBGImage())));
+					setImage(x,y,(new ImageIcon(getBGImage())));
 					getLabel(x,y).setDisplayedMnemonic(IMAGE_SIZE_100);
-        } else if (board.getBoard()[x][y].getColour().equals(colour1)) {
+				} else if (board.getBoard()[x][y].getColour().equals(colour1)) {
 
 					if (hidden == IMAGE_SIZE_300 || hidden == IMAGE_SIZE_500) {
-            setImage(x,y,(new OthelloPieceColourChanger().flip(board.getBoard()[x][y])));
+						setImage(x,y,(new OthelloPieceColourChanger().flip(board.getBoard()[x][y])));
 						getLabel(x,y).setDisplayedMnemonic(IMAGE_SIZE_400);
 					} else {
 						BufferedImage piece_Image = ImageIO.read(new File("../Images/" + colour1 + "Piece.png"));
-						setImage(x,y,(new ImageIcon(piece_Image)));
+						dropPiece(x,y,piece_Image);
 						getLabel(x,y).setDisplayedMnemonic(IMAGE_SIZE_200);
 					}
-
-        } else if (board.getBoard()[x][y].getColour().equals(colour2)) {
+					} else if (board.getBoard()[x][y].getColour().equals(colour2)) {
 					if (hidden == IMAGE_SIZE_200 || hidden == IMAGE_SIZE_400) {
-            setImage(x,y,(new OthelloPieceColourChanger().flip(board.getBoard()[x][y])));
+						setImage(x,y,(new OthelloPieceColourChanger().flip(board.getBoard()[x][y])));
 						getLabel(x,y).setDisplayedMnemonic(IMAGE_SIZE_500);
 					} else {
 						BufferedImage piece_Image = ImageIO.read(new File("../Images/" + colour2 + "Piece.png"));
-						setImage(x,y,(new ImageIcon(piece_Image)));
+						dropPiece(x,y,piece_Image);					
 						getLabel(x,y).setDisplayedMnemonic(IMAGE_SIZE_300);
 					}
-        }else{
-            //else what??
-        }
+				}else{
+					//else what??
+				}
   		}
-		}
+	}
   }
 
    /**
