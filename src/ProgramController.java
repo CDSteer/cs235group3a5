@@ -125,8 +125,8 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 			public void actionPerformed(ActionEvent event) {
 				System.out.println("Test save button");
 				try{
-				  c4SaveManager.saveData(getGame().getBoard());
-				} catch (Exception e){
+				  c4SaveManager.saveData();
+				} catch (IOException e){
 					System.out.println("Can't Save Data");
 				  e.printStackTrace();
 				}
@@ -134,9 +134,6 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 		};
 		// action listener for the save button
     m_SaveButton.addActionListener(actListner2);
-
-
-
 	}
 
 
@@ -443,6 +440,7 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 					//else what??
 				}
   		}
+  		c4SaveManager.setBoard(m_Board);
 	}
   }
 
@@ -599,10 +597,10 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 			m_Timer.start(); //timer starts
 		}
 	}
-  
+
   	public void setUpGame(int gameState, int playerState, String player1Name, String player2Name) {
   		//connect 4: 1, othello: 0
-  		
+
   	}
 
   	/**
@@ -616,12 +614,12 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 	 * @throws IOException
 	 */
 	void ProgramController(int gameState, int playerState, String player1Name, String player2Name) throws IOException{
-		
+
 		player1 = player1Name;
   		player2 = player2Name;
-  		
+
   		setIsC4(gameState);
-  		
+
   		if (playerState == 0) {
   			m_playerSelection = HUMAN;
   		} else if (playerState == 1) {
@@ -629,7 +627,7 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
   		} else if (playerState == 2) {
   			m_playerSelection = HARD_AI;
   		}
-  		
+
   		setGame(player1, player2);
 
     /*
@@ -657,11 +655,11 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 */
     //shit load of method calls
 	//setIsC4(userOption); //userOption
-	//setGame(player1, player2); //player1, player2 
+	//setGame(player1, player2); //player1, player2
 	setBoard();
 	setContainer();
 	setImages();
-    setTurnLabel();
+  setTurnLabel();
 	setNewGameButton();
 	setSaveButton();
 	setTurnNumberLabel("Turn: 1");
@@ -688,10 +686,10 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 		pack();
 	  setLocationRelativeTo(null);
 		setVisible(true);
-    }
+  }
 
 	/* Symbolic constants */
-    private final int PLAYER_ONE = 0;
+  private final int PLAYER_ONE = 0;
 	private final int PLAYER_TWO = 1;
 
 	/* Member variables that store player info */
