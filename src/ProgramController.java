@@ -380,7 +380,7 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 				    if(getIsC4() == true){
 						if(e.getSource()==getLabel(x,y)){
 							arrowPointer(x,0);          // 6 as always on top
-						}		
+						}
 					}
 			}
 		}
@@ -388,7 +388,7 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 			System.out.println("IOException error @ ProgramController::mouseEntered()");
 		}
     }
-	
+
 	/**
 	* Animation of mouse pointing at row in Connect 4
 	*	@param  x	x coordinate of mouse clicked postion
@@ -618,7 +618,7 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 
   public void mousePressed(MouseEvent e) {}
   public void mouseReleased(MouseEvent e) {}
-  public void mouseEntered(MouseEvent e) {}
+  //public void mouseEntered(MouseEvent e) {}
   public void mouseExited(MouseEvent e) {}
 
   /**

@@ -5,10 +5,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
-
-/**
- * STILL NOT FINISHED
- */
+import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * @author Jamie I Davies
@@ -17,28 +15,18 @@ import java.io.*;
  */
 public class SplashScreen extends JFrame{
 
-	ProgramController controller = new ProgramController();
-	private static JFileChooser fileChooser = new JFileChooser();
-
     private Main m_splash;
     private Main m_options;
     private Main m_playerNames;
     private static final int SPLASH_JFRAME_WIDTH = 732;
     private static final int SPLASH_JFRAME_HEIGHT = 288;
-    private static final int PLAYER_JFRAME_WIDTH = 280;
-    private static final int PLAYER_JFRAME_HEIGHT = 300;
+    private static final int PLAYER_JFRAME_WIDTH = 360;
+    private static final int PLAYER_JFRAME_HEIGHT = 330;
     private static final int PLAYNAMES_JFRAME_WIDTH = 280;
     private static final int PLAYNAMES_JFRAME_HEIGHT = 300;
     private static final int SPLASH_GRID_COLS = 2;
-<<<<<<< HEAD
-    private static final int PLAYER_GRID_COLS = 3;
-    private static final int PLAYER_GRID_ROWS = 1;
-    private static final int PLAYNAMES_GRID_COLS = 5;
-    private static final int PLAYNAMES_GRID_ROWS = 5;
-    private static String gameChoice;
-=======
     private static final int PLAYER_GRID_COLS = 1;
-    private static final int PLAYER_GRID_ROWS = 2;  
+    private static final int PLAYER_GRID_ROWS = 2;
     private static String player2Option;
     private static Boolean player2Human = false;
     private static int difficulty = 0; // 0 for easy, 1 for hard
@@ -48,7 +36,6 @@ public class SplashScreen extends JFrame{
     private static String player2name;
     private static boolean player1blank;
     private static boolean player2blank;
->>>>>>> FETCH_HEAD
 
     /**
      * Set splash screen to visible
@@ -81,11 +68,12 @@ public class SplashScreen extends JFrame{
             @Override
             public void actionPerformed(ActionEvent event) {
 
-            	//call the options splash screen
+                //call the options splash screen
                 System.out.println("Play Connect 4...");
-                gameChoice = "Connect 4";
+                gameChoice = 0;
                 m_splash.setVisible(false);
                 initPlayerOptions();
+
             }
         });
          // othello button action listener
@@ -94,7 +82,7 @@ public class SplashScreen extends JFrame{
             public void actionPerformed(ActionEvent event) {
                 //call the options splash screen
                 System.out.println("Play Othello...");
-                gameChoice = "Othello";
+                gameChoice = 1;
                 m_splash.setVisible(false);
 
                 initPlayerOptions();
@@ -111,34 +99,28 @@ public class SplashScreen extends JFrame{
     }
 
     public void initPlayerOptions() {
-    	m_options.setVisible(true);
-    	/** 2 cols 2 rows JPanel */
+        m_options.setVisible(true);
+        /** 2 cols 2 rows JPanel */
         JPanel playerOptionsPanel = new JPanel(new GridLayout(PLAYER_GRID_ROWS,PLAYER_GRID_COLS));
         m_options.getContentPane().add(playerOptionsPanel);
         ImageIcon humanPlayerIMG = new ImageIcon("../Images/HumanImageWD.png");
         ImageIcon easyAIButtonIMG = new ImageIcon("../Images/AIEasyImageWD.png");
         ImageIcon hardAIButtonIMG = new ImageIcon("../Images/AIHardImageWD.png");
+        ImageIcon loadButtonIMG = new ImageIcon("../Images/LoadGameImage.png");
         JButton humanButton = new JButton("", humanPlayerIMG);
         JButton easyAIButton = new JButton("", easyAIButtonIMG);
         JButton hardAIButton = new JButton("", hardAIButtonIMG);
+        JButton loadButton = new JButton("", loadButtonIMG);
          // action listener for the human button
         humanButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent event) {
                 m_options.setVisible(true);
-<<<<<<< HEAD
-            	/*
-                 * play game here
-                 */
-                System.out.println("Human Players..");
-                m_options.setVisible(false);
-=======
                 m_options.setVisible(false);
                 //change p2 label on name selection and set p2human state to false
                 player2Option = "Player 2 Name: ";
                 player2Human = true;
                 playState = 0;
->>>>>>> FETCH_HEAD
                 initPlayerNaming();
             }
         });
@@ -146,12 +128,7 @@ public class SplashScreen extends JFrame{
             easyAIButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent event) {
-<<<<<<< HEAD
-            	m_options.setVisible(true);
-
-                System.out.println("Easy AI...");
-=======
-            	m_options.setVisible(false);
+                m_options.setVisible(false);
                 //change p2 label on name selection and set p2human state to false
                 player2Option = "Computer Name: ";
                 player2Human = false;
@@ -159,21 +136,13 @@ public class SplashScreen extends JFrame{
                 difficulty = 0;
                 playState = 1;
                 initPlayerNaming();
->>>>>>> FETCH_HEAD
             }
         });
          // action listener for the hard AI button
             hardAIButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent event) {
-<<<<<<< HEAD
-            	m_options.setVisible(true);
-            	/*
-                 * game here
-                 */
-                System.out.println("Hard AI...");
-=======
-            	m_options.setVisible(false);
+                m_options.setVisible(false);
                 //change p2 label on name selection and set p2human state to false
                 player2Option = "Computer Name: ";
                 player2Human = false;
@@ -183,14 +152,13 @@ public class SplashScreen extends JFrame{
                 initPlayerNaming();
             }
         });
-            
+
          // action listener for the load button
             loadButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent event) {
-            	
+
                 System.out.println("Loading game...no file found.");
->>>>>>> FETCH_HEAD
             }
         });
 
@@ -198,6 +166,7 @@ public class SplashScreen extends JFrame{
         playerOptionsPanel.add(humanButton);
         playerOptionsPanel.add(easyAIButton);
         playerOptionsPanel.add(hardAIButton);
+        playerOptionsPanel.add(loadButton);
         //initialise JFrame
         m_options.setTitle("Play Options");
         m_options.setSize(PLAYER_JFRAME_WIDTH, PLAYER_JFRAME_HEIGHT);
@@ -208,101 +177,82 @@ public class SplashScreen extends JFrame{
     public void initPlayerNaming() {
         /** 2 cols 2 rows JPanel */
         m_playerNames.setVisible(true);
-    	JPanel playerNamesPanel = new JPanel(new GridBagLayout());
-    	GridBagConstraints c = new GridBagConstraints();
+        JPanel playerNamesPanel = new JPanel(new GridBagLayout());
+        GridBagConstraints c = new GridBagConstraints();
         m_playerNames.getContentPane().add(playerNamesPanel);
         JButton playButton = new JButton("Play ");
-        JTextField player1 = new JTextField();
-        JTextField player2 = new JTextField();
+        final JTextField player1 = new JTextField();
+        final JTextField player2 = new JTextField();
         JLabel label1 = new JLabel("Player 1 Name: ");
-        JLabel label2 = new JLabel("Player 2 Name: ");
+        JLabel label2 = new JLabel(player2Option);
 
-         // action listener for the human button
-        playButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent event) {
-                /*
-                 * play game here
-                 */
-                System.out.println("Human Players..");
-            }
-        });
-        //add buttons to panel
+        //create various grid references for the layout
         c.gridx = 0;
         c.gridy = 0;
         playerNamesPanel.add(label1, c);
-
         c.gridx = 0;
         c.gridy = 1;
         playerNamesPanel.add(label2, c);
-
         c.gridx = 1;
         c.gridy = 0;
         c.weightx=1.;
         c.fill=GridBagConstraints.HORIZONTAL;
         playerNamesPanel.add(player1, c);
-
         c.gridx = 1;
         c.gridy = 1;
         c.weightx=1.;
         c.fill=GridBagConstraints.HORIZONTAL;
         playerNamesPanel.add(player2, c);
-
         c.gridx = 0;
         c.gridy = 3;
         c.gridwidth = 2;
         playerNamesPanel.add(playButton, c);
 
+
+      //adjusts state of player2 label depending on play option
+        if (player2Human == false) {
+            player2.setEnabled(false);
+            player2.setText(randomNameGen(difficulty));
+        } else {
+            player2.setEnabled(true);
+        }
+
      // action listener for the hard AI button
         playButton.addActionListener(new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent event) {
-<<<<<<< HEAD
-        	m_options.setVisible(true);
-        	/*
-             * game here
-             */
-            System.out.println("Set text fields to name variables...");
-            System.out.println("...Not Done");
-            System.out.println("Set check selected game...");
-            System.out.println("...Not Done");
-            System.out.println("Play Games");
-        }
-    });
-=======
-        	//store entered player names
-        	player1name = player1.getText();
-        	player2name = player2.getText();
-        	System.out.println("choice: " + gameChoice + " playstate: " + playState + " p1:" + player1name + " p2: " + player2name);
-        	
-        	if (player1name.equals("")) {
-            	player1blank = true;
+            //store entered player names
+            player1name = player1.getText();
+            player2name = player2.getText();
+            System.out.println("choice: " + gameChoice + " playstate: " + playState + " p1:" + player1name + " p2: " + player2name);
+
+            if (player1name.equals("")) {
+                player1blank = true;
             } else if (player2name.equals("")) {
-            	player2blank = true;
+                player2blank = true;
             } else {
-            	player1blank = false;
-            	player2blank = false;
+                player1blank = false;
+                player2blank = false;
             }
-            
+
             System.out.println("p1blank?: " + player1blank + " p2blank?: " + player2blank);
-        	
-        	//checks the validation for the input player names
+
+            //checks the validation for the input player names
             if (player1blank == true | player2blank == true) {
-            	JOptionPane.showMessageDialog(m_playerNames, "Sorry, you haven't entered valid player name input!", "Player Name Input Error!", JOptionPane.WARNING_MESSAGE);
-        	} else { 
-        		ProgramController controller = new ProgramController();
+                JOptionPane.showMessageDialog(m_playerNames, "Sorry, you haven't entered valid player name input!", "Player Name Input Error!", JOptionPane.WARNING_MESSAGE);
+            } else {
+                ProgramController controller = new ProgramController();
                 controller.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 try {
-    				controller.ProgramController(gameChoice, playState, player1name, player2name);
-    			} catch (IOException e) {
-    				// TODO Auto-generated catch block
-    				e.printStackTrace();
-    			}
-        	}
-            
+                    controller.ProgramController(gameChoice, playState, player1name, player2name);
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
+
         }
         });
->>>>>>> FETCH_HEAD
         //initialise JFrame
         m_playerNames.setTitle("Set Player Names");
         m_playerNames.setSize(PLAYNAMES_JFRAME_WIDTH, PLAYNAMES_JFRAME_HEIGHT);
@@ -311,10 +261,39 @@ public class SplashScreen extends JFrame{
 
     }
 
-    public static void chooserDemo() {
+    /**
+     * method to get a random name for either the easy or hard computer player
+     * @return
+     */
+    public String randomNameGen(int difficulty) {
+        ArrayList<String> easyNames = new ArrayList();
+        ArrayList<String> hardNames = new ArrayList();
+        // add elements to easy list
+        easyNames.add("Cameron");
+        easyNames.add("Jamie");
+        //add elements to hard list
+        hardNames.add("Chris");
+        hardNames.add("Curtis aka Impaler");
+        hardNames.add("Martin");
 
+        //create two random generators
+        Random easyRandomGen = new Random();Random hardRandomGen = new Random();
 
+        //set index to the random element to get from arraylist
+        int easyIndex = easyRandomGen.nextInt(easyNames.size());
+        int hardIndex = hardRandomGen.nextInt(hardNames.size());
+        //get the value from the arraylist
+        String easyName = easyNames.get(easyIndex);
+        String hardName = hardNames.get(hardIndex);
+        //if to determine if the game is being played in easy or hard ai mode
+        String playerName;
+        if (difficulty == 0 ) {
+            playerName = easyName;
+        } else {
+            playerName = hardName;
+        }
 
+        return playerName;
     }
 
     public static void main(String args[]) {
@@ -322,7 +301,7 @@ public class SplashScreen extends JFrame{
         SplashScreen splashScreen = new SplashScreen();
         splashScreen.initSplash();
         */
-    	
-    	
+
+
     }
 }
