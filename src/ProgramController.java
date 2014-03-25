@@ -105,9 +105,9 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 		m_Container.add(m_NewGameButton, m_Constraints);
 		m_NewGameButton.addActionListener(this);
 
-		
+
 	}
-	
+
 	/**
 	 *	Create Save Game button
 	 *	@return null
@@ -116,7 +116,7 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 		m_SaveButton = new JButton("Save Game");
 		m_Constraints.gridy = getBoard().getBoardHeight() + 4;
 		m_Constraints.gridx = getBoard().getBoardWidth() / DIVIDE_BY_TWO - 7;
-		m_Constraints.gridwidth = NEW_GAME_GRID_WIDTH;	
+		m_Constraints.gridwidth = NEW_GAME_GRID_WIDTH;
 		m_Container.add(m_SaveButton, m_Constraints);
 		m_SaveButton.addActionListener(this);
 	}
@@ -291,13 +291,13 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 		return m_Image_Labels;
 	}
 
-	public void actionPerformed(ActionEvent event) {
 	/**
 	 *	Method that is performed when a user has taken their turn so the board's UI elements
 	 *	are updated to whomever's turn it is
 	 *	@param event - action performed event
 	 *	@return null
 	*/
+	public void actionPerformed(ActionEvent event) {
 		String colour1 = getGame().getPlayer(PLAYER_ONE).getColour();
 		String colour2 = getGame().getPlayer(PLAYER_TWO).getColour();
 		getTurnLabel().setText(getGame().getPlayer(PLAYER_ONE).getName() + "'s turn");
@@ -364,32 +364,32 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
     for(int y = 0; y<boardHeight; y++){
       for(int x = 0; x<boardWidth; x++){
 				int hidden = getLabel(x,y).getDisplayedMnemonic();
-					if(board.isEmpty(x,y) == true) {
-            setImage(x,y,(new ImageIcon(getBGImage())));
-						getLabel(x,y).setDisplayedMnemonic(IMAGE_SIZE_100);
-          } else if (board.getBoard()[x][y].getColour().equals(colour1)) {
+				if(board.isEmpty(x,y) == true) {
+          setImage(x,y,(new ImageIcon(getBGImage())));
+					getLabel(x,y).setDisplayedMnemonic(IMAGE_SIZE_100);
+        } else if (board.getBoard()[x][y].getColour().equals(colour1)) {
 
-						if (hidden == IMAGE_SIZE_300 || hidden == IMAGE_SIZE_500) {
-	            setImage(x,y,(new OthelloPieceColourChanger().flip(board.getBoard()[x][y])));
-							getLabel(x,y).setDisplayedMnemonic(IMAGE_SIZE_400);
-						} else {
-							BufferedImage piece_Image = ImageIO.read(new File("../Images/" + colour1 + "Piece.png"));
-							setImage(x,y,(new ImageIcon(piece_Image)));
-							getLabel(x,y).setDisplayedMnemonic(IMAGE_SIZE_200);
-						}
+					if (hidden == IMAGE_SIZE_300 || hidden == IMAGE_SIZE_500) {
+            setImage(x,y,(new OthelloPieceColourChanger().flip(board.getBoard()[x][y])));
+						getLabel(x,y).setDisplayedMnemonic(IMAGE_SIZE_400);
+					} else {
+						BufferedImage piece_Image = ImageIO.read(new File("../Images/" + colour1 + "Piece.png"));
+						setImage(x,y,(new ImageIcon(piece_Image)));
+						getLabel(x,y).setDisplayedMnemonic(IMAGE_SIZE_200);
+					}
 
-	        } else if (board.getBoard()[x][y].getColour().equals(colour2)) {
-						if (hidden == IMAGE_SIZE_200 || hidden == IMAGE_SIZE_400) {
-	            setImage(x,y,(new OthelloPieceColourChanger().flip(board.getBoard()[x][y])));
-							getLabel(x,y).setDisplayedMnemonic(IMAGE_SIZE_500);
-						} else {
-							BufferedImage piece_Image = ImageIO.read(new File("../Images/" + colour2 + "Piece.png"));
-							setImage(x,y,(new ImageIcon(piece_Image)));
-							getLabel(x,y).setDisplayedMnemonic(IMAGE_SIZE_300);
-						}
-	        }else{
-	            //else what??
-	        }
+        } else if (board.getBoard()[x][y].getColour().equals(colour2)) {
+					if (hidden == IMAGE_SIZE_200 || hidden == IMAGE_SIZE_400) {
+            setImage(x,y,(new OthelloPieceColourChanger().flip(board.getBoard()[x][y])));
+						getLabel(x,y).setDisplayedMnemonic(IMAGE_SIZE_500);
+					} else {
+						BufferedImage piece_Image = ImageIO.read(new File("../Images/" + colour2 + "Piece.png"));
+						setImage(x,y,(new ImageIcon(piece_Image)));
+						getLabel(x,y).setDisplayedMnemonic(IMAGE_SIZE_300);
+					}
+        }else{
+            //else what??
+        }
   		}
 		}
   }
@@ -471,8 +471,8 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 					AIOthRow = AIOthMoves[0];
 					AIOthCol = AIOthMoves[1];
 					checkAIMove = players[1].move(AIOthRow, AIOthCol, this);
-					checkWinner(players);				
-					
+					checkWinner(players);
+
 				}
 			}
 		}
