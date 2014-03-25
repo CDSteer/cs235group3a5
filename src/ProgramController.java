@@ -107,10 +107,8 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 		m_Constraints.gridwidth = NEW_GAME_GRID_WIDTH;
 		m_Container.add(m_NewGameButton, m_Constraints);
 		m_NewGameButton.addActionListener(this);
-
-
 	}
-
+	ActionListener actListner2;
 	/**
 	 *	Create Save Game button and actionlistener
 	 *	@return null
@@ -121,15 +119,24 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 		m_Constraints.gridx = getBoard().getBoardWidth() / DIVIDE_BY_TWO - SUBTRACT_SEVEN;
 		m_Constraints.gridwidth = NEW_GAME_GRID_WIDTH;
 		m_Container.add(m_SaveButton, m_Constraints);
-		//m_SaveButton.addActionListener(this);
+		//m_SaveButton.addActionListener(m_Handler);
 
+		actListner2 = new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				System.out.println("Test save button");
+				try{
+				  c4SaveManager.saveData(getGame().getBoard());
+				} catch (Exception e){
+					System.out.println("Can't Save Data");
+				  e.printStackTrace();
+				}
+			}
+		};
 		// action listener for the save button
-	    m_SaveButton.addActionListener(new ActionListener() {
-	        @Override
-	        public void actionPerformed(ActionEvent event) {
-	            System.out.println("Test save button");
-	        }
-	    });
+    m_SaveButton.addActionListener(actListner2);
+
+
+
 	}
 
 
@@ -310,21 +317,22 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 	 *	@return null
 	*/
 	public void actionPerformed(ActionEvent event) {
-		String colour1 = getGame().getPlayer(PLAYER_ONE).getColour();
-		String colour2 = getGame().getPlayer(PLAYER_TWO).getColour();
-		getTurnLabel().setText(getGame().getPlayer(PLAYER_ONE).getName() + "'s turn");
-		setGame(getGame().getPlayer(PLAYER_ONE).getName(), getGame().getPlayer(PLAYER_TWO).getName());
+			String colour1 = getGame().getPlayer(PLAYER_ONE).getColour();
+			String colour2 = getGame().getPlayer(PLAYER_TWO).getColour();
+			getTurnLabel().setText(getGame().getPlayer(PLAYER_ONE).getName() + "'s turn");
+			setGame(getGame().getPlayer(PLAYER_ONE).getName(), getGame().getPlayer(PLAYER_TWO).getName());
 
-		setTime(0);
+			setTime(0);
 
-		try {
-			update(getGame().getBoard(), colour1, colour2);
-		} catch (IOException e) {
-			System.out.println("IOException error @ ProgramController::acionPerformed()");
-		}
+			try {
+				update(getGame().getBoard(), colour1, colour2);
+			} catch (IOException e) {
+				System.out.println("IOException error @ ProgramController::acionPerformed()");
+			}
 
-		setTurn(0); //Reset turn to 0.
-		getTurnNumberLabel().setText("Turn: 1");
+			setTurn(0); //Reset turn to 0.
+			getTurnNumberLabel().setText("Turn: 1");
+
 	}
 
 	/**
@@ -378,7 +386,7 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 		new Thread(
 			new Runnable(){
 				public void run(){
-					if(hidden == IMAGE_SIZE_100){ 
+					if(hidden == IMAGE_SIZE_100){
 						try{
 							for(int i = 0; i < height; i++){
 								setImage(width,i,(new ImageIcon(piece_Image1)));
@@ -392,7 +400,7 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 				}
 			}
 		).start();
-		
+
 	}
   /**
    *	Method that updates the board with new moves that have been taken
@@ -428,7 +436,7 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 						getLabel(x,y).setDisplayedMnemonic(IMAGE_SIZE_500);
 					} else {
 						BufferedImage piece_Image = ImageIO.read(new File("../Images/" + colour2 + "Piece.png"));
-						dropPiece(x,y,piece_Image);					
+						dropPiece(x,y,piece_Image);
 						getLabel(x,y).setDisplayedMnemonic(IMAGE_SIZE_300);
 					}
 				}else{
@@ -681,7 +689,6 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 	  setLocationRelativeTo(null);
 		setVisible(true);
     }
-
 
 	/* Symbolic constants */
     private final int PLAYER_ONE = 0;

@@ -50,6 +50,7 @@ public class C4SaveManager {
    * @return boolean
    */
   public boolean saveData(C4AndOthelloBoardStore board) throws IOException{
+    System.out.println("Saving....");
     nameFile(SAVE);
     m_FileName = PATH+ m_FileName +FILETYPE;
     m_Writer = new CSVWriter(new FileWriter(m_FileName));
