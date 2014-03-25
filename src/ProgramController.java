@@ -618,10 +618,9 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 
   public void mousePressed(MouseEvent e) {}
   public void mouseReleased(MouseEvent e) {}
-<<<<<<< HEAD
-  //public void mouseEntered(MouseEvent e) {}
-=======
->>>>>>> FETCH_HEAD
+
+  public void mouseEntered(MouseEvent e) {}
+
   public void mouseExited(MouseEvent e) {}
 
   /**
