@@ -1,8 +1,11 @@
 import javax.swing.*;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+/**
+ * STILL NOT FINISHED
+ */
 
 /**
  * @author Jamie I Davies
@@ -35,8 +38,8 @@ public class SplashScreen extends JFrame{
         /** 2 cols 1 row JPanel */
         JPanel panel = new JPanel(new GridLayout(1,GRID_COLS));
         m_splash.getContentPane().add(panel);
-        ImageIcon c4ButtonIMG = new ImageIcon("../Images/Connect4Button.png");
-        ImageIcon othButtonIMG = new ImageIcon("../Images/OthelloButton.png");
+        ImageIcon c4ButtonIMG = new ImageIcon("../Images/C4SplashScreenImage.png");
+        ImageIcon othButtonIMG = new ImageIcon("../Images/OthSplashScreenImage.png");
         JButton c4Button = new JButton("", c4ButtonIMG);
         JButton othButton = new JButton("", othButtonIMG);
          // action listener for the C4 button
@@ -47,7 +50,8 @@ public class SplashScreen extends JFrame{
                 /*
                  * play game here
                  */
-                m_splash.setVisible(true);             }
+                m_splash.setVisible(true);             
+            }
         });
          // othello button action listener
             othButton.addActionListener(new ActionListener() {
@@ -57,7 +61,8 @@ public class SplashScreen extends JFrame{
                 /*
                  * game here
                  */
-                m_splash.setVisible(true);   }
+                m_splash.setVisible(true);   
+            }
         });
         //add buttons to panel
         panel.add(c4Button);
@@ -70,7 +75,7 @@ public class SplashScreen extends JFrame{
     }
     
     public static void main(String args[]) {
-        /** call GUI method */
+        /** testing to call GUI method */
         SplashScreen splashScreen = new SplashScreen();
         splashScreen.initGUI();
     }
