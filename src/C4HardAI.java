@@ -27,6 +27,8 @@ public class C4HardAI {
 	private int[][] m_boardState = new int[BOARD_WIDTH][BOARD_HEIGHT];
 	private int[] m_possibleMoves3;
 	private int[] m_possibleMoves2;
+	private int[] m_blockColMoves;
+	private int[] m_blockRowMoves;
 	private boolean m_lineFound3;
 	private boolean m_lineFound2;
 	private boolean m_lineFoundAny;
@@ -41,6 +43,8 @@ public class C4HardAI {
 		m_rand = new Random();
 		m_possibleMoves3 = new int[BOARD_WIDTH];
 		m_possibleMoves2 = new int[BOARD_WIDTH];
+		m_blockColMoves = new int[BOARD_WIDTH];
+		m_blockRowMoves = new int[BOARD_WIDTH];
 		m_lineFound3 = false;
 		m_lineFound2 = false;
 		m_lineFoundAny = false;
@@ -58,6 +62,8 @@ public class C4HardAI {
 		for(int x = 0; x < BOARD_WIDTH; x++) {
 			m_possibleMoves2[x] = INVALID;
 			m_possibleMoves3[x] = INVALID;
+			m_blockColMoves[x] = INVALID;
+			m_blockRowMoves[x] = INVALID;
 		}
 		
 		// Calculate current board state and place in m_boardState
@@ -65,9 +71,6 @@ public class C4HardAI {
 		for(int i = 0; i < BOARD_WIDTH; i++) {
 			for(int j = 0; j < BOARD_HEIGHT; j++) {
 				m_currentPiece = PC.getGame().getPiece(i, j);
-				System.out.println("ERROR TESTING:");
-				System.out.println("CO-ORDINATES: " + i + " " + j);
-				System.out.println("PIECE COLOUR FOUND: " + m_currentPiece.getColour());
 				if(m_currentPiece.getColour().equals("")) {				
 					m_boardState[i][j] = EMPTY;
 				} else if (m_currentPiece.getColour().equals(PLAYER_ONE_PIECE_COLOUR)) {
@@ -77,6 +80,33 @@ public class C4HardAI {
 				}
 			}
 		}
+		
+		boolean m_blockPlayer = true;
+		
+		if(m_blockPlayer) {
+			if(blockPlayerCols()) {
+				while(m_validMove == false) {
+					m_selectedCol = m_rand.nextInt(BOARD_WIDTH);
+					if(m_blockColMoves[m_selectedCol] == VALID) {
+						m_validMove = true;
+						return m_selectedCol;
+					}
+				}
+			}
+			
+			if(blockPlayerRows()) {
+				while(m_validMove == false) {
+					m_selectedCol = m_rand.nextInt(BOARD_WIDTH);
+					if(m_blockRowMoves[m_selectedCol] == VALID) {
+						m_validMove = true;
+						System.out.println("ROW BLOCKED");
+						return m_selectedCol;
+					}
+				}
+			}
+		}
+		
+
 		
 		boolean examine1 = extendCols();
 		boolean examine2 = extendRows();
@@ -126,8 +156,8 @@ public class C4HardAI {
 			for(int j = 0; j < BOARD_HEIGHT; j++) {
 				if(j >= 3 && m_boardState[i][j] == PLAYER_TWO) {
 					if(m_boardState[i][j-1] == PLAYER_TWO &&
-					   m_boardState[i][j-2] == PLAYER_TWO &&
-					   m_boardState[i][j-3] == EMPTY) {
+					m_boardState[i][j-2] == PLAYER_TWO &&
+					m_boardState[i][j-3] == EMPTY) {
 						
 						m_possibleMoves3[i] = VALID;
 						m_lineFound3 = true;
@@ -144,7 +174,7 @@ public class C4HardAI {
 			for(int j = 0; j < BOARD_HEIGHT; j++) {
 				if(j >= 3 && m_boardState[i][j] == PLAYER_TWO) {
 					if(m_boardState[i][j-1] == PLAYER_TWO &&
-					   m_boardState[i][j-2] == EMPTY) {
+					m_boardState[i][j-2] == EMPTY) {
 						
 						m_possibleMoves2[i] = VALID;
 						m_lineFound2 = true;
@@ -165,12 +195,12 @@ public class C4HardAI {
 		
 		boolean movesFound = false;
 		
-		for(int i = 0; i < BOARD_WIDTH - 3; i++) {
+		for(int i = 0; i < BOARD_WIDTH; i++) {
 			for(int j = 0; j < BOARD_HEIGHT; j++) {
-				if(m_boardState[i][j] == PLAYER_TWO) {
+				if(i < BOARD_WIDTH - 3 && m_boardState[i][j] == PLAYER_TWO) {
 					if(m_boardState[i+1][j] == PLAYER_TWO &&
-					   m_boardState[i+2][j] == PLAYER_TWO &&
-					   m_boardState[i+3][j] == EMPTY) {
+					m_boardState[i+2][j] == PLAYER_TWO &&
+					m_boardState[i+3][j] == EMPTY) {
 						
 						m_possibleMoves3[i+3] = VALID;
 						if(i >=1 && m_boardState[i-1][j] == EMPTY) {
@@ -186,11 +216,11 @@ public class C4HardAI {
 		
 		if(movesFound) { return true; }
 		
-		for(int i = 0; i < BOARD_WIDTH - 2; i++) {
+		for(int i = 0; i < BOARD_WIDTH; i++) {
 			for(int j = 0; j < BOARD_HEIGHT; j++) {
-				if(m_boardState[i][j] == PLAYER_TWO) {
+				if(i < BOARD_WIDTH - 2 && m_boardState[i][j] == PLAYER_TWO) {
 					if(m_boardState[i+1][j] == PLAYER_TWO &&
-					   m_boardState[i+2][j] == EMPTY) {
+					m_boardState[i+2][j] == EMPTY) {
 						
 						m_possibleMoves2[i+2] = VALID;
 						if(i >=1 && m_boardState[i-1][j] == EMPTY) {
@@ -215,15 +245,18 @@ public class C4HardAI {
 		
 		boolean movesFound = false;
 		
-		for(int i = 0; i < BOARD_WIDTH - 3; i++) {
-			for(int j = 0; j < BOARD_HEIGHT - 3; j++) {
-				if(m_boardState[i][j] == PLAYER_TWO) {
-					if(m_boardState[i+1][j+1] == PLAYER_TWO &&
-					   m_boardState[i+2][j+2] == PLAYER_TWO &&
-					   m_boardState[i+3][j+3] == EMPTY) {
+		for(int i = 0; i < BOARD_WIDTH; i++) {
+			for(int j = 0; j < BOARD_HEIGHT; j++) {
+				if(i < BOARD_WIDTH - 3 && 
+				j >= 3 &&
+				m_boardState[i][j] == PLAYER_TWO) {
+					if(m_boardState[i+1][j-1] == PLAYER_TWO &&
+					   m_boardState[i+2][j-2] == PLAYER_TWO &&
+					   m_boardState[i+3][j-3] == EMPTY) {
 						
 						m_possibleMoves3[i+3] = VALID;
-						if(i >=1 && m_boardState[i-1][j-1] == EMPTY) {
+						if(i >=1 && j < BOARD_HEIGHT - 1 &&
+					    m_boardState[i-1][j+1] == EMPTY) {
 							m_possibleMoves3[i-1] = VALID;
 						}
 						m_lineFound3 = true;
@@ -236,14 +269,16 @@ public class C4HardAI {
 		
 		if(movesFound) { return true; }
 		
-		for(int i = 0; i < BOARD_WIDTH - 2; i++) {
-			for(int j = 0; j < BOARD_HEIGHT - 2; j++) {
-				if(m_boardState[i][j] == PLAYER_TWO) {
-					if(m_boardState[i+1][j+1] == PLAYER_TWO &&
-					   m_boardState[i+2][j+2] == EMPTY) {
+		for(int i = 0; i < BOARD_WIDTH; i++) {
+			for(int j = 0; j < BOARD_HEIGHT; j++) {
+				if(i < BOARD_WIDTH - 3 && 
+				   j >= 3 &&
+				   m_boardState[i][j] == PLAYER_TWO) {
+					if(m_boardState[i+1][j-1] == PLAYER_TWO &&
+					   m_boardState[i+2][j-2] == EMPTY) {
 						
 						m_possibleMoves2[i+2] = VALID;
-						if(i >=1 && m_boardState[i-1][j-1] == EMPTY) {
+						if(i >=1 && j < BOARD_HEIGHT - 1 && m_boardState[i-1][j+1] == EMPTY) {
 							m_possibleMoves2[i-1] = VALID;
 						}
 						m_lineFound2 = true;
@@ -267,14 +302,15 @@ public class C4HardAI {
 		boolean movesFound = false;
 		
 		for(int i = 0; i < BOARD_WIDTH; i++) {
-			for(int j = 0; j < BOARD_HEIGHT - 3; j++) {				
-				if(i >= 3 && m_boardState[i][j] == PLAYER_TWO) {
-					if(m_boardState[i-1][j+1] == PLAYER_TWO &&
-					   m_boardState[i-2][j+2] == PLAYER_TWO &&
-					   m_boardState[i-3][j+3] == EMPTY) {
+			for(int j = 0; j < BOARD_HEIGHT; j++) {				
+				if(i >= 3 && j >= 3 && m_boardState[i][j] == PLAYER_TWO) {
+					if(m_boardState[i-1][j-1] == PLAYER_TWO &&
+					   m_boardState[i-2][j-2] == PLAYER_TWO &&
+					   m_boardState[i-3][j-3] == EMPTY) {
 							
 							m_possibleMoves3[i-3] = VALID;
-							if(i < (BOARD_WIDTH - 1) && m_boardState[i+1][j-1] == EMPTY) {
+							if(i < (BOARD_WIDTH - 1) && j < BOARD_HEIGHT - 1 && 
+							m_boardState[i+1][j+1] == EMPTY) {
 								m_possibleMoves3[i+1] = VALID;
 							}
 							m_lineFound3 = true;
@@ -287,13 +323,13 @@ public class C4HardAI {
 		if(movesFound) { return true; }
 		
 		for(int i = 0; i < BOARD_WIDTH; i++) {
-			for(int j = 0; j < BOARD_HEIGHT - 3; j++) {				
-				if(i >= 2 && m_boardState[i][j] == PLAYER_TWO) {
-					if(m_boardState[i-1][j+1] == PLAYER_TWO &&
-					   m_boardState[i-2][j+2] == EMPTY) {
+			for(int j = 0; j < BOARD_HEIGHT; j++) {				
+				if(i >= 2 && j >= 2 && m_boardState[i][j] == PLAYER_TWO) {
+					if(m_boardState[i-1][j-1] == PLAYER_TWO &&
+					   m_boardState[i-2][j-2] == EMPTY) {
 							
 							m_possibleMoves2[i-2] = VALID;
-							if(i < (BOARD_WIDTH - 1) && m_boardState[i+1][j-1] == EMPTY) {
+							if(i < (BOARD_WIDTH - 1) && j > BOARD_HEIGHT - 1 && m_boardState[i+1][j+1] == EMPTY) {
 								m_possibleMoves2[i+1] = VALID;
 							}
 							m_lineFound2 = true;
@@ -310,4 +346,63 @@ public class C4HardAI {
 		}
 		
 	}
+	
+	private boolean blockPlayerCols() {
+		
+		boolean playerColsFound = false;
+		
+		for(int i = 0; i < BOARD_WIDTH; i++) {
+			for(int j = 0; j < BOARD_HEIGHT; j++) {
+				if(j >= 3 && m_boardState[i][j] == PLAYER_ONE) {
+					if(m_boardState[i][j-1] == PLAYER_ONE &&
+					m_boardState[i][j-2] == PLAYER_ONE &&
+					m_boardState[i][j-3] == EMPTY) {
+						
+						m_blockColMoves[i] = VALID;
+						playerColsFound = true;
+					}
+					
+				}
+			}
+		}
+		return playerColsFound;
+	}
+	
+	private boolean blockPlayerRows() {
+		
+		boolean playerRowsFound = false;
+		
+		for(int i = 0; i < BOARD_WIDTH; i++) {
+			for(int j = 0; j < BOARD_HEIGHT; j++) {
+				if(i < BOARD_WIDTH - 3 && m_boardState[i][j] == PLAYER_ONE) {
+					if(m_boardState[i+1][j] == PLAYER_ONE &&
+					m_boardState[i+2][j] == PLAYER_ONE &&
+					m_boardState[i+3][j] == EMPTY) {
+						
+						m_blockRowMoves[i+3] = VALID;
+						
+						playerRowsFound = true;
+					}
+					
+				}
+				
+				if(i < BOARD_WIDTH - 3 && i >= 1 && m_boardState[i][j] == PLAYER_ONE) {
+					if(m_boardState[i+1][j] == PLAYER_ONE &&
+					m_boardState[i+2][j] == PLAYER_ONE &&
+					m_boardState[i-1][j] == EMPTY) {
+						
+						m_blockRowMoves[i-1] = VALID;
+						
+						playerRowsFound = true;
+					}
+					
+				}
+			}
+		}
+		
+		return playerRowsFound;
+	}
+	
 }
+
+
