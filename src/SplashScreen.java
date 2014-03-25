@@ -17,11 +17,20 @@ public class SplashScreen extends JFrame{
 	ProgramController controller = new ProgramController();
 
     private Main m_splash;
-    private static final int JFRAME_WIDTH = 750;
-    private static final int JFRAME_HEIGHT = 350;
-    private static final int GRID_COLS = 2;
-    
-    
+    private Main m_options;
+    private Main m_playerNames;
+    private static final int SPLASH_JFRAME_WIDTH = 732;
+    private static final int SPLASH_JFRAME_HEIGHT = 288;
+    private static final int PLAYER_JFRAME_WIDTH = 280;
+    private static final int PLAYER_JFRAME_HEIGHT = 300;
+    private static final int PLAYNAMES_JFRAME_WIDTH = 280;
+    private static final int PLAYNAMES_JFRAME_HEIGHT = 300;
+    private static final int SPLASH_GRID_COLS = 2;
+    private static final int PLAYER_GRID_COLS = 2;
+    private static final int PLAYER_GRID_ROWS = 5;
+    private static final int PLAYNAMES_GRID_COLS = 2;
+    private static final int PLAYNAMES_GRID_ROWS = 5;    
+    private static String gameChoice;
 
     /**
      * Set splash screen to visible
@@ -29,39 +38,49 @@ public class SplashScreen extends JFrame{
     public SplashScreen(){
         m_splash = new Main();
         m_splash.setVisible(true);
+        
+        m_options = new Main();
+        m_options.setVisible(true);
+        
+        m_playerNames = new Main();
+        m_playerNames.setVisible(true);
+        
     }
 
     /**
      * method to initialise all the GUI Swing elements for the SplashScreen
      */
-    public void initGUI() {
+    public void initSplash() {
         /** 2 cols 1 row JPanel */
-        JPanel panel = new JPanel(new GridLayout(1,GRID_COLS));
+        JPanel panel = new JPanel(new GridLayout(1,SPLASH_GRID_COLS));
+        
         m_splash.getContentPane().add(panel);
         ImageIcon c4ButtonIMG = new ImageIcon("../Images/C4SplashScreenImage.png");
         ImageIcon othButtonIMG = new ImageIcon("../Images/OthSplashScreenImage.png");
         JButton c4Button = new JButton("", c4ButtonIMG);
         JButton othButton = new JButton("", othButtonIMG);
-         // action listener for the C4 button
+        
+        // action listener for the C4 button
         c4Button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent event) {
+                //call the options splash screen
+                System.out.println("Play Connect 4...");
+                gameChoice = "Connect 4";
                 m_splash.setVisible(false);
-                /*
-                 * play game here
-                 */
-                m_splash.setVisible(true);             
+                initPlayerOptions();
             }
         });
          // othello button action listener
             othButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent event) {
+                //call the options splash screen
+                System.out.println("Play Othello...");
+                gameChoice = "Othello";
                 m_splash.setVisible(false);
-                /*
-                 * game here
-                 */
-                m_splash.setVisible(true);   
+                
+                initPlayerOptions();
             }
         });
         //add buttons to panel
@@ -69,14 +88,101 @@ public class SplashScreen extends JFrame{
         panel.add(othButton);
         //initialise JFrame
         m_splash.setTitle("A5 Complete Implementation : Connect 4 and Othello : Group 3 ");
-        m_splash.setSize(JFRAME_WIDTH, JFRAME_HEIGHT);
+        m_splash.setSize(SPLASH_JFRAME_WIDTH, SPLASH_JFRAME_HEIGHT);
         m_splash.setLocationRelativeTo(null);
         m_splash.setDefaultCloseOperation(EXIT_ON_CLOSE);
+    }
+    
+    public void initPlayerOptions() {
+        /** 2 cols 2 rows JPanel */
+        JPanel playerOptionsPanel = new JPanel(new GridLayout(PLAYER_GRID_ROWS,PLAYER_GRID_COLS));
+        m_options.getContentPane().add(playerOptionsPanel);
+        ImageIcon humanPlayerIMG = new ImageIcon("../Images/HumanImageWD.png");
+        ImageIcon easyAIButtonIMG = new ImageIcon("../Images/AIEasyImageWD.png");
+        ImageIcon hardAIButtonIMG = new ImageIcon("../Images/AIHardImageWD.png");
+        JButton humanButton = new JButton("", humanPlayerIMG);
+        JButton easyAIButton = new JButton("", easyAIButtonIMG);
+        JButton hardAIButton = new JButton("", hardAIButtonIMG);
+         // action listener for the human button
+        humanButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent event) {
+                /*
+                 * play game here
+                 */
+                System.out.println("Human Players.."); 
+                m_options.setVisible(false);
+                initPlayerNaming();
+            }
+        });
+        // action listener for the easy AI button
+            easyAIButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent event) {
+                /*
+                 * game here
+                 */
+                System.out.println("Easy AI...");
+            }
+        });
+         // action listener for the hard AI button
+            hardAIButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent event) {
+                /*
+                 * game here
+                 */
+                System.out.println("Hard AI...");
+            }
+        });
+            
+        //add buttons to panel
+        playerOptionsPanel.add(humanButton);
+        playerOptionsPanel.add(easyAIButton);
+        playerOptionsPanel.add(hardAIButton);
+        //initialise JFrame
+        m_options.setTitle("Play Options");
+        m_options.setSize(PLAYER_JFRAME_WIDTH, PLAYER_JFRAME_HEIGHT);
+        m_options.setLocationRelativeTo(null);
+        m_options.setDefaultCloseOperation(EXIT_ON_CLOSE);
+    }
+    
+    public void initPlayerNaming() {
+        /** 2 cols 2 rows JPanel */
+        JPanel playerNamesPanel = new JPanel(new GridLayout(PLAYNAMES_GRID_ROWS,PLAYNAMES_GRID_COLS));
+        m_options.getContentPane().add(playerNamesPanel);
+        JButton playButton = new JButton("Play ");
+        JTextField player1 = new JTextField();
+        JTextField player2 = new JTextField();
+        JLabel label1 = new JLabel("Player 1 Name: ");
+        JLabel label2 = new JLabel("Player 2 Name: ");
+        
+         // action listener for the human button
+        playButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent event) {
+                /*
+                 * play game here
+                 */
+                System.out.println("Human Players..");            
+            }
+        });
+        //add buttons to panel
+        playerNamesPanel.add(label1);
+        playerNamesPanel.add(label2);
+        playerNamesPanel.add(player1);
+        playerNamesPanel.add(player2);
+        playerNamesPanel.add(playButton);
+        //initialise JFrame
+        m_playerNames.setTitle("Set Player Names");
+        m_playerNames.setSize(PLAYNAMES_JFRAME_WIDTH, PLAYNAMES_JFRAME_HEIGHT);
+        m_playerNames.setLocationRelativeTo(null);
+        m_playerNames.setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
     
     public static void main(String args[]) {
         /** testing to call GUI method */
         SplashScreen splashScreen = new SplashScreen();
-        splashScreen.initGUI();
+        splashScreen.initPlayerNaming();
     }
 }
