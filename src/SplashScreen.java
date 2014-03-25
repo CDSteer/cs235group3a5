@@ -1,7 +1,9 @@
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.*;
 
 /**
  * STILL NOT FINISHED
@@ -15,6 +17,7 @@ import java.awt.event.ActionListener;
 public class SplashScreen extends JFrame{
 	
 	ProgramController controller = new ProgramController();
+	private static JFileChooser fileChooser = new JFileChooser();
 
     private Main m_splash;
     private Main m_options;
@@ -26,8 +29,8 @@ public class SplashScreen extends JFrame{
     private static final int PLAYNAMES_JFRAME_WIDTH = 280;
     private static final int PLAYNAMES_JFRAME_HEIGHT = 300;
     private static final int SPLASH_GRID_COLS = 2;
-    private static final int PLAYER_GRID_COLS = 2;
-    private static final int PLAYER_GRID_ROWS = 5;
+    private static final int PLAYER_GRID_COLS = 3;
+    private static final int PLAYER_GRID_ROWS = 1;
     private static final int PLAYNAMES_GRID_COLS = 5;
     private static final int PLAYNAMES_GRID_ROWS = 5;    
     private static String gameChoice;
@@ -121,9 +124,7 @@ public class SplashScreen extends JFrame{
             @Override
             public void actionPerformed(ActionEvent event) {
             	m_options.setVisible(true);
-            	/*
-                 * game here
-                 */
+            	
                 System.out.println("Easy AI...");
             }
         });
@@ -219,6 +220,12 @@ public class SplashScreen extends JFrame{
         m_playerNames.setLocationRelativeTo(null);
         m_playerNames.setDefaultCloseOperation(EXIT_ON_CLOSE);
         
+    }
+    
+    public static void chooserDemo() {
+    	
+    	
+
     }
     
     public static void main(String args[]) {
