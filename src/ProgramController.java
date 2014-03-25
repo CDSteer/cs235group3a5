@@ -117,18 +117,12 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 	 */
 	private void setSaveButton(){
 		m_SaveButton = new JButton("Save Game");
-<<<<<<< HEAD
-		m_Constraints.gridy = getBoard().getBoardHeight() + 4;
-		m_Constraints.gridx = getBoard().getBoardWidth() / DIVIDE_BY_TWO - 7;
-		m_Constraints.gridwidth = NEW_GAME_GRID_WIDTH;
-=======
 		m_Constraints.gridy = getBoard().getBoardHeight() + ADD_FOUR;
 		m_Constraints.gridx = getBoard().getBoardWidth() / DIVIDE_BY_TWO - SUBTRACT_SEVEN;
-		m_Constraints.gridwidth = NEW_GAME_GRID_WIDTH;	
->>>>>>> FETCH_HEAD
+		m_Constraints.gridwidth = NEW_GAME_GRID_WIDTH;
 		m_Container.add(m_SaveButton, m_Constraints);
 		//m_SaveButton.addActionListener(this);
-		
+
 		// action listener for the save button
 	    m_SaveButton.addActionListener(new ActionListener() {
 	        @Override
@@ -137,7 +131,7 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 	        }
 	    });
 	}
-	
+
 
 	/**
 	 *	Create label to display name of current player
@@ -627,7 +621,7 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
                                              null,
                                              options,
                                              options[1]);
-    
+
     //shit load of method calls
 	setIsC4(userOption);
 	setGame(player1, player2);
@@ -640,7 +634,7 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 	setTurnNumberLabel("Turn: 1");
 	setTimerLabel();
 	startTimer();
-		
+
 	//AI stuff
 		if(m_playerSelection == EASY_AI) {
 			if(this.getIsC4() == true) {
