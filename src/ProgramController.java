@@ -367,6 +367,53 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
     }
 
   }
+  /**
+	 *	Mouse event handler method that checks where user has enter into particular coordinate on Connect 4 board,
+	 *	then runs the arrowPointer method with the coordinates of the move
+	 *	@param e - mouse event
+	 *	@return null
+  */
+  public void mouseEntered(MouseEvent e) {
+	if(getGame().checkWin() == false){
+	System.out.println("Mouse Entered");
+	}
+		try{
+		for(int y = 0; y < getBoard().getBoardHeight(); y++){
+			for(int x = 0; x < getBoard().getBoardWidth(); x++){
+				    if(getIsC4() == true){
+						if(e.getSource()==getLabel(x,y)){
+							arrowPointer(x,0);          // 6 as always on top
+						}		
+					}
+			}
+		}
+		}catch(IOException e2){
+			System.out.println("IOException error @ ProgramController::mouseEntered()");
+		}
+    }
+	
+	/**
+	* Animation of mouse pointing at row in Connect 4
+	*	@param  x	x coordinate of mouse clicked postion
+	*	@param	y   y coordinate of mouse clicked postion
+	*	@return null
+	*/
+	public void arrowPointer(int x, int y) throws IOException{
+		final BufferedImage arrow_Image = ImageIO.read(new File("../Images/Connect4arrow.png"));
+		final BufferedImage blank_Image = ImageIO.read(new File("../Images/Connect4Background.png"));
+		int hidden;
+		for(int i = 0; i < getBoard().getBoardWidth(); i++){
+			hidden = getLabel(i,0).getDisplayedMnemonic();
+			if(hidden == IMAGE_SIZE_100){
+				setImage(i,0,(new ImageIcon(blank_Image)));
+				getLabel(i,0).setDisplayedMnemonic(IMAGE_SIZE_100);
+			}
+		}
+		hidden = getLabel(x,y).getDisplayedMnemonic();
+		if(hidden == IMAGE_SIZE_100){
+			setImage(x,y,(new ImageIcon(arrow_Image)));
+		}
+	}
 
 	/**
 	* Animation of falling piece
