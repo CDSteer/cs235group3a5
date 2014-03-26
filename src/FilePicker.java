@@ -1,7 +1,5 @@
-import java.io.File;
-import javax.swing.JFileChooser;
-import javax.swing.filechooser.FileFilter;
-import javax.swing.filechooser.FileNameExtensionFilter;
+import java.awt.FileDialog;
+import javax.swing.*;
 
 /**
  * @author Jamie I Davies, Chris Jenkins
@@ -10,22 +8,28 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  * @detail will only allow user to select a .csv file
  */
 
-public class FilePicker {
+public class FilePicker extends JFrame {
+   
    
   public static void showFileBrowser() {
-	  JFileChooser fileopen = new JFileChooser();
-	  //accept csv files only  
-	  FileFilter filter = new FileNameExtensionFilter("csv files", "csv");
-	  fileopen.setFileFilter(filter);
-	  fileopen.addChoosableFileFilter(filter);
-
-	  //set values of dialog, add title of dialog and button  
-	  int ret = fileopen.showDialog(null, "Load Game");
-
-	    //load here... currently just reads in a file
-	    if (ret == JFileChooser.APPROVE_OPTION) {
-	      File file = fileopen.getSelectedFile();
-	      System.out.println("PATH: " + file);
-	    }
+	  JFrame frame = new JFrame();
+	  
+	  FileDialog fc = new FileDialog(frame, "Load a Game Save", FileDialog.LOAD);
+	  //set default directory  
+	  fc.setDirectory("../SAVEDATA/");
+	  //set file format
+	  fc.setFile("*.csv");
+	  //enable the file dialog  
+	  fc.setVisible(true);
+	  //string to store file name
+	  String fn = fc.getFile();
+	  //if to catch the cancel exception
+	  if (fn == null)
+		  System.out.println("You cancelled the choice");
+	  else
+		  System.out.println("You chose " + fn);
+  	}
+  
   }
-}
+	    
+  
