@@ -374,23 +374,22 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 	 *	@return null
   */
   public void mouseEntered(MouseEvent e) {
-	if(getGame().checkWin() == false){
-	System.out.println("Mouse Entered");
-	}
+	if(getIsC4() == true){
 		try{
-		for(int y = 0; y < getBoard().getBoardHeight(); y++){
-			for(int x = 0; x < getBoard().getBoardWidth(); x++){
-				    if(getIsC4() == true){
+			for(int y = 0; y < getBoard().getBoardHeight(); y++){
+				for(int x = 0; x < getBoard().getBoardWidth(); x++){
+					if(getIsC4() == true){
 						if(e.getSource()==getLabel(x,y)){
 							arrowPointer(x,0);          // 6 as always on top
 						}
 					}
+				}
 			}
-		}
 		}catch(IOException e2){
 			System.out.println("IOException error @ ProgramController::mouseEntered()");
 		}
-    }
+	}
+}
 
 	/**
 	* Animation of mouse pointing at row in Connect 4
@@ -431,23 +430,25 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 		final int hidden = getLabel(x,y).getDisplayedMnemonic();
 		final BufferedImage piece_Image1 = piece_Image;
 		final BufferedImage blank_Image = ImageIO.read(new File("../Images/Connect4Background.png"));
-		new Thread(
-			new Runnable(){
-				public void run(){
-					if(hidden == IMAGE_SIZE_100){
-						try{
-							for(int i = 0; i < height; i++){
-								setImage(width,i,(new ImageIcon(piece_Image1)));
-								Thread.sleep(100);
-								setImage(width,i,(new ImageIcon(blank_Image)));
+		if(getIsC4() == true){
+			new Thread(
+				new Runnable(){
+					public void run(){
+						if(hidden == IMAGE_SIZE_100){
+							try{
+								for(int i = 0; i < height; i++){
+									setImage(width,i,(new ImageIcon(piece_Image1)));
+									Thread.sleep(100);
+									setImage(width,i,(new ImageIcon(blank_Image)));
+								}
+								setImage(width,height,(new ImageIcon(piece_Image1)));
+							}catch(InterruptedException e){
 							}
-							setImage(width,height,(new ImageIcon(piece_Image1)));
-						}catch(InterruptedException e){
 						}
 					}
 				}
-			}
-		).start();
+			).start();
+		}
 
 	}
   /**
@@ -466,12 +467,13 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
     for(int y = 0; y<boardHeight; y++){
       for(int x = 0; x<boardWidth; x++){
 			int hidden = getLabel(x,y).getDisplayedMnemonic();
+				/*Set Label as empty block, if board(x,y) is Empty*/
 				if(board.isEmpty(x,y) == true) {
 					setImage(x,y,(new ImageIcon(getBGImage())));
 					getLabel(x,y).setDisplayedMnemonic(IMAGE_SIZE_100);
 				} else if (board.getBoard()[x][y].getColour().equals(colour1)) {
-
-					if (hidden == IMAGE_SIZE_300 || hidden == IMAGE_SIZE_500) {
+					/*Check if it is not player2 piece*/
+					if (getIsC4() == false || hidden == IMAGE_SIZE_300 || hidden == IMAGE_SIZE_500) {
 						setImage(x,y,(new OthelloPieceColourChanger().flip(board.getBoard()[x][y])));
 						getLabel(x,y).setDisplayedMnemonic(IMAGE_SIZE_400);
 					} else {
@@ -479,8 +481,9 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 						dropPiece(x,y,piece_Image);
 						getLabel(x,y).setDisplayedMnemonic(IMAGE_SIZE_200);
 					}
-					} else if (board.getBoard()[x][y].getColour().equals(colour2)) {
-					if (hidden == IMAGE_SIZE_200 || hidden == IMAGE_SIZE_400) {
+				} else if (board.getBoard()[x][y].getColour().equals(colour2)) {
+					/*Check if it is not player1 piece*/
+					if (getIsC4() == false || hidden == IMAGE_SIZE_200 || hidden == IMAGE_SIZE_400) {
 						setImage(x,y,(new OthelloPieceColourChanger().flip(board.getBoard()[x][y])));
 						getLabel(x,y).setDisplayedMnemonic(IMAGE_SIZE_500);
 					} else {
