@@ -18,7 +18,13 @@ public class C4HardAI {
 	private final int EMPTY = 2;
 	private final int VALID = 0;
 	private final int INVALID = 1;
-	private final String PLAYER_ONE_PIECE_COLOUR = "Red";
+    private final int INCREMENT_2 = 2;
+    private final int INCREMENT_3 = 3;
+    private final int DECREMENT_2 = 2;
+    private final int DECREMENT_3 = 3;
+    private final int BOUNDARY_2 = 2;
+    private final int BOUNDARY_3 = 3;
+    private final String PLAYER_ONE_PIECE_COLOUR = "Red";
 	private final String PLAYER_TWO_PIECE_COLOUR = "Yellow";
 	
 	private Random m_rand;
@@ -154,10 +160,10 @@ public class C4HardAI {
 		
 		for(int i = 0; i < BOARD_WIDTH; i++) {
 			for(int j = 0; j < BOARD_HEIGHT; j++) {
-				if(j >= 3 && m_boardState[i][j] == PLAYER_TWO) {
+				if(j >= BOUNDARY_3 && m_boardState[i][j] == PLAYER_TWO) {
 					if(m_boardState[i][j-1] == PLAYER_TWO &&
-					m_boardState[i][j-2] == PLAYER_TWO &&
-					m_boardState[i][j-3] == EMPTY) {
+					m_boardState[i][j- DECREMENT_2] == PLAYER_TWO &&
+					m_boardState[i][j- DECREMENT_3] == EMPTY) {
 						
 						m_possibleMoves3[i] = VALID;
 						m_lineFound3 = true;
@@ -172,9 +178,9 @@ public class C4HardAI {
 		
 		for(int i = 0; i < BOARD_WIDTH; i++) {
 			for(int j = 0; j < BOARD_HEIGHT; j++) {
-				if(j >= 3 && m_boardState[i][j] == PLAYER_TWO) {
+				if(j >= BOUNDARY_3 && m_boardState[i][j] == PLAYER_TWO) {
 					if(m_boardState[i][j-1] == PLAYER_TWO &&
-					m_boardState[i][j-2] == EMPTY) {
+					m_boardState[i][j- DECREMENT_2] == EMPTY) {
 						
 						m_possibleMoves2[i] = VALID;
 						m_lineFound2 = true;
@@ -197,12 +203,12 @@ public class C4HardAI {
 		
 		for(int i = 0; i < BOARD_WIDTH; i++) {
 			for(int j = 0; j < BOARD_HEIGHT; j++) {
-				if(i < BOARD_WIDTH - 3 && m_boardState[i][j] == PLAYER_TWO) {
+				if(i < BOARD_WIDTH - DECREMENT_3 && m_boardState[i][j] == PLAYER_TWO) {
 					if(m_boardState[i+1][j] == PLAYER_TWO &&
-					m_boardState[i+2][j] == PLAYER_TWO &&
-					m_boardState[i+3][j] == EMPTY) {
+					m_boardState[i+ INCREMENT_2][j] == PLAYER_TWO &&
+					m_boardState[i+ INCREMENT_3][j] == EMPTY) {
 						
-						m_possibleMoves3[i+3] = VALID;
+						m_possibleMoves3[i+ INCREMENT_3] = VALID;
 						if(i >=1 && m_boardState[i-1][j] == EMPTY) {
 							m_possibleMoves3[i-1] = VALID;
 						}
@@ -218,11 +224,11 @@ public class C4HardAI {
 		
 		for(int i = 0; i < BOARD_WIDTH; i++) {
 			for(int j = 0; j < BOARD_HEIGHT; j++) {
-				if(i < BOARD_WIDTH - 2 && m_boardState[i][j] == PLAYER_TWO) {
+				if(i < BOARD_WIDTH - DECREMENT_2 && m_boardState[i][j] == PLAYER_TWO) {
 					if(m_boardState[i+1][j] == PLAYER_TWO &&
-					m_boardState[i+2][j] == EMPTY) {
+					m_boardState[i+ INCREMENT_2][j] == EMPTY) {
 						
-						m_possibleMoves2[i+2] = VALID;
+						m_possibleMoves2[i+ INCREMENT_2] = VALID;
 						if(i >=1 && m_boardState[i-1][j] == EMPTY) {
 							m_possibleMoves2[i-1] = VALID;
 						}
@@ -247,14 +253,14 @@ public class C4HardAI {
 		
 		for(int i = 0; i < BOARD_WIDTH; i++) {
 			for(int j = 0; j < BOARD_HEIGHT; j++) {
-				if(i < BOARD_WIDTH - 3 && 
-				j >= 3 &&
+				if(i < BOARD_WIDTH - DECREMENT_3 &&
+				j >= BOUNDARY_3 &&
 				m_boardState[i][j] == PLAYER_TWO) {
 					if(m_boardState[i+1][j-1] == PLAYER_TWO &&
-					   m_boardState[i+2][j-2] == PLAYER_TWO &&
-					   m_boardState[i+3][j-3] == EMPTY) {
+					   m_boardState[i+ INCREMENT_2][j- DECREMENT_2] == PLAYER_TWO &&
+					   m_boardState[i+ INCREMENT_3][j- DECREMENT_3] == EMPTY) {
 						
-						m_possibleMoves3[i+3] = VALID;
+						m_possibleMoves3[i+ INCREMENT_3] = VALID;
 						if(i >=1 && j < BOARD_HEIGHT - 1 &&
 					    m_boardState[i-1][j+1] == EMPTY) {
 							m_possibleMoves3[i-1] = VALID;
@@ -271,13 +277,13 @@ public class C4HardAI {
 		
 		for(int i = 0; i < BOARD_WIDTH; i++) {
 			for(int j = 0; j < BOARD_HEIGHT; j++) {
-				if(i < BOARD_WIDTH - 3 && 
-				   j >= 3 &&
+				if(i < BOARD_WIDTH - DECREMENT_3 &&
+				   j >= BOUNDARY_3 &&
 				   m_boardState[i][j] == PLAYER_TWO) {
 					if(m_boardState[i+1][j-1] == PLAYER_TWO &&
-					   m_boardState[i+2][j-2] == EMPTY) {
+					   m_boardState[i+ INCREMENT_2][j- DECREMENT_2] == EMPTY) {
 						
-						m_possibleMoves2[i+2] = VALID;
+						m_possibleMoves2[i+ INCREMENT_2] = VALID;
 						if(i >=1 && j < BOARD_HEIGHT - 1 && m_boardState[i-1][j+1] == EMPTY) {
 							m_possibleMoves2[i-1] = VALID;
 						}
@@ -303,12 +309,12 @@ public class C4HardAI {
 		
 		for(int i = 0; i < BOARD_WIDTH; i++) {
 			for(int j = 0; j < BOARD_HEIGHT; j++) {				
-				if(i >= 3 && j >= 3 && m_boardState[i][j] == PLAYER_TWO) {
+				if(i >= BOUNDARY_3 && j >= BOUNDARY_3 && m_boardState[i][j] == PLAYER_TWO) {
 					if(m_boardState[i-1][j-1] == PLAYER_TWO &&
-					   m_boardState[i-2][j-2] == PLAYER_TWO &&
-					   m_boardState[i-3][j-3] == EMPTY) {
+					   m_boardState[i- DECREMENT_2][j- DECREMENT_2] == PLAYER_TWO &&
+					   m_boardState[i- DECREMENT_3][j- DECREMENT_3] == EMPTY) {
 							
-							m_possibleMoves3[i-3] = VALID;
+							m_possibleMoves3[i- DECREMENT_3] = VALID;
 							if(i < (BOARD_WIDTH - 1) && j < BOARD_HEIGHT - 1 && 
 							m_boardState[i+1][j+1] == EMPTY) {
 								m_possibleMoves3[i+1] = VALID;
@@ -324,11 +330,11 @@ public class C4HardAI {
 		
 		for(int i = 0; i < BOARD_WIDTH; i++) {
 			for(int j = 0; j < BOARD_HEIGHT; j++) {				
-				if(i >= 2 && j >= 2 && m_boardState[i][j] == PLAYER_TWO) {
+				if(i >= BOUNDARY_2 && j >= BOUNDARY_2 && m_boardState[i][j] == PLAYER_TWO) {
 					if(m_boardState[i-1][j-1] == PLAYER_TWO &&
-					   m_boardState[i-2][j-2] == EMPTY) {
+					   m_boardState[i- DECREMENT_2][j- DECREMENT_2] == EMPTY) {
 							
-							m_possibleMoves2[i-2] = VALID;
+							m_possibleMoves2[i- DECREMENT_2] = VALID;
 							if(i < (BOARD_WIDTH - 1) && j > BOARD_HEIGHT - 1 && m_boardState[i+1][j+1] == EMPTY) {
 								m_possibleMoves2[i+1] = VALID;
 							}
@@ -353,10 +359,10 @@ public class C4HardAI {
 		
 		for(int i = 0; i < BOARD_WIDTH; i++) {
 			for(int j = 0; j < BOARD_HEIGHT; j++) {
-				if(j >= 3 && m_boardState[i][j] == PLAYER_ONE) {
+				if(j >= BOUNDARY_3 && m_boardState[i][j] == PLAYER_ONE) {
 					if(m_boardState[i][j-1] == PLAYER_ONE &&
-					m_boardState[i][j-2] == PLAYER_ONE &&
-					m_boardState[i][j-3] == EMPTY) {
+					m_boardState[i][j- DECREMENT_2] == PLAYER_ONE &&
+					m_boardState[i][j- DECREMENT_3] == EMPTY) {
 						
 						m_blockColMoves[i] = VALID;
 						playerColsFound = true;
@@ -374,21 +380,21 @@ public class C4HardAI {
 		
 		for(int i = 0; i < BOARD_WIDTH; i++) {
 			for(int j = 0; j < BOARD_HEIGHT; j++) {
-				if(i < BOARD_WIDTH - 3 && m_boardState[i][j] == PLAYER_ONE) {
+				if(i < BOARD_WIDTH - DECREMENT_3 && m_boardState[i][j] == PLAYER_ONE) {
 					if(m_boardState[i+1][j] == PLAYER_ONE &&
-					m_boardState[i+2][j] == PLAYER_ONE &&
-					m_boardState[i+3][j] == EMPTY) {
+					m_boardState[i+ INCREMENT_2][j] == PLAYER_ONE &&
+					m_boardState[i+ INCREMENT_3][j] == EMPTY) {
 						
-						m_blockRowMoves[i+3] = VALID;
+						m_blockRowMoves[i+ INCREMENT_3] = VALID;
 						
 						playerRowsFound = true;
 					}
 					
 				}
 				
-				if(i < BOARD_WIDTH - 3 && i >= 1 && m_boardState[i][j] == PLAYER_ONE) {
+				if(i < BOARD_WIDTH - DECREMENT_3 && i >= 1 && m_boardState[i][j] == PLAYER_ONE) {
 					if(m_boardState[i+1][j] == PLAYER_ONE &&
-					m_boardState[i+2][j] == PLAYER_ONE &&
+					m_boardState[i+ INCREMENT_2][j] == PLAYER_ONE &&
 					m_boardState[i-1][j] == EMPTY) {
 						
 						m_blockRowMoves[i-1] = VALID;
