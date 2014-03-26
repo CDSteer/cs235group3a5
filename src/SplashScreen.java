@@ -157,7 +157,8 @@ public class SplashScreen extends JFrame{
             loadButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent event) {
-
+            	;
+            	FilePicker.showFileBrowser();
                 System.out.println("Loading game...no file found.");
             }
         });

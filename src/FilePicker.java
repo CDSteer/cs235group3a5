@@ -1,40 +1,31 @@
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.File;
-
-import javax.swing.JButton;
 import javax.swing.JFileChooser;
-import javax.swing.JFrame;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
-public class FilePicker extends JFrame {
-        private static JButton button = new JButton("Open");
-        private static JFileChooser fileChooser = new JFileChooser();
+/**
+ * @author Jamie I Davies, Chris Jenkins
+ * @date March 25, 2014
+ * @brief Class that creates the file browser
+ * @detail will only allow user to select a .csv file
+ */
 
-        public FilePicker() {
-                add(button);
-                setSize(400, 200);
-                this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-                setVisible(true);
-        }
+public class FilePicker {
+   
+  public static void showFileBrowser() {
+	  JFileChooser fileopen = new JFileChooser();
+	  //accept csv files only  
+	  FileFilter filter = new FileNameExtensionFilter("csv files", "csv");
+	  fileopen.setFileFilter(filter);
+	  fileopen.addChoosableFileFilter(filter);
 
-        public static void main(String[] args) {
+	  //set values of dialog, add title of dialog and button  
+	  int ret = fileopen.showDialog(null, "Load Game");
 
-                /* Enabling Multiple Selection */
-                fileChooser.setMultiSelectionEnabled(true);
-
-                /* Adding action listener to open file */
-                button.addActionListener(new ActionListener() {
-
-                        public void actionPerformed(ActionEvent event) {
-                                String command = event.getActionCommand();
-                                if (command.equals("Open")) {
-                                        fileChooser.showDialog(new FilePicker(),
-                                                        "File Chooser Example");
-                                }
-                        }
-                });
-
-                /* Running the Application */
-                new FilePicker();
-        }
+	    //load here... currently just reads in a file
+	    if (ret == JFileChooser.APPROVE_OPTION) {
+	      File file = fileopen.getSelectedFile();
+	      System.out.println(file);
+	    }
+  }
 }
