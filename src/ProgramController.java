@@ -139,7 +139,8 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 			public void actionPerformed(ActionEvent event) {
 				System.out.println("Test save button");
 				try{
-				  c4SaveManager.saveData(m_Board);
+
+				  c4SaveManager.saveData(m_Board, m_Time, m_Game.getPlayer(PLAYER_ONE).getName(), m_Game.getPlayer(PLAYER_TWO).getName(), m_Player1Type, m_Player1Type, m_Turn);
 				} catch (IOException e){
 					System.out.println("Can't Save Data");
 				  e.printStackTrace();
@@ -776,67 +777,45 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 	void ProgramController(int gameState, int playerState, String player1Name, String player2Name) throws IOException{
 		//if (!load){
 		player1 = player1Name;
-  		player2 = player2Name;
+		player2 = player2Name;
 
-  		setIsC4(gameState);
-
-  		if (playerState == HUMAN_CHOICE) {
-  			m_playerSelection = HUMAN;
-  		} else if (playerState == EASY_CHOICE) {
-  			m_playerSelection = EASY_AI;
-  		} else if (playerState == HARD_CHOICE) {
-  			m_playerSelection = HARD_AI;
-  		}
-
-  		setGame(player1, player2);
-
-    /*
-		Object[] player_types = {"Human", "Easy AI", "Hard AI"};
-		Object[] options = {"Connect 4", "Othello"};
-		m_playerSelection = JOptionPane.showOptionDialog(this,
-        		"Select an Opponent Type",
-        		"Opponent Selection",
-        		JOptionPane.YES_NO_CANCEL_OPTION,
-        		JOptionPane.QUESTION_MESSAGE,
-        		null,
-        		player_types, player_types[0]);
-
-    String player1 = JOptionPane.showInputDialog("Enter player 1's name"); //accepts user's name before game starts
-    String player2 = JOptionPane.showInputDialog("Enter player 2's name");
-
-    int userOption = JOptionPane.showOptionDialog(this,
-                                             "Would you like to play Connect 4 "
-                                             + "or Othello", "Pick a game",
-                                             JOptionPane.YES_NO_CANCEL_OPTION,
-                                             JOptionPane.QUESTION_MESSAGE,
-                                             null,
-                                             options,
-                                             options[1]);
-*/
-    //shit load of method calls
-	//setIsC4(userOption); //userOption
-	//setGame(player1, player2); //player1, player2
-	setBoard();
-	setContainer();
-	setImages();
+		setIsC4(gameState);
+		setGame(player1, player2);
+		setBoard();
+		setContainer();
+		setImages();
     setTurnLabel();
-	setNewGameButton();
-	setSaveButton();
-	setTurnNumberLabel("Turn: 1");
-	setTimerLabel();
-	startTimer();
+		setNewGameButton();
+		setSaveButton();
+		setTurnNumberLabel("Turn: 1");
+		setTimerLabel();
+		startTimer();
+
+  	if (playerState == 0) {
+  		m_Player1Type = "Human";
+  		m_Player2Type = "Human";
+  		m_playerSelection = HUMAN;
+  	} else if (playerState == 1) {
+  		m_playerSelection = EASY_AI;
+  	} else if (playerState == 2) {
+  		m_playerSelection = HARD_AI;
+  	}
 
 	//AI stuff
 		if(m_playerSelection == EASY_AI) {
 			if(this.getIsC4() == true) {
+				m_Player2Type = "Easy";
 				c4EasyAI = new C4EasyAI();
 			} else {
+				m_Player2Type = "Easy";
 				othEasyAI = new OthEasyAI();
 			}
 		} else if(m_playerSelection == HARD_AI) {
 			if(this.getIsC4() == true) {
+				m_Player2Type = "Hard";
 				c4HardAI = new C4HardAI();
 			} else {
+				m_Player2Type = "Hard";
 				othHardAI = new OthHardAI();
 			}
 		}
@@ -858,6 +837,8 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
     	setIsC4(gameState);
 
     	if (playerState == 0) {
+    		m_Player1Type = "Human";
+    		m_Player2Type = "Human";
     		m_playerSelection = HUMAN;
     	} else if (playerState == 1) {
     		m_playerSelection = EASY_AI;
@@ -868,14 +849,18 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
   	//AI stuff
   		if(m_playerSelection == EASY_AI) {
   			if(this.getIsC4() == true) {
+  				m_Player2Type = "Easy";
   				c4EasyAI = new C4EasyAI();
   			} else {
+  				m_Player2Type = "Easy";
   				othEasyAI = new OthEasyAI();
   			}
   		} else if(m_playerSelection == HARD_AI) {
   			if(this.getIsC4() == true) {
+  				m_Player2Type = "Hard";
   				c4HardAI = new C4HardAI();
   			} else {
+  				m_Player2Type = "Hard";
   				othHardAI = new OthHardAI();
   			}
   		}
@@ -950,6 +935,8 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 	private final int HUMAN = 0;
 	private final int EASY_AI = 1;
 	private final int HARD_AI = 2;
+	private String m_Player1Type;
+	private String m_Player2Type;
 	private C4EasyAI c4EasyAI;
 	private C4HardAI c4HardAI;
 	private OthEasyAI othEasyAI;

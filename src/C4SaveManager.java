@@ -52,7 +52,7 @@ public class C4SaveManager {
    * @param the current games board state
    * @return boolean
    */
-  public boolean saveData(C4AndOthelloBoardStore board) throws IOException{
+  public boolean saveData(C4AndOthelloBoardStore board, int time, String name1, String name2, String playerType1, String playerType2, int turn) throws IOException{
     System.out.println("Saving....");
     nameFile(SAVE);
     m_FileName = PATH+ m_FileName +FILETYPE;
@@ -61,7 +61,13 @@ public class C4SaveManager {
     m_LoadBoard = board.getBoard();
     for (int i = 0; i < BOARD_ROWS; i++) {
       for (int j = 0; j < BOARD_COLS; j++) {
-        m_Data.add(new String[] { String.valueOf(j), String.valueOf(i), m_LoadBoard[j][i].getColour()});
+        if (m_LoadBoard[j][i].getColour().equals("Red")){
+          m_Data.add(new String[] { String.valueOf(j), String.valueOf(i), m_LoadBoard[j][i].getColour(), name1, playerType1, String.valueOf(turn), String.valueOf(time)});
+        } else if (m_LoadBoard[j][i].getColour().equals("Yellow")){
+          m_Data.add(new String[] { String.valueOf(j), String.valueOf(i), m_LoadBoard[j][i].getColour(), name2, playerType2, String.valueOf(turn), String.valueOf(time)});
+        } else {
+          m_Data.add(new String[] { String.valueOf(j), String.valueOf(i), m_LoadBoard[j][i].getColour(), "", "", String.valueOf(turn), String.valueOf(time)});
+        }
       }
     }
 
@@ -167,7 +173,12 @@ public class C4SaveManager {
     Connect4GameLogic connect4GameLogic = new Connect4GameLogic();
     C4SaveManager c4SaveManager = new C4SaveManager();
     C4AndOthelloBoardStore board = new C4AndOthelloBoardStore();
-
+    int time = 60;
+    String name1 = "Dave";
+    String name2 = "Hal-2000";
+    String playerType1 = "Human";
+    String playerType2 = "Hard";
+    int turn = 1;
 
     for (int i = 0; i < BOARD_ROWS; i++) {
       for (int j = 0; j < BOARD_COLS; j++) {
@@ -178,7 +189,7 @@ public class C4SaveManager {
       }
     }
 
-    c4SaveManager.saveData(connect4GameLogic.getBoard());
+    c4SaveManager.saveData(connect4GameLogic.getBoard(), time, name1, name2, playerType1, playerType2, turn);
     if (c4SaveManager.loadData()) {
       connect4GameLogic = c4SaveManager.getLoadGame();
       if (test){
