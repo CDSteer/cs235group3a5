@@ -54,8 +54,9 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 	}
 
 	/**
-	 *	Sets connect4 option to be true
-	 *	@param userOption -int value given by dialog frame at start of the program
+	*	Sets connect4 option to be true
+	*	@param userOption -int value given by dialog frame at start of the program
+	*	@return null
 	*/
 	private void setIsC4(int userOption){
 		if(userOption == 0){
@@ -70,10 +71,11 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 
 
 	/**
-	 *	Method to set the GameImplementation member variable m_Game that also
-	 *	calls setBGImage.
-	 *	@param player1 -stores name of player 1
-	 *	@param player2 -stores name of player 2
+	*	Method to set the GameImplementation member variable m_Game that also
+	*	calls setBGImage.
+	*	@param player1 -stores name of player 1
+	*	@param player2 -stores name of player 2
+	* 	@return null
 	*/
 	private void setGame(String player1, String player2){
 		File background_File;
@@ -277,6 +279,7 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 	 *  @param x -coordinates of label grid that user has clicked on
 	 *  @param y
 	 *  @param image -image to be used as background of label
+	 *	@return null
 	 */
 	private void setImage(int x, int y, ImageIcon image) {
 		m_Image_Labels[x][y].setIcon(image);
@@ -393,6 +396,7 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 	* Animation of mouse pointing at row in Connect 4
 	*	@param  x	x coordinate of mouse clicked postion
 	*	@param	y   y coordinate of mouse clicked postion
+	*	@throws	IOException
 	*	@return null
 	*/
 	public void arrowPointer(int x, int y) throws IOException{
@@ -417,6 +421,7 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 	*	@param  x	x coordinate of mouse clicked postion
 	*	@param	y   y coordinate of mouse clicked postion
 	*	@param	piece_Image      pieces image
+	*	@throws	IOException
 	*	@return null
 	*/
 	public void dropPiece(int x, int y, BufferedImage piece_Image) throws IOException{
@@ -450,6 +455,7 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
    *	@param board
    *	@param colour1
    *	@param colour2
+   *	@throws	IOException
    *	@return null
   */
   synchronized public void update(C4AndOthelloBoardStore board, String colour1, String colour2) throws IOException{
@@ -574,7 +580,7 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 	}
 	/**
 	*	Method that check who has won the game
-	*
+	*	@param AbstractPlayer 	take a player object into method
 	*	@return null
 	*/
 	private void checkWinner(AbstractPlayer[] players) {
@@ -588,13 +594,13 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 		}
 	}
 
-	private void displayWinner() throws IOException{
-
 	/**
 	 *	Method that checks who has won the game, displays the winner's name to a label
 	 *	Also highlights winning combination of pieces if playing connect4
 	 *	@return null
+	 *	@throws	IOException
 	 */
+	private void displayWinner() throws IOException{
 		if(getGame().getWinner() == PLAYER_1 || getGame().getWinner() == PLAYER_2){
 			System.out.println("Winner: Player " + (getGame().getWinner()) );
 			if(getGame().getWinner() == PLAYER_1){
@@ -617,9 +623,6 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 
   public void mousePressed(MouseEvent e) {}
   public void mouseReleased(MouseEvent e) {}
-
-  // public void mouseEntered(MouseEvent e) {}
-
   public void mouseExited(MouseEvent e) {}
 
   /**
@@ -654,6 +657,7 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 	 * @param player1Name
 	 * @param player2Name
 	 * @throws IOException
+	 * @return null
 	 */
 	void ProgramController(int gameState, int playerState, String player1Name, String player2Name) throws IOException{
 
