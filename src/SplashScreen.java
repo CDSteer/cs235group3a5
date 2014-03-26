@@ -177,11 +177,11 @@ public class SplashScreen extends JFrame{
             C4AndOthelloBoardStore board = connect4GameLogic.getBoard();
             newBoard = board.getBoard();
 
-            // for (int i = 0; i < 7; i++) {
-            //     for (int j = 0; j < 10; j++) {
-            //       System.out.println(newBoard[j][i].getColour());
-            //     }
-            // }
+            for (int i = 0; i < 7; i++) {
+                for (int j = 0; j < 10; j++) {
+                  System.out.println(newBoard[j][i].getColour());
+                }
+            }
             try {
                 controller.ProgramController(gameChoice, playState, player1name, player2name, newBoard);
             } catch (IOException e) {

@@ -97,15 +97,18 @@ public class C4SaveManager {
    */
   private boolean readGrid() throws IOException{
     String[] row = null;
+    Piece piece;
     while((row = m_CSVReader.readNext()) != null) {
-      AbstractPlayer player = new Human();
-      if (row[2] == "Red" || row[2] == "Yellow"){
-        player.setColour(row[2]);
+      System.out.println(row[2]);
+      if (row[2].equals("Red")){
+        piece = new Piece("Red");
+      } else if (row[2].equals("Yellow")){
+        piece = new Piece("Yellow");
       } else {
-        player.setColour(" ");
+        piece = new Piece("");
       }
-      m_Connect4GameLogic.setPiece(Integer.parseInt(row[0]), Integer.parseInt(row[1]), player);
 
+      m_Connect4GameLogic.getBoard().setPiece2(piece, Integer.parseInt(row[0]), Integer.parseInt(row[1]));
     }
     m_CSVReader.close();
     return true;
@@ -184,6 +187,7 @@ public class C4SaveManager {
         for (int i = 0; i < BOARD_ROWS; i++) {
           for (int j = 0; j < BOARD_COLS; j++) {
             System.out.println(newBoard[j][i].getColour());
+            System.out.println( j+", " +i + ", "+ connect4GameLogic.getBoard().getBoard()[j][i].getColour());
           }
         }
       }
