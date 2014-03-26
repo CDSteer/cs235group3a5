@@ -99,7 +99,11 @@ public class C4SaveManager {
     String[] row = null;
     while((row = m_CSVReader.readNext()) != null) {
       AbstractPlayer player = new Human();
-      player.setColour(row[2]);
+      if (row[2] == "Red" || row[2] == "Yellow"){
+        player.setColour(row[2]);
+      } else {
+        player.setColour(" ");
+      }
       m_Connect4GameLogic.setPiece(Integer.parseInt(row[0]), Integer.parseInt(row[1]), player);
 
     }

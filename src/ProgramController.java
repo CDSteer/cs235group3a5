@@ -773,7 +773,6 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
   				othHardAI = new OthHardAI();
   			}
   		}
-  		int n;
 
   		setGame(player1, player2);
   		setBoard();
