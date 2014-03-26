@@ -606,7 +606,7 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 										System.out.println("DELAY FOR AI MOVE START");
 										Thread.sleep(WAIT_TIME);
 										System.out.println("DELAY FOR AI MOVE END");
-										m_AIOthMoves = othHardAI.selectMove(getThis());
+										m_AIOthMoves = othEasyAI.selectMove(getThis());
 										m_AIOthRow = m_AIOthMoves[0];
 										m_AIOthCol = m_AIOthMoves[1];
 										m_checkAIMove = m_players[1].move(m_AIOthRow, m_AIOthCol, getThis());
