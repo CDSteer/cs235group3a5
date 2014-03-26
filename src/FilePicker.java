@@ -25,7 +25,7 @@ public class FilePicker {
 	    //load here... currently just reads in a file
 	    if (ret == JFileChooser.APPROVE_OPTION) {
 	      File file = fileopen.getSelectedFile();
-	      System.out.println(file);
+	      System.out.println("PATH: " + file);
 	    }
   }
 }
