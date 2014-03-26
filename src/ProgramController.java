@@ -496,7 +496,9 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 				} else if (board.getBoard()[x][y].getColour().equals(colour1)) {
 					/*Check if it is not player2 piece*/
 					if (getIsC4() == false || hidden == IMAGE_SIZE_300 || hidden == IMAGE_SIZE_500) {
-						setImage(x,y,(new OthelloPieceColourChanger().flip(board.getBoard()[x][y])));
+						// OLD: setImage(x,y,(new OthelloPieceColourChanger().flip(board.getBoard()[x][y])));
+						BufferedImage piece_Image = ImageIO.read(new File("../Images/" + colour1 + "Piece.png"));
+						setImage(x, y, (new ImageIcon (piece_Image)));
 						getLabel(x,y).setDisplayedMnemonic(IMAGE_SIZE_400);
 					} else {
 						BufferedImage piece_Image = ImageIO.read(new File("../Images/" + colour1 + "Piece.png"));
@@ -507,7 +509,9 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 				} else if (board.getBoard()[x][y].getColour().equals(colour2)) {
 					/*Check if it is not player1 piece*/
 					if (getIsC4() == false || hidden == IMAGE_SIZE_200 || hidden == IMAGE_SIZE_400) {
-						setImage(x,y,(new OthelloPieceColourChanger().flip(board.getBoard()[x][y])));
+						// OLD: setImage(x,y,(new OthelloPieceColourChanger().flip(board.getBoard()[x][y])));
+						BufferedImage piece_Image = ImageIO.read(new File("../Images/" + colour2 + "Piece.png"));
+						setImage(x, y, (new ImageIcon (piece_Image)));
 						getLabel(x,y).setDisplayedMnemonic(IMAGE_SIZE_500);
 					} else {
 						BufferedImage piece_Image = ImageIO.read(new File("../Images/" + colour2 + "Piece.png"));
@@ -565,7 +569,10 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 			boolean checkMoveIsValid = false;
 			if(getIsC4() == true) {
 				checkMoveIsValid = m_players[0].move(x, y, this);
-							
+				if(checkMoveableAI(m_players)) {
+					checkWinner(m_players);
+					return;		
+				}
 				new Thread(
 						new Runnable(){
 							public void run(){
@@ -586,6 +593,10 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 								
 			} else {
 				checkMoveIsValid = m_players[0].move(x, y, this);
+				if(checkMoveableAI(m_players)) {
+					checkWinner(m_players);
+					return;		
+				}
 				if(checkMoveIsValid == true) {
 					new Thread(
 							new Runnable(){
@@ -614,7 +625,10 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 			boolean checkMoveIsValid = false;
 			if(getIsC4() == true) {
 				checkMoveIsValid = m_players[0].move(x, y, this);
-							
+				if(checkMoveableAI(m_players)) {
+					checkWinner(m_players);
+					return;		
+				}
 				new Thread(
 						new Runnable(){
 							public void run(){
@@ -635,6 +649,10 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 									
 			} else {
 				checkMoveIsValid = m_players[0].move(x, y, this);
+				if(checkMoveableAI(m_players)) {
+					checkWinner(m_players);
+					return;		
+				}
 				if(checkMoveIsValid == true) {
 					new Thread(
 							new Runnable(){
@@ -658,6 +676,7 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 			}
 		}
 	}
+	
 	/**
 	*	Method that check who has won the game
 	*	@param AbstractPlayer 	take a player object into method
@@ -673,6 +692,21 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 			}
 		}
 	}
+	
+	/**
+	 *	Method that checks if a Human player has won in a VS AI game
+	 *	@param AbstractPlayer 	take a player object into method
+	 *	@return null
+	 */
+	private boolean checkMoveableAI(AbstractPlayer[] players) {
+
+		if (getGame().checkTakeableTurn(players[1]) == false) {
+			return true;
+		} 
+		
+		return false;
+	}
+	
 
 	/**
 	 *	Method that checks who has won the game, displays the winner's name to a label
@@ -944,7 +978,7 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
   private final int IMAGE_SIZE_500 = 500;
   private final int PLAYER_1 = 1;
   private final int PLAYER_2 = 2;
-  private final int WAIT_TIME = 1000;
+  private final int WAIT_TIME = 1500;
   private String player1;
   private String player2;
   private int userOption;
