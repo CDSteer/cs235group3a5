@@ -25,6 +25,19 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
        return m_Game;
    }
 
+	public ProgramController getThis() {
+		return this;
+	}
+	
+	public boolean getWaiting() {
+		return m_waiting;
+	}
+	
+	public void setWaiting(boolean b) {
+		m_waiting = b;
+	}
+	
+	
 	/** Getter method to get the variable m_Time
 	 * @return m_Time -int that stores time elapsed
 	 */
@@ -344,7 +357,13 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 	 *	@return null
 	*/
   public void mouseClicked(MouseEvent e) {
-		System.out.println("Clicked");
+	  
+	  if(getWaiting() == true) {
+		  System.out.println("Waiting for AI Move...");
+		  return;
+	  }
+	  
+	  System.out.println("Clicked");
   	if(getGame().checkWin() == false){
       for(int y = 0; y<getBoard().getBoardHeight(); y++){
         for(int x = 0; x<getBoard().getBoardWidth(); x++){
@@ -482,7 +501,7 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 					} else {
 						BufferedImage piece_Image = ImageIO.read(new File("../Images/" + colour1 + "Piece.png"));
 						dropPiece(x,y,piece_Image);
-						setImage(x, y, (new ImageIcon (piece_Image)));
+						// setImage(x, y, (new ImageIcon (piece_Image)));
 						getLabel(x,y).setDisplayedMnemonic(IMAGE_SIZE_200);
 					}
 				} else if (board.getBoard()[x][y].getColour().equals(colour2)) {
@@ -493,11 +512,11 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 					} else {
 						BufferedImage piece_Image = ImageIO.read(new File("../Images/" + colour2 + "Piece.png"));
 						dropPiece(x,y,piece_Image);
-						setImage(x, y, (new ImageIcon (piece_Image)));
+						// setImage(x, y, (new ImageIcon (piece_Image)));
 						getLabel(x,y).setDisplayedMnemonic(IMAGE_SIZE_300);
 					}
 				}else{
-					//else what??
+					
 				}
   		}
 	}
@@ -512,19 +531,16 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 	 */
 	private void attemptMove(int x, int y) {
 
-		int AIC4Col = 0;
-		int[] AIOthMoves;
-		int AIOthRow = 0;
-		int AIOthCol = 0;
-		AbstractPlayer[] players = new AbstractPlayer[PLAYER_2];
-		players[PLAYER_ONE] = getGame().getPlayer(PLAYER_ONE);
-		players[PLAYER_TWO] = getGame().getPlayer(PLAYER_TWO);
+		m_AIC4Col = 0;
+		m_players = new AbstractPlayer[PLAYER_2];
+		m_players[PLAYER_ONE] = getGame().getPlayer(PLAYER_ONE);
+		m_players[PLAYER_TWO] = getGame().getPlayer(PLAYER_TWO);
 
 		if(m_playerSelection == HUMAN) {
 			boolean checkMoveIsValid = false;
-			checkMoveIsValid = players[getTurn() % PLAYER_2].move(x, y, this);
+			checkMoveIsValid = m_players[getTurn() % PLAYER_2].move(x, y, this);
 		  if(checkMoveIsValid == true) {
-				if (getGame().checkTakeableTurn(players[(getTurn() + 1) % REMAINDER_2]) == true) {
+				if (getGame().checkTakeableTurn(m_players[(getTurn() + 1) % REMAINDER_2]) == true) {
 					/** If it's 0 (player 1) turn this will change it  to 1 (player 2) turn*/
 					setTurn(getTurn() + 1);
 					getTurnNumberLabel().setText("Turn: " + (getTurn() + 1));
@@ -536,7 +552,7 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 						getTurnLabel().setText(getGame().getPlayer(PLAYER_TWO).getName() + "'s turn");
 					}
 
-				} else if (getGame().checkTakeableTurn(players[0]) == false && getGame().checkTakeableTurn(players[1]) == false) {
+				} else if (getGame().checkTakeableTurn(m_players[0]) == false && getGame().checkTakeableTurn(m_players[1]) == false) {
 					try{
 						displayWinner();
 					}catch(IOException e){
@@ -548,20 +564,48 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 			boolean checkAIMove = false;
 			boolean checkMoveIsValid = false;
 			if(getIsC4() == true) {
-				checkMoveIsValid = players[0].move(x, y, this);
-
-				AIC4Col = c4EasyAI.selectCol(this);
-				checkAIMove = players[1].move(AIC4Col, C4_BOARD_HEIGHT, this);
-				checkWinner(players);
-
+				checkMoveIsValid = m_players[0].move(x, y, this);
+							
+				new Thread(
+						new Runnable(){
+							public void run(){
+								try {
+									setWaiting(true);
+									System.out.println("DELAY FOR AI MOVE START");
+									Thread.sleep(WAIT_TIME);
+									System.out.println("DELAY FOR AI MOVE END");
+									m_AIC4Col = c4EasyAI.selectCol(getThis());
+									m_checkAIMove = m_players[1].move(m_AIC4Col, C4_BOARD_HEIGHT, getThis());
+									checkWinner(m_players);
+									setWaiting(false);
+								} catch (Exception e) {
+									Thread.currentThread().interrupt();
+								}
+							}
+						}).start();
+								
 			} else {
-				checkMoveIsValid = players[0].move(x, y, this);
+				checkMoveIsValid = m_players[0].move(x, y, this);
 				if(checkMoveIsValid == true) {
-					AIOthMoves = othEasyAI.selectMove(this);
-					AIOthRow = AIOthMoves[0];
-					AIOthCol = AIOthMoves[1];
-					checkAIMove = players[1].move(AIOthRow, AIOthCol, this);
-					checkWinner(players);
+					new Thread(
+							new Runnable(){
+								public void run(){
+									try {
+										setWaiting(true);
+										System.out.println("DELAY FOR AI MOVE START");
+										Thread.sleep(WAIT_TIME);
+										System.out.println("DELAY FOR AI MOVE END");
+										m_AIOthMoves = othHardAI.selectMove(getThis());
+										m_AIOthRow = m_AIOthMoves[0];
+										m_AIOthCol = m_AIOthMoves[1];
+										m_checkAIMove = m_players[1].move(m_AIOthRow, m_AIOthCol, getThis());
+										checkWinner(m_players);
+										setWaiting(false);
+									} catch (Exception e) {
+										Thread.currentThread().interrupt();
+									}
+								}
+							}).start();
 
 				}
 			}
@@ -569,18 +613,46 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 			boolean checkAIMove = false;
 			boolean checkMoveIsValid = false;
 			if(getIsC4() == true) {
-				checkMoveIsValid = players[0].move(x, y, this);
-				AIC4Col = c4HardAI.selectCol(this);
-				checkAIMove = players[1].move(AIC4Col, C4_BOARD_HEIGHT, this);
-				checkWinner(players);
+				checkMoveIsValid = m_players[0].move(x, y, this);
+							
+				new Thread(
+						new Runnable(){
+							public void run(){
+								try {
+									setWaiting(true);
+									System.out.println("DELAY FOR AI MOVE START");
+									Thread.sleep(WAIT_TIME);
+									System.out.println("DELAY FOR AI MOVE END");
+									m_AIC4Col = c4HardAI.selectCol(getThis());
+									m_checkAIMove = m_players[1].move(m_AIC4Col, C4_BOARD_HEIGHT, getThis());
+									checkWinner(m_players);
+									setWaiting(false);
+								} catch (Exception e) {
+									Thread.currentThread().interrupt();
+								}
+							}
+						}).start();
+									
 			} else {
-				checkMoveIsValid = players[0].move(x, y, this);
+				checkMoveIsValid = m_players[0].move(x, y, this);
 				if(checkMoveIsValid == true) {
-					AIOthMoves = othHardAI.selectMove(this);
-					AIOthRow = AIOthMoves[0];
-					AIOthCol = AIOthMoves[1];
-					checkAIMove = players[1].move(AIOthRow, AIOthCol, this);
-					checkWinner(players);
+					new Thread(
+							new Runnable(){
+								public void run(){
+									try {
+										setWaiting(true);
+										System.out.println("DELAY FOR AI MOVE START");
+										Thread.sleep(WAIT_TIME);
+										System.out.println("DELAY FOR AI MOVE END");
+										m_AIOthMoves = othHardAI.selectMove(getThis());
+										m_AIOthRow = m_AIOthMoves[0];
+										m_AIOthCol = m_AIOthMoves[1];
+										m_checkAIMove = m_players[1].move(m_AIOthRow, m_AIOthCol, getThis());
+										checkWinner(m_players);
+										setWaiting(false);
+									} catch(Exception e) {}
+								}
+							}).start();
 
 				}
 			}
@@ -794,7 +866,7 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
   		  		Piece piece = new Piece("Yellow");
 						getGame().getBoard().setPiece2(piece, j, i);
 					} else {
-  		  // 		Piece piece = new Piece;
+						// Piece piece = new Piece(" ");
 						// getGame().getBoard().setPiece2(piece, j, i);
 					}
   		    System.out.println( j+", " +i + ", "+ getGame().getBoard().getBoard()[j][i].getColour());
@@ -872,6 +944,7 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
   private final int IMAGE_SIZE_500 = 500;
   private final int PLAYER_1 = 1;
   private final int PLAYER_2 = 2;
+  private final int WAIT_TIME = 1000;
   private String player1;
   private String player2;
   private int userOption;
@@ -882,6 +955,13 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
   private int HUMAN_CHOICE = 0;
   private int DROP_DELAY = 100;
   private int REMAINDER_2 = 2;
-
+  
+  private int m_AIC4Col;
+  private int[] m_AIOthMoves;
+  private int m_AIOthRow;
+  private int m_AIOthCol;
+  private boolean m_checkAIMove;
+  private AbstractPlayer[] m_players;
+  private boolean m_waiting;
 
 }
