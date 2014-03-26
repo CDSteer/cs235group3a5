@@ -19,6 +19,10 @@ public class C4AndOthelloBoardStore {
         return m_Pieces;
     }
 
+    public Piece getPiece(int i, int j){
+        return m_Pieces[i][j];
+    }
+
     /**
      * Returns the heiht of the board
      * @return the m_BoardHeight
@@ -77,6 +81,15 @@ public class C4AndOthelloBoardStore {
             m_Board[column][row] = HAS_PIECE_OBJECT;
             m_Pieces[column][row] = piece;
         }
+    }
+
+    public void setPiece2(Piece piece, int column, int row) {
+        System.out.println("Board::setPiece()");
+        m_Board[column][row] = HAS_PIECE_OBJECT;
+        m_Pieces[column][row] = piece;
+    }
+    public void foobar(int i, int j){
+        m_Board[i][j] = 1;
     }
 
     /**

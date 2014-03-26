@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Random;
+import java.io.File;
 
 /**
  * @author Jamie I Davies
@@ -36,6 +37,7 @@ public class SplashScreen extends JFrame{
     private static String player2name;
     private static boolean player1blank;
     private static boolean player2blank;
+    private C4SaveManager c4SaveManager = new C4SaveManager();
 
     /**
      * Set splash screen to visible
@@ -153,13 +155,40 @@ public class SplashScreen extends JFrame{
             }
         });
 
-         // action listener for the load button
-            loadButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent event) {
-            	
-            	FilePicker.showFileBrowser();
+        // action listener for the load button
+        loadButton.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent event) {
+            Piece[][] newBoard = new Piece[10][7];
+            try{
+              c4SaveManager.loadData();
+            } catch (IOException e){
+                System.out.println("Can't Load Data");
+              e.printStackTrace();
             }
+            ProgramController controller = new ProgramController();
+            controller.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            gameChoice = 0;
+            playState = 0;
+            player1name = "steve";
+            player2name = "Woz";
+
+            Connect4GameLogic connect4GameLogic = c4SaveManager.getLoadGame();
+            C4AndOthelloBoardStore board = connect4GameLogic.getBoard();
+            newBoard = board.getBoard();
+
+            // for (int i = 0; i < 7; i++) {
+            //     for (int j = 0; j < 10; j++) {
+            //       System.out.println(newBoard[j][i].getColour());
+            //     }
+            // }
+            try {
+                controller.ProgramController(gameChoice, playState, player1name, player2name, newBoard);
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
         });
 
         //add buttons to panel

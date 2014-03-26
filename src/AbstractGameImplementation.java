@@ -88,6 +88,9 @@ abstract public class AbstractGameImplementation {
         m_Board.setBoard(boardWidth, boardHeight);
 
     }
+    public void setBoard(C4AndOthelloBoardStore board){
+        m_Board = board;
+    }
 
 	/**
 	 *	A 'get' (access) method to get player 1 or player 2.

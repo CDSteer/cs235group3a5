@@ -9,17 +9,17 @@ import javax.swing.*;
  */
 
 public class FilePicker extends JFrame {
-   
-   
+
+
   public static void showFileBrowser() {
 	  JFrame frame = new JFrame();
-	  
+
 	  FileDialog fc = new FileDialog(frame, "Load a Game Save", FileDialog.LOAD);
-	  //set default directory  
+	  //set default directory
 	  fc.setDirectory("../SAVEDATA/");
 	  //set file format
 	  fc.setFile("*.csv");
-	  //enable the file dialog  
+	  //enable the file dialog
 	  fc.setVisible(true);
 	  //string to store file name
 	  String fn = fc.getFile();
@@ -29,7 +29,7 @@ public class FilePicker extends JFrame {
 	  else
 		  System.out.println("You chose " + fn);
   	}
-  
+
   }
-	    
-  
+
+

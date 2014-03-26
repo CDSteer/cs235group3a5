@@ -230,6 +230,9 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 	private void setBoard(){
 		m_Board = getGame().getBoard();
 	}
+	private void setBoard(C4AndOthelloBoardStore board){
+		m_Board = board;
+	}
 
 	/** Getter method that returns the background image of the board
 	 *  @return m_Background_Image -file extension of background image
@@ -459,7 +462,7 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
    *	@throws	IOException
    *	@return null
   */
-  synchronized public void update(C4AndOthelloBoardStore board, String colour1, String colour2) throws IOException{
+  public void update(C4AndOthelloBoardStore board, String colour1, String colour2) throws IOException{
     System.out.println("ProgramController::update()");
     int boardHeight = board.getBoard()[0].length;
     int boardWidth = board.getBoard().length;
@@ -479,6 +482,7 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 					} else {
 						BufferedImage piece_Image = ImageIO.read(new File("../Images/" + colour1 + "Piece.png"));
 						dropPiece(x,y,piece_Image);
+						setImage(x, y, (new ImageIcon (piece_Image)));
 						getLabel(x,y).setDisplayedMnemonic(IMAGE_SIZE_200);
 					}
 				} else if (board.getBoard()[x][y].getColour().equals(colour2)) {
@@ -489,6 +493,7 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 					} else {
 						BufferedImage piece_Image = ImageIO.read(new File("../Images/" + colour2 + "Piece.png"));
 						dropPiece(x,y,piece_Image);
+						setImage(x, y, (new ImageIcon (piece_Image)));
 						getLabel(x,y).setDisplayedMnemonic(IMAGE_SIZE_300);
 					}
 				}else{
@@ -663,7 +668,7 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 	 * @return null
 	 */
 	void ProgramController(int gameState, int playerState, String player1Name, String player2Name) throws IOException{
-
+		//if (!load){
 		player1 = player1Name;
   		player2 = player2Name;
 
@@ -735,7 +740,75 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 		pack();
 	    setLocationRelativeTo(null);
 		setVisible(true);
+	// }
   }
+
+
+  void ProgramController(int gameState, int playerState, String player1Name, String player2Name, Piece[][] board) throws IOException{
+
+  		player1 = player1Name;
+    	player2 = player2Name;
+
+    	setIsC4(gameState);
+
+    	if (playerState == 0) {
+    		m_playerSelection = HUMAN;
+    	} else if (playerState == 1) {
+    		m_playerSelection = EASY_AI;
+    	} else if (playerState == 2) {
+    		m_playerSelection = HARD_AI;
+    	}
+
+  	//AI stuff
+  		if(m_playerSelection == EASY_AI) {
+  			if(this.getIsC4() == true) {
+  				c4EasyAI = new C4EasyAI();
+  			} else {
+  				othEasyAI = new OthEasyAI();
+  			}
+  		} else if(m_playerSelection == HARD_AI) {
+  			if(this.getIsC4() == true) {
+  				c4HardAI = new C4HardAI();
+  			} else {
+  				othHardAI = new OthHardAI();
+  			}
+  		}
+  		int n;
+
+  		setGame(player1, player2);
+  		setBoard();
+			setContainer();
+			setImages();
+		  setTurnLabel();
+			setNewGameButton();
+			setSaveButton();
+			setTurnNumberLabel("Turn: 1" );
+			setTimerLabel();
+			startTimer();
+
+  		for (int i = 0; i < 7; i++) {
+  		  for (int j = 0; j < 10; j++) {
+  		  	if (board[j][i].getColour() == "Red"){
+  		  		Piece piece = new Piece("Red");
+  		  		getGame().getBoard().setPiece2(piece ,j,i);
+  		  	}else if (board[j][i].getColour() == "Yellow"){
+  		  		Piece piece = new Piece("Yellow");
+						getGame().getBoard().setPiece2(piece, j, i);
+					} else {
+  		  		Piece piece = new Piece(" ");
+						getGame().getBoard().setPiece2(piece, j, i);
+					}
+  		    System.out.println( j+", " +i + ", "+ getGame().getBoard().getBoard()[j][i].getColour());
+  		  }
+  		}
+
+
+  		update(getGame().getBoard(), "Red", "Yellow");
+  		//no idea
+  		pack();
+  	  setLocationRelativeTo(null);
+  		setVisible(true);
+    }
 
 	/* Symbolic constants */
      private final int PLAYER_ONE = 0;

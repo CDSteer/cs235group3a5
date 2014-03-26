@@ -1,6 +1,9 @@
 import lib.opencsv.CSVReader;
 import lib.opencsv.CSVWriter;
 
+
+import java.awt.FileDialog;
+import javax.swing.*;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.StringWriter;
@@ -73,8 +76,12 @@ public class C4SaveManager {
    * @return boolean
    */
   public boolean loadData() throws IOException{
-    nameFile(LOAD);
-    m_FileName = PATH+ m_FileName +FILETYPE;
+    //nameFile(LOAD);
+    showFileBrowser();
+    System.out.println(m_FileName);
+    m_FileName = PATH+ m_FileName;
+    System.out.println(m_FileName);
+
     if (fileFound()){
       readGrid();
     } else {
@@ -101,15 +108,23 @@ public class C4SaveManager {
   }
 
   // private boolean fileChooser(){
-  //   JFileChooser chooser = new JFileChooser();
-  //   FileNameExtensionFilter filter = new FileNameExtensionFilter("csv");
-  //   chooser.setFileFilter(filter);
-  //   int returnVal = chooser.showOpenDialog(parent);
-  //   if(returnVal == JFileChooser.APPROVE_OPTION) {
-  //     m_FileName = chooser.getSelectedFile().toString();
-  //   }
-  //   return true;
-  // }
+  private void showFileBrowser() {
+    JFrame frame = new JFrame();
+    FileDialog fc = new FileDialog(frame, "Load a Game Save", FileDialog.LOAD);
+    //set default directory
+    fc.setDirectory("../SAVEDATA/");
+    //set file format
+    fc.setFile("*.csv");
+    //enable the file dialog
+    fc.setVisible(true);
+    //string to store file name
+    m_FileName = fc.getFile();
+    //if to catch the cancel exception
+    if (m_FileName == null)
+      System.out.println("You cancelled the choice");
+    else
+      System.out.println("You chose " + m_FileName);
+  }
 
   /**
    * Checks if the slected file exists
