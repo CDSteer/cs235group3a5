@@ -794,8 +794,8 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
   		  		Piece piece = new Piece("Yellow");
 						getGame().getBoard().setPiece2(piece, j, i);
 					} else {
-  		  		Piece piece = new Piece(" ");
-						getGame().getBoard().setPiece2(piece, j, i);
+  		  // 		Piece piece = new Piece;
+						// getGame().getBoard().setPiece2(piece, j, i);
 					}
   		    System.out.println( j+", " +i + ", "+ getGame().getBoard().getBoard()[j][i].getColour());
   		  }
