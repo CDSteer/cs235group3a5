@@ -436,10 +436,10 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 								Thread.sleep(100);
 								setImage(width,i,(new ImageIcon(blank_Image)));
 							}
+							setImage(width,height,(new ImageIcon(piece_Image1)));
 						}catch(InterruptedException e){
 						}
 					}
-					setImage(width,height,(new ImageIcon(piece_Image1)));
 				}
 			}
 		).start();
