@@ -8,7 +8,7 @@ import java.util.Random;
  * @author Thomas Werner
  * @brief Allows a 'Hard' AI to generate moves in a game of Othello
  * @detail An AI that generates moves by selecting moves that flip the most amount of counters,
- * 		   and randoming a move if there is no highest.
+ * 		   and randomly selecting a move if there is no highest.
  * 
  */
 public class OthHardAI {
@@ -19,6 +19,9 @@ public class OthHardAI {
 	private final int PLAYER_TWO = 1;
 	private final int EMPTY = 2;
 	private final int INVALID_MOVE = 0;
+    private final int INCREMENT_2 = 2;
+    private final int DECREMENT_2 = 2;
+    private final int SELECTED_MOVES_2 = 2;
 	
 	private final String PLAYER_ONE_PIECE_COLOUR = "Black";
 	private final String PLAYER_TWO_PIECE_COLOUR = "White";
@@ -52,7 +55,7 @@ public class OthHardAI {
 			}
 		}
 		
-		m_selectedMoves = new int[2];
+		m_selectedMoves = new int[SELECTED_MOVES_2];
 		m_rand = new Random();
 		m_validMove = false;
 		
@@ -155,7 +158,7 @@ public class OthHardAI {
 		
 		int lineLength = 1;
 		if(col < BOARD_HEIGHT - 1) {			
-			for (int j = col + 2; j < BOARD_HEIGHT; j++) {
+			for (int j = col + INCREMENT_2; j < BOARD_HEIGHT; j++) {
 				if(m_boardState[row][j] == PLAYER_ONE) {
 					lineLength++;		
 				} else if(m_boardState[row][j] == PLAYER_TWO) {
@@ -181,7 +184,7 @@ public class OthHardAI {
 		int lineLength = 1;
 		
 		if( col > 1) {
-			for (int j = col - 2; j >= 0; j--) {
+			for (int j = col - DECREMENT_2; j >= 0; j--) {
 				if(m_boardState[row][j] == PLAYER_ONE) {
 					lineLength++;		
 				} else if(m_boardState[row][j] == PLAYER_TWO) {
@@ -207,7 +210,7 @@ public class OthHardAI {
 		int lineLength = 1;
 		
 		if(row < BOARD_WIDTH - 1) {
-			for (int i = row + 2; i < BOARD_WIDTH; i++) {
+			for (int i = row + INCREMENT_2; i < BOARD_WIDTH; i++) {
 				if(m_boardState[i][col] == PLAYER_ONE) {
 					lineLength++;		
 				} else if(m_boardState[i][col] == PLAYER_TWO) {
@@ -233,7 +236,7 @@ public class OthHardAI {
 		int lineLength = 1;
 		
 		if(row > 1) {
-			for (int i = row - 2; i >= 0; i--) {
+			for (int i = row - DECREMENT_2; i >= 0; i--) {
 				if(m_boardState[i][col] == PLAYER_ONE) {
 					lineLength++;		
 				} else if(m_boardState[i][col] == PLAYER_TWO) {
@@ -258,7 +261,7 @@ public class OthHardAI {
 		int lineLength = 1;
 		
 		if(row < BOARD_WIDTH - 1 && col > 1) {
-			for(int i = row + 2, j = col - 2; i < BOARD_WIDTH && j >= 0; i++, j--) {
+			for(int i = row + INCREMENT_2, j = col - DECREMENT_2; i < BOARD_WIDTH && j >= 0; i++, j--) {
 				if(m_boardState[i][j] == PLAYER_ONE) {
 					lineLength++;		
 				} else if(m_boardState[i][j] == PLAYER_TWO) {
@@ -283,7 +286,7 @@ public class OthHardAI {
 		int lineLength = 1;
 		
 		if(row > 1 && col > 1) {
-			for(int i = row - 2, j = col - 2; i >= 0 && j >= 0; i--, j--) {
+			for(int i = row - DECREMENT_2, j = col - DECREMENT_2; i >= 0 && j >= 0; i--, j--) {
 				if(m_boardState[i][j] == PLAYER_ONE) {
 					lineLength++;		
 				} else if(m_boardState[i][j] == PLAYER_TWO) {
@@ -308,7 +311,7 @@ public class OthHardAI {
 		int lineLength = 1;
 		
 		if(row < BOARD_WIDTH - 1 && col < BOARD_HEIGHT - 1) {
-			for(int i = row + 2, j = col + 2; i < BOARD_WIDTH && j < BOARD_HEIGHT; i++, j++) {
+			for(int i = row + INCREMENT_2, j = col + INCREMENT_2; i < BOARD_WIDTH && j < BOARD_HEIGHT; i++, j++) {
 				if(m_boardState[i][j] == PLAYER_ONE) {
 					lineLength++;		
 				} else if(m_boardState[i][j] == PLAYER_TWO) {
@@ -333,7 +336,7 @@ public class OthHardAI {
 		int lineLength = 1;
 		
 		if(row > 1 && col < BOARD_HEIGHT - 1) {
-			for(int i = row - 2, j = col + 2; i >= 0 && j < BOARD_HEIGHT; i--, j++) {
+			for(int i = row - DECREMENT_2, j = col + INCREMENT_2; i >= 0 && j < BOARD_HEIGHT; i--, j++) {
 				if(m_boardState[i][j] == PLAYER_ONE) {
 					lineLength++;		
 				} else if(m_boardState[i][j] == PLAYER_TWO) {
