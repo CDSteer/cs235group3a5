@@ -438,7 +438,7 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 							try{
 								for(int i = 0; i < height; i++){
 									setImage(width,i,(new ImageIcon(piece_Image1)));
-									Thread.sleep(100);
+									Thread.sleep(DROP_DELAY);
 									setImage(width,i,(new ImageIcon(blank_Image)));
 								}
 								setImage(width,height,(new ImageIcon(piece_Image1)));
@@ -519,11 +519,11 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 			boolean checkMoveIsValid = false;
 			checkMoveIsValid = players[getTurn() % PLAYER_2].move(x, y, this);
 		  if(checkMoveIsValid == true) {
-				if (getGame().checkTakeableTurn(players[(getTurn() + 1) % 2]) == true) {
+				if (getGame().checkTakeableTurn(players[(getTurn() + 1) % REMAINDER_2]) == true) {
 					/** If it's 0 (player 1) turn this will change it  to 1 (player 2) turn*/
 					setTurn(getTurn() + 1);
 					getTurnNumberLabel().setText("Turn: " + (getTurn() + 1));
-					if((getTurn() % PLAYER_2)==0){
+					if((getTurn() % PLAYER_2)== 0){
 						System.out.println(getGame().getPlayer(PLAYER_ONE).getName());
 						getTurnLabel().setText(getGame().getPlayer(PLAYER_ONE).getName() + "'s turn");
 					} else {
@@ -669,11 +669,11 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 
   		setIsC4(gameState);
 
-  		if (playerState == 0) {
+  		if (playerState == HUMAN_CHOICE) {
   			m_playerSelection = HUMAN;
-  		} else if (playerState == 1) {
+  		} else if (playerState == EASY_CHOICE) {
   			m_playerSelection = EASY_AI;
-  		} else if (playerState == 2) {
+  		} else if (playerState == HARD_CHOICE) {
   			m_playerSelection = HARD_AI;
   		}
 
@@ -708,7 +708,7 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 	setBoard();
 	setContainer();
 	setImages();
-  setTurnLabel();
+    setTurnLabel();
 	setNewGameButton();
 	setSaveButton();
 	setTurnNumberLabel("Turn: 1");
@@ -733,29 +733,29 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 
 		//no idea
 		pack();
-	  setLocationRelativeTo(null);
+	    setLocationRelativeTo(null);
 		setVisible(true);
   }
 
 	/* Symbolic constants */
-  private final int PLAYER_ONE = 0;
-	private final int PLAYER_TWO = 1;
+     private final int PLAYER_ONE = 0;
+	 private final int PLAYER_TWO = 1;
 
 	/* Member variables that store player info */
-	private int m_Turn = 0;
-	private String m_Player1, m_Player2;
+	 private int m_Turn = 0;
+	 private String m_Player1, m_Player2;
 
 	/* Timer initialisation and member variables */
-	private Timer m_Timer;
-	private static int m_Time;
+	 private Timer m_Timer;
+	 private static int m_Time;
 
 	/* Member variable that stores which game is being played, if false then othello is being played */
-  private static boolean m_IsC4;
+     private static boolean m_IsC4;
 
 	/* Member variable that stores game being played */
-  private static AbstractGameImplementation m_Game;
+     private static AbstractGameImplementation m_Game;
 
-  private C4SaveManager c4SaveManager =  new C4SaveManager();
+     private C4SaveManager c4SaveManager =  new C4SaveManager();
 
 	/** Initialisation of UI elements */
 	private static BufferedImage m_Background_Image;
@@ -801,5 +801,11 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
   private int userOption;
   private int gameState = 0;
   private int playerState = 0;
+  private int EASY_CHOICE = 1;
+  private int HARD_CHOICE = 2;
+  private int HUMAN_CHOICE = 0;
+  private int DROP_DELAY = 100;
+  private int REMAINDER_2 = 2;
+
 
 }
