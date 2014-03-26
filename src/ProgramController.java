@@ -116,8 +116,8 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 	 */
 	private void setSaveButton(){
 		m_SaveButton = new JButton("Save Game");
-		m_Constraints.gridy = getBoard().getBoardHeight() + ADD_FOUR;
-		m_Constraints.gridx = getBoard().getBoardWidth() / DIVIDE_BY_TWO - SUBTRACT_SEVEN;
+		m_Constraints.gridy = saveButtonGridY;
+		m_Constraints.gridx = saveButtonGridX;
 		m_Constraints.gridwidth = NEW_GAME_GRID_WIDTH;
 		m_Container.add(m_SaveButton, m_Constraints);
 		//m_SaveButton.addActionListener(m_Handler);
@@ -145,8 +145,8 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 	private void setTurnLabel(){
 		m_TurnLabel = new JLabel(m_Game.getPlayer(PLAYER_ONE).getName() + "'s turn");
 		System.out.println(m_Game.getPlayer(PLAYER_ONE).getName());
-		m_Constraints.gridy = getBoard().getBoardHeight() + ADD_TWO;
-		m_Constraints.gridx = (getBoard().getBoardWidth() / DIVIDE_BY_TWO) - SUBTRACT_FOUR;
+		m_Constraints.gridy = turnLabelGridY;
+		m_Constraints.gridx = turnLabelGridX;
 		m_Constraints.gridwidth = TURN_GRID_WIDTH;
 		m_Container.add(m_TurnLabel, m_Constraints);
 	}
@@ -862,6 +862,10 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
   private final int SUBTRACT_FOUR = 4;
   private final int SUBTRACT_SEVEN = 7;
   private final int ADD_FOUR = 4;
+  private final int turnLabelGridY = 8;
+  private final int turnLabelGridX = 1;
+  private final int saveButtonGridY = 22;
+  private final int saveButtonGridX = 3;
   private final int IMAGE_SIZE_100 = 100;
   private final int IMAGE_SIZE_200 = 200;
   private final int IMAGE_SIZE_300 = 300;
