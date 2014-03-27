@@ -252,12 +252,17 @@ public class Connect4GameLogic extends AbstractGameImplementation{
 
     
     public static void main(String[] args){
+
+        final int TOO_BIG = 42;
+        final int TOO_SMALL = -42;
+        final int ROW_SIX = 6;
+
 		Connect4GameLogic c4gamelogic = new Connect4GameLogic();
 		AbstractPlayer testPlayer = new Human();
 		testPlayer.setColour("Red");
 		
 		c4gamelogic.setPiece(0, 0, testPlayer);
-		if(c4gamelogic.getBoard().getBoard()[0][6].getColour().equals("Red")){
+		if(c4gamelogic.getBoard().getBoard()[0][ROW_SIX].getColour().equals("Red")){
 			System.out.println("Connect4GameLogic::testSetPieceTrue has been successful");
 		}else{
 			System.out.println("Connect4GameLogic::testSetPieceTrue has not been successful");
@@ -299,7 +304,7 @@ public class Connect4GameLogic extends AbstractGameImplementation{
 		
 		try{
 		
-			c4gamelogic.setPiece(42, 42, testPlayer);
+			c4gamelogic.setPiece(TOO_BIG, TOO_BIG, testPlayer);
 		
 		}catch(Exception e){
 			System.out.println("Connect4GameLogic::testSetPiecesTooBig()");
@@ -308,7 +313,7 @@ public class Connect4GameLogic extends AbstractGameImplementation{
 		//try to set pieces that are too small
 		try{
 
-			c4gamelogic.setPiece(-42, -42, testPlayer);
+			c4gamelogic.setPiece(TOO_SMALL, TOO_SMALL, testPlayer);
 			
 		} catch (Exception e){
 			System.out.println("Connect4GameLogic::testSetPieceTooSmall()");
@@ -329,13 +334,13 @@ public class Connect4GameLogic extends AbstractGameImplementation{
 		}
 		
 		try{
-			c4gamelogic.checkValid(42, 42, testPlayer);
+			c4gamelogic.checkValid(TOO_BIG, TOO_BIG, testPlayer);
 		}catch(Exception e){
 			System.out.println("Connect4GameLogic::testMoveIsValidTooBig(");
 		}
 		
 		try{
-			c4gamelogic.checkValid(-42, -42, testPlayer);
+			c4gamelogic.checkValid(TOO_SMALL, TOO_SMALL, testPlayer);
 		}catch(Exception e){
 			System.out.println("Connect4GameLogic::testMoveIsValidTooSmall()");
 		}
@@ -373,4 +378,5 @@ public class Connect4GameLogic extends AbstractGameImplementation{
   private final int COORDINATE_ONE = 1;
   private final int COORDINATE_TWO = 2;
   private final int COORDINATE_THREE = 3;
+
 }
