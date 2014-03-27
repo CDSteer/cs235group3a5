@@ -13,10 +13,11 @@ import java.util.Random;
  */
 public class OthHardAI {
 
-	private final int BOARD_WIDTH = 8;
-	private final int BOARD_HEIGHT = 8;
-	private final int PLAYER_ONE = 0;
-	private final int PLAYER_TWO = 1;
+	// Class constants
+	private static final int BOARD_WIDTH = 8;
+	private static final int BOARD_HEIGHT = 8;
+	private static final int PLAYER_ONE = 0;
+	private static final int PLAYER_TWO = 1;
 	private final int EMPTY = 2;
 	private final int INVALID_MOVE = 0;
     private final int INCREMENT_2 = 2;
@@ -26,15 +27,19 @@ public class OthHardAI {
 	private final String PLAYER_ONE_PIECE_COLOUR = "Black";
 	private final String PLAYER_TWO_PIECE_COLOUR = "White";
 	
+	// variables holding class objects
 	private AbstractPlayer humanPlayer;
 	private AbstractPlayer AIPlayer;
 	private OthelloGameLogic othello;
-		
-	private Random m_rand;
+			
+	// Arrays holding current board state and intermediate calculation states
 	private int[][] m_boardState;
 	private int[][] m_possibleMoves;
 	private int[][] m_moveLength;
 	private int[] m_selectedMoves;
+	
+	// Misc Variables
+	private Random m_rand;
 	private int m_maxLineLength;
 	private int m_selectedRow;
 	private int m_selectedCol;
@@ -59,8 +64,6 @@ public class OthHardAI {
 		m_rand = new Random();
 		m_validMove = false;
 		
-		System.out.println("m_maxLineLength: " + m_maxLineLength);
-		
 		if(othello.checkTakeableTurn(AIPlayer) == false) {
 			return m_selectedMoves;
 		}
@@ -70,7 +73,6 @@ public class OthHardAI {
 			m_validMove = false;
 			m_selectedRow = m_rand.nextInt(BOARD_WIDTH);
 			m_selectedCol = m_rand.nextInt(BOARD_HEIGHT);
-			System.out.println("Generated move: " + m_selectedRow + " " + m_selectedCol);
 			if(PC.getGame().checkValid(m_selectedRow, m_selectedCol, PC.getGame().getPlayer(PLAYER_TWO)) == true) {
 				m_validMove = true;
 			}
@@ -93,8 +95,6 @@ public class OthHardAI {
 		m_possibleMoves = new int[BOARD_WIDTH][BOARD_HEIGHT];
 		m_moveLength = new int[BOARD_WIDTH][BOARD_HEIGHT];
 		othello = new OthelloGameLogic();
-		
-		// GOES BY [ROW][COLUMN]
 		
 		// Clears m_boardState		
 		for(int i = 0; i < BOARD_WIDTH; i++) {
@@ -120,14 +120,14 @@ public class OthHardAI {
 			}
 		}
 		
+		// Check each position for the move that flips the most counters
 		for(int i = 0; i < BOARD_WIDTH; i++) {
 			for(int j = 0; j < BOARD_HEIGHT; j++) {
 				if(m_boardState[i][j] == PLAYER_TWO || m_boardState[i][j] == PLAYER_ONE) {
 					m_moveLength[i][j] = INVALID_MOVE;
 				} else if(m_boardState[i][j] == EMPTY) {
 					if(PC.getGame().checkValid(i, j, AIPlayer) == true) {
-						
-						
+												
 						m_maxLineLength = 0;
 		
 						checkVerticalDown(i, j, AIPlayer);
@@ -179,8 +179,7 @@ public class OthHardAI {
 		if(m_boardState[row][col-1] == PLAYER_TWO || m_boardState[row][col-1] == EMPTY) {
 			return;
 		}
-		
-		
+				
 		int lineLength = 1;
 		
 		if( col > 1) {
@@ -231,8 +230,7 @@ public class OthHardAI {
 		if(m_boardState[row-1][col] == PLAYER_TWO || m_boardState[row-1][col] == EMPTY) {
 			return;
 		}
-		
-		
+			
 		int lineLength = 1;
 		
 		if(row > 1) {
@@ -350,10 +348,62 @@ public class OthHardAI {
 		}
 	}
 	
-	
-	
-	
-	
-	
+	/**
+	 * Main method for class tests on OthHardAI
+	 * Takes no arguments
+	 */
+	public static void main(String[] args) {
+		
+		/*
+		 * Test One
+		 * Calling OthHardAI.selectMove on an Oth Board with default starting state.
+		 */
+		ProgramController testPC = new ProgramController();
+		C4AndOthelloBoardStore testBoard = new C4AndOthelloBoardStore();
+		OthHardAI testAI = new OthHardAI();
+		testPC.setIsC4(1);
+		testPC.setGame("player1", "player2");
+		testBoard.setBoardWidth(BOARD_WIDTH);
+		testBoard.setBoardHeight(BOARD_HEIGHT);
+		testBoard.setBoard(BOARD_WIDTH, BOARD_HEIGHT);
+		testPC.setBoard(testBoard);
+		int[] selectedMoves = new int[2];
+		selectedMoves = testAI.selectMove(testPC);
+		int testRow = selectedMoves[0];
+		int testCol = selectedMoves[1];
+		if(testPC.getGame().checkValid(testRow, testCol, testPC.getGame().getPlayer(PLAYER_TWO)) == true) {
+			System.out.println("OthHardAI.selectMove Evaulated: Correct");
+		}
+		else {
+			System.out.println("OthHardAI.selectMove Evaulated: Incorrect");
+		}
+		
+		/*
+		 * Test Two
+		 * Calling OthHardAI.selectMove on an Oth Board with non-default starting state.
+		 */
+		ProgramController testPC2 = new ProgramController();
+		C4AndOthelloBoardStore testBoard2 = new C4AndOthelloBoardStore();
+		OthHardAI testAI2 = new OthHardAI();
+		testPC2.setIsC4(1);
+		testPC2.setGame("player1", "player2");
+		testBoard2.setBoardWidth(BOARD_WIDTH);
+		testBoard2.setBoardHeight(BOARD_HEIGHT);
+		testBoard2.setBoard(BOARD_WIDTH, BOARD_HEIGHT);
+		testBoard2.setPiece2(new Piece("Black"), 5, 4);
+		testBoard2.setPiece2(new Piece("White"), 5, 5);
+		testPC2.setBoard(testBoard2);
+		int[] selectedMoves2 = new int[2];
+		selectedMoves2 = testAI2.selectMove(testPC2);
+		int testRow2 = selectedMoves2[0];
+		int testCol2 = selectedMoves2[1];
+		if(testPC.getGame().checkValid(testRow2, testCol2, testPC2.getGame().getPlayer(PLAYER_TWO)) == true) {
+			System.out.println("OthHardAI.selectMove Evaulated: Correct");
+		}
+		else {
+			System.out.println("OthHardAI.selectMove Evaulated: Incorrect");
+		}
+	}
+
 }
 

@@ -71,7 +71,7 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 	*	@param userOption -int value given by dialog frame at start of the program
 	*	@return null
 	*/
-	private void setIsC4(int userOption){
+	public void setIsC4(int userOption){
 		if(userOption == 0){
 			m_IsC4 = true;
 		}else if(userOption == 1){
@@ -90,7 +90,7 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 	*	@param player2 -stores name of player 2
 	* 	@return null
 	*/
-	private void setGame(String player1, String player2){
+	public void setGame(String player1, String player2){
 		File background_File;
 		if(getIsC4() == true){
 			m_Game = new Connect4GameLogic();
@@ -244,7 +244,7 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 	private void setBoard(){
 		m_Board = getGame().getBoard();
 	}
-	private void setBoard(C4AndOthelloBoardStore board){
+	public void setBoard(C4AndOthelloBoardStore board){
 		m_Board = board;
 	}
 
@@ -424,17 +424,17 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 	public void arrowPointer(int x, int y) throws IOException{
 		//final BufferedImage arrow_Image = ImageIO.read(new File("../Images/Connect4arrow.png"));
 		//final BufferedImage blank_Image = ImageIO.read(new File("../Images/Connect4Background.png"));
-
-		final BufferedImage arrow_Image;
-
-		final BufferedImage blank_Image = ImageIO.read(new File("../Images/Connect4Background.png"));
-
+		
+		BufferedImage arrow_Image;
+		
+		BufferedImage blank_Image = ImageIO.read(new File("../Images/Connect4Background.png"));
+		
 		if(getTurn() % 2 == PLAYER_ONE) {
 			arrow_Image = ImageIO.read(new File("../Images/Connect4arrow.png"));
 		} else {
 			arrow_Image = ImageIO.read(new File("../Images/Connect4arrowYellow.png"));
 		}
-
+		
 		int hidden;
 		for(int i = 0; i < getBoard().getBoardWidth(); i++){
 			hidden = getLabel(i,0).getDisplayedMnemonic();
@@ -458,10 +458,10 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 	*	@return null
 	*/
 	public void dropPiece(int x, int y, BufferedImage piece_Image) throws IOException{
-
-		if(getIsC4() == false){
+		
+		if(getIsC4() == false){ 
 			setImage(x,y,(new ImageIcon(piece_Image)));
-			return;
+			return; 
 		}
 		final int boardHeight = C4_BOARD_HEIGHT - 1;
 		final int width = x;
@@ -532,7 +532,7 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 						if(getIsC4() == false) {
 							setImage(x,y,(new OthelloPieceColourChanger().flip(board.getBoard()[x][y])));
 						}
-
+						
 						getLabel(x,y).setDisplayedMnemonic(IMAGE_SIZE_500);
 					} else {
 						BufferedImage piece_Image = ImageIO.read(new File("../Images/" + colour2 + "Piece.png"));
@@ -605,7 +605,7 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 									System.out.println("DELAY FOR AI MOVE START");
 									Thread.sleep(WAIT_TIME);
 									System.out.println("DELAY FOR AI MOVE END");
-									m_AIC4Col = c4EasyAI.selectCol(getThis());
+									m_AIC4Col = m_c4EasyAI.selectCol(getThis());
 									m_checkAIMove = m_players[1].move(m_AIC4Col, C4_BOARD_HEIGHT, getThis());
 									checkWinner(m_players);
 									setWaiting(false);
@@ -630,7 +630,7 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 										System.out.println("DELAY FOR AI MOVE START");
 										Thread.sleep(WAIT_TIME);
 										System.out.println("DELAY FOR AI MOVE END");
-										m_AIOthMoves = othEasyAI.selectMove(getThis());
+										m_AIOthMoves = m_othEasyAI.selectMove(getThis());
 										m_AIOthRow = m_AIOthMoves[0];
 										m_AIOthCol = m_AIOthMoves[1];
 										m_checkAIMove = m_players[1].move(m_AIOthRow, m_AIOthCol, getThis());
@@ -661,7 +661,7 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 									System.out.println("DELAY FOR AI MOVE START");
 									Thread.sleep(WAIT_TIME);
 									System.out.println("DELAY FOR AI MOVE END");
-									m_AIC4Col = c4HardAI.selectCol(getThis());
+									m_AIC4Col = m_c4HardAI.selectCol(getThis());
 									m_checkAIMove = m_players[1].move(m_AIC4Col, C4_BOARD_HEIGHT, getThis());
 									checkWinner(m_players);
 									setWaiting(false);
@@ -686,7 +686,7 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 										System.out.println("DELAY FOR AI MOVE START");
 										Thread.sleep(WAIT_TIME);
 										System.out.println("DELAY FOR AI MOVE END");
-										m_AIOthMoves = othHardAI.selectMove(getThis());
+										m_AIOthMoves = m_othHardAI.selectMove(getThis());
 										m_AIOthRow = m_AIOthMoves[0];
 										m_AIOthCol = m_AIOthMoves[1];
 										m_checkAIMove = m_players[1].move(m_AIOthRow, m_AIOthCol, getThis());
@@ -828,18 +828,18 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 		if(m_playerSelection == EASY_AI) {
 			if(this.getIsC4() == true) {
 				m_Player2Type = "Easy";
-				c4EasyAI = new C4EasyAI();
+				m_c4EasyAI = new C4EasyAI();
 			} else {
 				m_Player2Type = "Easy";
-				othEasyAI = new OthEasyAI();
+				m_othEasyAI = new OthEasyAI();
 			}
 		} else if(m_playerSelection == HARD_AI) {
 			if(this.getIsC4() == true) {
 				m_Player2Type = "Hard";
-				c4HardAI = new C4HardAI();
+				m_c4HardAI = new C4HardAI();
 			} else {
 				m_Player2Type = "Hard";
-				othHardAI = new OthHardAI();
+				m_othHardAI = new OthHardAI();
 			}
 		}
 		update(getGame().getBoard(), "Black", "White");
@@ -875,19 +875,19 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
   			if(this.getIsC4() == true) {
   				m_Player2Type = "Easy";
   				System.out.println("Set Easy C4 AI");
-  				c4EasyAI = new C4EasyAI();
+  				m_c4EasyAI = new C4EasyAI();
   			} else {
   				m_Player2Type = "Easy";
-  				othEasyAI = new OthEasyAI();
+  				m_othEasyAI = new OthEasyAI();
   			}
   		} else if(m_playerSelection == HARD_AI) {
   			if(this.getIsC4() == true) {
   				m_Player2Type = "Hard";
   				System.out.println("Set Hard C4 AI");
-  				c4HardAI = new C4HardAI();
+  				m_c4HardAI = new C4HardAI();
   			} else {
   				m_Player2Type = "Hard";
-  				othHardAI = new OthHardAI();
+  				m_othHardAI = new OthHardAI();
   			}
   		}
 
@@ -898,10 +898,10 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 		  setTurnLabel();
 			setNewGameButton();
 			setSaveButton();
-			setTurnNumberLabel("Turn: " + turn );
+			setTurnNumberLabel("Turn: 1" );
 			setTimerLabel();
 			startTimer();
-			System.out.println(turn);
+			m_Turn = turn;
 			m_Time = time;
 
   		for (int i = 0; i < 7; i++) {
@@ -929,89 +929,99 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
   		m_Loading = false;
     }
 
-	/* Symbolic constants */
-  private final int PLAYER_ONE = 0;
+    // Class Constants
+    // AI and Player Number Constants
+    private final int PLAYER_ONE = 0;
 	private final int PLAYER_TWO = 1;
+	private final int HUMAN = 0;
+	private final int EASY_AI = 1;
+	private final int HARD_AI = 2;
+	private final int DRAW = 3;
+	private final int PLAYER_1 = 1;
+	private final int PLAYER_2 = 2;
+	private final int EASY_CHOICE = 1;
+	private final int HARD_CHOICE = 2;
+	private final int HUMAN_CHOICE = 0;
+  
+	// Size and Math Constants    
+	private final int TIMER_GRID_WIDTH = 10;
+    private final int TURN_GRID_WIDTH = 8;
+	private final int NEW_GAME_GRID_WIDTH = 2;
+	private final int DIVIDE_BY_TWO = 2;
+	private final int CONTAINER_64 = 64;
+	private final int CONTAINER_22 = 22;
+	private final int ADD_TWO = 2;
+	private final int SUBTRACT_FOUR = 4;
+	private final int SUBTRACT_SEVEN = 7;
+	private final int ADD_FOUR = 4;
+	private final int turnLabelGridY = 8;
+	private final int turnLabelGridX = 1;
+	private final int saveButtonGridY = 22;
+	private final int saveButtonGridX = 3;
+	private final int C4_BOARD_HEIGHT = 7;
+	private final int REMAINDER_2 = 2;
+	
+	// Time Related Constants
+	private final int WAIT_TIME = 1500;
+	private final int DROP_DELAY = 100;
+	private final int ONE_SECOND_INTERVAL = 1000;
+	
+	// Image Size Constants
+	private final int IMAGE_SIZE_100 = 100;
+	private final int IMAGE_SIZE_200 = 200;
+	private final int IMAGE_SIZE_300 = 300;
+	private final int IMAGE_SIZE_400 = 400;
+	private final int IMAGE_SIZE_500 = 500;
 
-	/* Member variables that store player info */
+	// Variables storing player information
 	private int m_Turn = 0;
 	private String m_Player1, m_Player2;
+	private String m_Player1Type;
+	private String m_Player2Type;
+	private String player1;
+	private String player2;
+	private int m_playerSelection;
 
-	/* Timer initialisation and member variables */
+	// Timer initialisation and member variables 
 	private Timer m_Timer;
 	private static int m_Time;
 
-	/* Member variable that stores which game is being played, if false then othello is being played */
-  private static boolean m_IsC4;
+	// Member variable that stores which game is being played, if false then othello is being played 
+    private static boolean m_IsC4;
 
-	/* Member variable that stores game being played */
-  private static AbstractGameImplementation m_Game;
+	// Member variable that stores game being played
+    private static AbstractGameImplementation m_Game;
 
-  private C4SaveManager c4SaveManager =  new C4SaveManager();
-  private boolean m_Loading = false;
+    private C4SaveManager c4SaveManager =  new C4SaveManager();
+    private boolean m_Loading = false;
+  
 	/** Initialisation of UI elements */
 	private static BufferedImage m_Background_Image;
-  private C4AndOthelloBoardStore m_Board;
-  private JLabel[][] m_Image_Labels;
+    private C4AndOthelloBoardStore m_Board;
+    private JLabel[][] m_Image_Labels;
 	private JButton m_NewGameButton;
 	private JButton m_SaveButton;
 	private JLabel m_TurnLabel;
 	private JLabel m_TimerLabel;
 	private JLabel m_TurnNumberLabel;
-  private Container m_Container;
+    private Container m_Container;
 	private GridBagConstraints m_Constraints;
-	private int m_playerSelection;
-	private final int HUMAN = 0;
-	private final int EASY_AI = 1;
-	private final int HARD_AI = 2;
-	private String m_Player1Type;
-	private String m_Player2Type;
-	private C4EasyAI c4EasyAI;
-	private C4HardAI c4HardAI;
-	private OthEasyAI othEasyAI;
-	private OthHardAI othHardAI;
-	private final int C4_BOARD_HEIGHT = 7;
-  private final int ONE_SECOND_INTERVAL = 1000;
-  private final int DRAW = 3;
-  private final int TIMER_GRID_WIDTH = 10;
-  private final int TURN_GRID_WIDTH = 8;
-  private final int NEW_GAME_GRID_WIDTH = 2;
-  private final int DIVIDE_BY_TWO = 2;
-  private final int CONTAINER_64 = 64;
-  private final int CONTAINER_22 = 22;
-  private final int ADD_TWO = 2;
-  private final int SUBTRACT_FOUR = 4;
-  private final int SUBTRACT_SEVEN = 7;
-  private final int ADD_FOUR = 4;
-  private final int turnLabelGridY = 8;
-  private final int turnLabelGridX = 1;
-  private final int saveButtonGridY = 22;
-  private final int saveButtonGridX = 3;
-  private final int IMAGE_SIZE_100 = 100;
-  private final int IMAGE_SIZE_200 = 200;
-  private final int IMAGE_SIZE_300 = 300;
-  private final int IMAGE_SIZE_400 = 400;
-  private final int IMAGE_SIZE_500 = 500;
-  private final int PLAYER_1 = 1;
-  private final int PLAYER_2 = 2;
-  private final int WAIT_TIME = 1500;
-  private String player1;
-  private String player2;
-  private int userOption;
-  private int gameState = 0;
-  private int playerState = 0;
-  private int EASY_CHOICE = 1;
-  private int HARD_CHOICE = 2;
-  private int HUMAN_CHOICE = 0;
-  private int DROP_DELAY = 100;
-  private int REMAINDER_2 = 2;
-
-  private int m_AIC4Col;
-  private int[] m_AIOthMoves;
-  private int m_AIOthRow;
-  private int m_AIOthCol;
-  private boolean m_checkAIMove;
-  private AbstractPlayer[] m_players;
-  private boolean m_waiting;
+	
+	
+	// Variables holding AI Objects
+	private C4EasyAI m_c4EasyAI;
+	private C4HardAI m_c4HardAI;
+	private OthEasyAI m_othEasyAI;
+	private OthHardAI m_othHardAI;
+	
+	// Variables used in making AI moves
+	private int m_AIC4Col;
+	private int[] m_AIOthMoves;
+	private int m_AIOthRow;
+	private int m_AIOthCol;
+	private boolean m_checkAIMove;
+	private AbstractPlayer[] m_players;
+	private boolean m_waiting;
+	 
 
 }
