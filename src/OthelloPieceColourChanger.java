@@ -7,7 +7,7 @@
  *
  * @brief Animates the Othello board pieces.
  *
- * This classes, when passed a piece
+ * @detail When passed a piece object, this class returns the appropriate flipping ImageIcon
  */
 
 import java.awt.*;
@@ -67,50 +67,60 @@ public class OthelloPieceColourChanger extends JFrame {
 		return whiteToBlack;
 	}
 
+	/**
+	 * Main method for class tests on OthelloPieceColourChanger
+	 */
 	public static void main(String[] args) throws IOException {
 
+		final String blackToWhiteGif = "../Images/BlackToWhitePiece.gif";
+		final String whiteToBlackGif = "../Images/WhiteToBlackPiece.gif";
+		
         //	Tests whether the black to white gif animation from file equals the gif animation parsed
         //	out from the ColourChange class.
 
-            m_ColourChanger = new OthelloPieceColourChanger();
-            m_ImageIcon = new ImageIcon("Images/BlackToWhitePiece.gif");
+		OthelloPieceColourChanger testColourChanger1 = new OthelloPieceColourChanger();
+         ImageIcon testImage1 = testColourChanger1.flip(new Piece("White"));
+         System.out.println(testImage1.toString());
 
-
-        if(m_ColourChanger.flip(new Piece("White")).getImage().equals(m_ImageIcon.getImage())) {
-            System.out.println("OthelloPieceColourChanger Test One BlackToWhite Evaluated: Correct");
+        if(testImage1.toString().equals(blackToWhiteGif)) {
+            System.out.println("OthelloPieceColourChanger Test One Evaluated: Correct");
         } else {
-            System.out.println("OthelloPieceColourChanger Test One BlackToWhite Evaluated: Incorrect");
+            System.out.println("OthelloPieceColourChanger Test One Evaluated: Incorrect");
         }
 
 
         //	Tests whether the white to black gif animation from file equals the gif animation parsed
         //	out from the ColourChange class.
 
-            m_ColourChanger = new OthelloPieceColourChanger();
-            m_ImageIcon = new ImageIcon("Images/WhiteToBlackPiece.gif");
+        
+        
+        OthelloPieceColourChanger testColourChanger2 = new OthelloPieceColourChanger();
+        ImageIcon testImage2 = testColourChanger2.flip(new Piece("Black"));   
 
-
-        if(m_ColourChanger.flip(new Piece("Black")).getImage().equals (m_ImageIcon.getImage())) {
-            System.out.println("OthelloPieceColourChanger Test Two WhiteToBlack Evaluated: Correct");
+        if(testImage2.toString().equals(whiteToBlackGif)) {
+            System.out.println("OthelloPieceColourChanger Test Two Evaluated: Correct");
         } else {
-            System.out.println("OthelloPieceColourChanger Test Two WhiteToBlack Evaluated: Incorrect");
+            System.out.println("OthelloPieceColourChanger Test Two Evaluated: Incorrect");
         }
 
 
         //	Tests if an incorrect string is inputted so that it doesn't output one of the GIFs and outputs
         //	a blank ImageIcon.
 
-            m_ColourChanger = new OthelloPieceColourChanger();
-            m_ImageIcon = new ImageIcon();
-
+        OthelloPieceColourChanger testColourChanger3 = new OthelloPieceColourChanger();
+        ImageIcon testImage3 = testColourChanger3.flip(new Piece("Blue")); 
+        
         try {
-         if(m_ColourChanger.flip(new Piece("Blue")).getImage().equals (m_ImageIcon.getImage())) {
-            System.out.println("OthelloPieceColourChanger Test Three BlankIcon Evaluated: Correct");
+         if(testImage3.toString().equals(blackToWhiteGif) || testImage3.toString().equals(whiteToBlackGif)) {
+            System.out.println("OthelloPieceColourChanger Test Three Evaluated: Incorrect");
+        } else {
+        	System.out.println("OthelloPieceColourChanger Test Three Evaluated: Correct");
         }
 
         } catch (Exception e) {
 
-            System.out.println("OthelloPieceColourChanger Test Three BlankIcon Evaluated: Invalid String Entered");
+            System.out.println("OthelloPieceColourChanger Test Three Could not accept incorrect Piece input (intended)");
+            System.out.println("OthelloPieceColourChanger Test Three BlankIcon Evaluated: Correct");
 
         }
 
