@@ -30,7 +30,7 @@ public class C4SaveManager {
   private int m_option;
   private Connect4GameLogic m_Connect4GameLogic = new Connect4GameLogic();
 
-  private String m_LoadGameType;
+  private String m_LoadGameType = "";
   private int m_LoadTime;
   private String m_LoadName1;
   private String m_LoadName2;
@@ -201,7 +201,7 @@ public class C4SaveManager {
 
 
 
-    System.out.println("Load Test Data:");
+    System.out.println("Load Test Data (C4):");
     m_CSVReader.close();
     for (int i = 0; i < BOARD_ROWS; i++) {
       for (int j = 0; j < BOARD_COLS; j++) {

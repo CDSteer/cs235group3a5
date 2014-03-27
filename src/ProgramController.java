@@ -138,7 +138,11 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 			public void actionPerformed(ActionEvent event) {
 				System.out.println("Test save button");
 				try{
-					c4SaveManager.saveData(m_GameType, m_Board, m_Time, m_Game.getPlayer(PLAYER_ONE).getName(), m_Game.getPlayer(PLAYER_TWO).getName(), m_Player1Type, m_Player2Type, m_Turn);
+					if (m_GameType.equals("C4")){
+						c4SaveManager.saveData(m_GameType, m_Board, m_Time, m_Game.getPlayer(PLAYER_ONE).getName(), m_Game.getPlayer(PLAYER_TWO).getName(), m_Player1Type, m_Player2Type, m_Turn);
+					} else {
+						othSaveManager.saveData(m_GameType, m_Board, m_Time, m_Game.getPlayer(PLAYER_ONE).getName(), m_Game.getPlayer(PLAYER_TWO).getName(), m_Player1Type, m_Player2Type, m_Turn);
+					}
 				} catch (IOException e){
 					System.out.println("Can't Save Data");
 				  e.printStackTrace();
@@ -919,9 +923,6 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
   		  	}else if (board[j][i].getColour() == "Yellow"){
   		  		Piece piece = new Piece("Yellow");
 						getGame().getBoard().setPiece2(piece, j, i);
-					} else {
-						// Piece piece = new Piece(" ");
-						// getGame().getBoard().setPiece2(piece, j, i);
 					}
   		    System.out.println( j+", " +i + ", "+ getGame().getBoard().getBoard()[j][i].getColour());
   		  }
@@ -931,15 +932,12 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
   		  for (int j = 0; j < 8; j++) {
   		  	if (board[j][i].getColour() == "Black"){
   		  		Piece piece = new Piece("Black");
-  		  		getGame().getBoard().setPiece2(piece ,j,i);
+  		  		getGame().getBoard().setPiece2(piece, j, i);
   		  	}else if (board[j][i].getColour() == "White"){
   		  		Piece piece = new Piece("White");
 						getGame().getBoard().setPiece2(piece, j, i);
-					} else {
-						// Piece piece = new Piece(" ");
-						// getGame().getBoard().setPiece2(piece, j, i);
 					}
-  		    //System.out.println( j+", " +i + ", "+ getGame().getBoard().getBoard()[j][i].getColour());
+  		    System.out.println( j+", " +i + ", "+ getGame().getBoard().getBoard()[j][i].getColour());
   		  }
   		}
   	}
@@ -949,8 +947,12 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
   		m_Player2Type = "Human";
   		m_playerSelection = HUMAN;
   	} else if (playerState == 1) {
+  		m_Player1Type = "Human";
+  		m_Player2Type = "Easy";
   		m_playerSelection = EASY_AI;
   	} else if (playerState == 2) {
+  		m_Player1Type = "Human";
+  		m_Player2Type = "Hard";
   		m_playerSelection = HARD_AI;
   	}
 

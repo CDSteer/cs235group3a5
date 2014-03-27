@@ -31,7 +31,7 @@ public class OthSaveManager {
 	private int m_option;
 	private OthelloGameLogic m_othelloGameLogic = new OthelloGameLogic();
 
-	private String m_LoadGameType;
+	private String m_LoadGameType = "";
 	private int m_LoadTime;
 	private String m_LoadName1;
 	private String m_LoadName2;
@@ -125,7 +125,7 @@ public class OthSaveManager {
 		    	System.out.println("really? , " + m_LoadBoard[j][i].getColour());
 		      m_Data.add(new String[] {gameType, String.valueOf(j), String.valueOf(i), m_LoadBoard[j][i].getColour(), name1, playerType1, String.valueOf(turn), String.valueOf(time)});
 		    } else if (m_LoadBoard[j][i].getColour().equals("White")){
-		      m_Data.add(new String[] { String.valueOf(j), String.valueOf(i), m_LoadBoard[j][i].getColour(), name2, playerType2, String.valueOf(turn), String.valueOf(time)});
+		      m_Data.add(new String[] {gameType, String.valueOf(j), String.valueOf(i), m_LoadBoard[j][i].getColour(), name2, playerType2, String.valueOf(turn), String.valueOf(time)});
 		    } else {
 		      m_Data.add(new String[] {gameType, String.valueOf(j), String.valueOf(i), m_LoadBoard[j][i].getColour(), "", "", String.valueOf(turn), String.valueOf(time)});
 		    }
@@ -179,11 +179,11 @@ public class OthSaveManager {
 	      m_LoadTime = Integer.parseInt(row[7]);
 	      m_LoadTurn = Integer.parseInt(row[6]);
 
-	      m_othelloGameLogic.getBoard().setPiece2(piece, Integer.parseInt(row[0]), Integer.parseInt(row[1]));
+	      m_othelloGameLogic.getBoard().setPiece2(piece, Integer.parseInt(row[1]), Integer.parseInt(row[2]));
 	    }
     }
-    System.out.println("Load Test Data:");
     m_CSVReader.close();
+    System.out.println("Load Test Data(Othello):");
     for (int i = 0; i < BOARD_ROWS; i++) {
       for (int j = 0; j < BOARD_COLS; j++) {
       System.out.println(m_LoadGameType +j+", " +i + ", "+ m_othelloGameLogic.getBoard().getBoard()[j][i].getColour() + ", "+ m_LoadTime+ ", "+ m_LoadName1+ ", "+ m_LoadName2+ ", "+ m_LoadPlayerType1+ ", "+ m_LoadPlayerType2 + ", " + m_LoadTurn);
