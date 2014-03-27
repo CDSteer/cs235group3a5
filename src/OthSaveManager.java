@@ -11,7 +11,7 @@ import java.io.*;
 import javax.swing.*;
 
 /**
-* @author Chris Jenkins
+* @author Cameron Steer, Chris Jenkins
 * @brief Saves and loads Othello games
 * @details Reads in a CSV to load game data
 * or records game data by writing to a CSV
