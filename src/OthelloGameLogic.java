@@ -4,7 +4,7 @@
  * @brief This controls the flow of the game, specific to Othello.
  * This controls how the game works when the user selects to play Othello,
  * such as when a flip is possible, and when a win is detected.
- * 
+ *
  */
 
 public class OthelloGameLogic extends AbstractGameImplementation {
@@ -774,9 +774,185 @@ public class OthelloGameLogic extends AbstractGameImplementation {
 		}
 	}
 
-    public static void main(String[] args) {
+  public static void main(String[] args) {
+    final int TOO_BIG = 42;
+    final int TOO_SMALL = -42;
+    final int ROW_SIX = 6;
 
-    }
+		OthelloGameLogic othelloGameLogic = new OthelloGameLogic();
+		AbstractPlayer testPlayer = new Human();
+		testPlayer.setColour("Black");
+
+		othelloGameLogic.setPiece(0, 0, testPlayer);
+		if(othelloGameLogic.getBoard().getBoard()[0][ROW_SIX].getColour().equals("Black")){
+			System.out.println("OthelloGameLogic::testSetPieceTrue has been successful");
+		}else{
+			System.out.println("OthelloGameLogic::testSetPieceTrue has not been successful");
+		}
+
+		testPlayer.setColour("Black");
+
+		Piece testPiece = new Piece("White");
+
+		/*
+		 * Set the top piece of the board to White. This is a quasi-hack because
+		 * now the top piece is occupied whilst everyone below it isn't and that
+		 * wouldn't happen in the running implementation but it suffices here
+		 * for test purposes.
+		 *
+		 */
+
+
+		othelloGameLogic.getBoard().setPiece(testPiece, 0, 0);
+
+		othelloGameLogic.setPiece(0, 0, testPlayer);
+
+		/*
+		 * If top piece is still White then setPiece did nothing which is correct.
+		 * Basically our implementation tests if a move is valid before setting a piece
+		 * and so won't set a piece if it's not valid anyway but we wanted to include
+		 * a test to show this.
+		 *
+		 */
+
+
+		if(othelloGameLogic.getBoard().getBoard()[0][0].getColour().equals("White")){
+			System.out.println("OthelloGameLogic::testSetPieceFalse has been successful");
+		}else{
+			System.out.println("OthelloGameLogic::testSetPieceFalse has not been successful");
+		}
+
+
+
+		try{
+
+			othelloGameLogic.setPiece(TOO_BIG, TOO_BIG, testPlayer);
+
+		}catch(Exception e){
+			System.out.println("OthelloGameLogic::testSetPiecesTooBig()");
+		}
+
+		//try to set pieces that are too small
+		try{
+
+			othelloGameLogic.setPiece(TOO_SMALL, TOO_SMALL, testPlayer);
+
+		} catch (Exception e){
+			System.out.println("OthelloGameLogic::testSetPieceTooSmall()");
+		}
+
+		try{
+
+			othelloGameLogic.checkValid(0, 0, testPlayer);
+
+		} catch(Exception e){
+			System.out.println("OthelloGameLogic::testMoveIsValidTrue()");
+		}
+
+		othelloGameLogic.getBoard().setPiece(testPiece, 0, 0);
+
+		if((othelloGameLogic.checkValid(0, 0, testPlayer)==(false))){
+			System.out.println("OthelloGameLogic::testMoveIsValidFalse()");
+		}
+
+		try{
+			othelloGameLogic.checkValid(TOO_BIG, TOO_BIG, testPlayer);
+		}catch(Exception e){
+			System.out.println("OthelloGameLogic::testMoveIsValidTooBig(");
+		}
+
+		try{
+			othelloGameLogic.checkValid(TOO_SMALL, TOO_SMALL, testPlayer);
+		}catch(Exception e){
+			System.out.println("OthelloGameLogic::testMoveIsValidTooSmall()");
+		}
+
+
+		Piece testpiece = new Piece("Black");
+
+		if(othelloGameLogic.checkWin()==true){
+			othelloGameLogic.getBoard().setPiece(testPiece, 0, 6);
+			othelloGameLogic.getBoard().setPiece(testPiece, 0, 5);
+			othelloGameLogic.getBoard().setPiece(testPiece, 0, 4);
+			othelloGameLogic.getBoard().setPiece(testPiece, 0, 3);
+			System.out.println("OthelloGameLogic::checkWinVertical() succeeded");
+		}else{
+			System.out.println("OthelloGameLogic::checkWinVertical() failed");
+		}
+
+		if(othelloGameLogic.checkWin()==true){
+			othelloGameLogic.getBoard().setPiece(testPiece, 0, 6);
+			othelloGameLogic.getBoard().setPiece(testPiece, 1, 6);
+			othelloGameLogic.getBoard().setPiece(testPiece, 2, 6);
+			othelloGameLogic.getBoard().setPiece(testPiece, 3, 6);
+			System.out.println("OthelloGameLogic::checkWinHorizontal() succeeded");
+		}else{
+			System.out.println("OthelloGameLogic::checkWinHorizontal() failed");
+		}
+
+		if(othelloGameLogic.checkWin()==true){
+			othelloGameLogic.getBoard().setPiece(testPiece, 0, 3);
+			othelloGameLogic.getBoard().setPiece(testPiece, 1, 4);
+			othelloGameLogic.getBoard().setPiece(testPiece, 1, 4);
+			othelloGameLogic.getBoard().setPiece(testPiece, 1, 4);
+			System.out.println("OthelloGameLogic::checkWinRightDiagonal succeeded");
+		}else{
+			System.out.println("OthelloGameLogic::checkWinRightDiagonal failed");
+		}
+
+		if(othelloGameLogic.checkWin()==true){
+			othelloGameLogic.getBoard().setPiece(testPiece, 9, 3);
+			othelloGameLogic.getBoard().setPiece(testPiece, 8, 4);
+			othelloGameLogic.getBoard().setPiece(testPiece, 7, 5);
+			othelloGameLogic.getBoard().setPiece(testPiece, 6, 6);
+			System.out.println("OthelloGameLogic::checkWinLefttDiagonal succeeded");
+		}else{
+			System.out.println("OthelloGameLogic::checkWinLeftDiagonal failed");
+		}
+
+		if(othelloGameLogic.checkWin()==false){
+			System.out.println("othelloGameLogic::checkWinFalse() has succeeded");
+		}else{
+			System.out.println("othelloGameLogic::checkWinFalse() has failed");
+		}
+
+		int x;
+		Piece testPiece1 = new Piece("Black");
+		Piece testPiece2 = new Piece("White");
+
+		for(x = 0; x < othelloGameLogic.getBoard().getBoardWidth(); x = x + 4){
+			for(int y = 0; y < othelloGameLogic.getBoard().getBoardHeight(); y++){
+				if((y % 2) == 0){
+					othelloGameLogic.getBoard().setPiece(testPiece1, x, y);
+					othelloGameLogic.getBoard().setPiece(testPiece1, x + 1, y);
+				}else{
+					othelloGameLogic.getBoard().setPiece(testPiece2, x, y);
+					othelloGameLogic.getBoard().setPiece(testPiece2, x + 1, y);
+				}
+			}
+		}
+
+		for(x = 2; x < othelloGameLogic.getBoard().getBoardWidth(); x = x + 4){
+			for(int y = 0; y < othelloGameLogic.getBoard().getBoardHeight(); y++){
+				if((y % 2) == 0){
+					othelloGameLogic.getBoard().setPiece(testPiece2, x, y);
+					othelloGameLogic.getBoard().setPiece(testPiece2, x + 1, y);
+				}else{
+					othelloGameLogic.getBoard().setPiece(testPiece1, x, y);
+					othelloGameLogic.getBoard().setPiece(testPiece1, x + 1, y);
+				}
+			}
+		}
+
+		if(othelloGameLogic.checkWin()==false){
+			System.out.println("OthelloGameLogic::checkWinDraw() succeeded");
+		}else{
+			System.out.println("OthelloGameLogic::checkWinDraw() failed");
+		}
+
+
+
+  }
 
 	/** Symbolic Constants */
 

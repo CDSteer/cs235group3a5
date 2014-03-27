@@ -860,8 +860,12 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
   		m_playerSelection = HUMAN;
   	} else if (playerState == 1) {
   		m_playerSelection = EASY_AI;
+  			//hide turn label
+  		m_TurnNumberLabel.setVisible(false);
   	} else if (playerState == 2) {
-  		m_playerSelection = HARD_AI;
+  			m_playerSelection = HARD_AI;
+  			//hide turn label
+  			m_TurnNumberLabel.setVisible(false);
   	}
 
 	//AI stuff
@@ -910,8 +914,12 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
   		m_playerSelection = HUMAN;
   	} else if (playerState == 1) {
   		m_playerSelection = EASY_AI;
+  		//hide turn label
+  		m_TurnNumberLabel.setVisible(false);
   	} else if (playerState == 2) {
   		m_playerSelection = HARD_AI;
+  		//hide turn label
+  		m_TurnNumberLabel.setVisible(false);
   	}
 
   	//AI stuff
