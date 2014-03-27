@@ -346,6 +346,89 @@ public class Connect4GameLogic extends AbstractGameImplementation{
 		}
 		
 		
+		Piece testpiece = new Piece("Red");
+		
+		if(c4gamelogic.checkWin()==true){
+			c4gamelogic.getBoard().setPiece(testPiece, 0, 6);
+			c4gamelogic.getBoard().setPiece(testPiece, 0, 5);
+			c4gamelogic.getBoard().setPiece(testPiece, 0, 4);
+			c4gamelogic.getBoard().setPiece(testPiece, 0, 3);
+			System.out.println("Connect4GameLogic::checkWinVertical() succeeded");
+		}else{
+			System.out.println("Connect4GameLogic::checkWinVertical() failed");
+		}
+		
+		if(c4gamelogic.checkWin()==true){
+			c4gamelogic.getBoard().setPiece(testPiece, 0, 6);
+			c4gamelogic.getBoard().setPiece(testPiece, 1, 6);
+			c4gamelogic.getBoard().setPiece(testPiece, 2, 6);
+			c4gamelogic.getBoard().setPiece(testPiece, 3, 6);
+			System.out.println("Connect4GameLogic::checkWinHorizontal() succeeded");
+		}else{
+			System.out.println("Connect4GameLogic::checkWinHorizontal() failed"); 
+		}
+		
+		if(c4gamelogic.checkWin()==true){
+			c4gamelogic.getBoard().setPiece(testPiece, 0, 3);
+			c4gamelogic.getBoard().setPiece(testPiece, 1, 4);
+			c4gamelogic.getBoard().setPiece(testPiece, 1, 4);
+			c4gamelogic.getBoard().setPiece(testPiece, 1, 4);
+			System.out.println("Connect4GameLogic::checkWinRightDiagonal succeeded");
+		}else{
+			System.out.println("Connect4GameLogic::checkWinRightDiagonal failed");
+		}
+		
+		if(c4gamelogic.checkWin()==true){
+			c4gamelogic.getBoard().setPiece(testPiece, 9, 3);
+			c4gamelogic.getBoard().setPiece(testPiece, 8, 4);
+			c4gamelogic.getBoard().setPiece(testPiece, 7, 5);
+			c4gamelogic.getBoard().setPiece(testPiece, 6, 6);
+			System.out.println("Connect4GameLogic::checkWinLefttDiagonal succeeded");
+		}else{
+			System.out.println("Connect4GameLogic::checkWinLeftDiagonal failed");
+		}
+		
+		if(c4gamelogic.checkWin()==false){
+			System.out.println("C4GameLogic::checkWinFalse() has succeeded");
+		}else{
+			System.out.println("C4GameLogic::checkWinFalse() has failed");
+		}
+		
+		int x;
+		Piece testPiece1 = new Piece("Red");
+		Piece testPiece2 = new Piece("Yellow");
+		
+		for(x = 0; x < c4gamelogic.getBoard().getBoardWidth(); x = x + 4){
+			for(int y = 0; y < c4gamelogic.getBoard().getBoardHeight(); y++){
+				if((y % 2) == 0){
+					c4gamelogic.getBoard().setPiece(testPiece1, x, y);
+					c4gamelogic.getBoard().setPiece(testPiece1, x + 1, y);
+				}else{
+					c4gamelogic.getBoard().setPiece(testPiece2, x, y);
+					c4gamelogic.getBoard().setPiece(testPiece2, x + 1, y);
+				}
+			}	
+		}
+		
+		for(x = 2; x < c4gamelogic.getBoard().getBoardWidth(); x = x + 4){
+			for(int y = 0; y < c4gamelogic.getBoard().getBoardHeight(); y++){
+				if((y % 2) == 0){
+					c4gamelogic.getBoard().setPiece(testPiece2, x, y);
+					c4gamelogic.getBoard().setPiece(testPiece2, x + 1, y);
+				}else{
+					c4gamelogic.getBoard().setPiece(testPiece1, x, y);
+					c4gamelogic.getBoard().setPiece(testPiece1, x + 1, y);
+				}
+			}
+		}
+		
+		if(c4gamelogic.checkWin()==false){
+			System.out.println("Connect4GameLogic::checkWinDraw() succeeded");
+		}else{
+			System.out.println("Connect4GameLogic::checkWinDraw() failed");
+		}
+		
+		
     }
     
 
