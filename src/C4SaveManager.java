@@ -242,7 +242,7 @@ public class C4SaveManager {
 
     for (int i = 0; i < BOARD_ROWS; i++) {
       for (int j = 0; j < BOARD_COLS; j++) {
-        if (i == 5){
+        if (i == I_ROW){
           connect4GameLogic.setPiece(j, i, connect4GameLogic.getPlayer(0));
         }
         connect4GameLogic.setPiece(j, i, connect4GameLogic.getPlayer(1));
@@ -272,4 +272,5 @@ public class C4SaveManager {
   private static final int BOARD_COLS = 10;
   private static final String LOAD = "load";
   private static final String SAVE = "save";
+  private static final int I_ROW = 5;
 }
