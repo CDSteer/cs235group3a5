@@ -53,6 +53,12 @@ public class Human extends AbstractPlayer{
     	final int C4_HEIGHT = 7;
     	final int OTH_WIDTH = 8;
     	final int OTH_HEIGHT = 8;
+        final int ROW_3 = 3;
+        final int ROW_4 = 4;
+        final int COLUMN_3 = 3;
+        final int COLUMN_4 = 4;
+        final int INCREMENT_TWO = 2;
+        final int INCREMENT_FOUR = 4;
     	
     	/*
     	 * Test One
@@ -72,7 +78,7 @@ public class Human extends AbstractPlayer{
     	
     	try {
 			// Only applicable arguments are 'testPieceLayout'
-			testPC1.ProgramController(0, 2, "player1", "player2", testC4PieceLayout, 1, 1);
+			testPC1.ProgramController(0, INCREMENT_TWO, "player1", "player2", testC4PieceLayout, 1, 1);
 		} catch (Exception e) {
 			System.out.println("Error setting layout in Test 1 Human");
 			e.printStackTrace();
@@ -102,10 +108,10 @@ public class Human extends AbstractPlayer{
 	  			  testOthPieceLayout[j][i] = new Piece("");
 	  		  }
 		}
-		testOthPieceLayout[3][3] = new Piece("White");
-		testOthPieceLayout[3][4] = new Piece("Black");
-		testOthPieceLayout[4][3] = new Piece("Black");
-		testOthPieceLayout[4][4] = new Piece("White");
+		testOthPieceLayout[COLUMN_3][ROW_3] = new Piece("White");
+		testOthPieceLayout[COLUMN_3][ROW_4] = new Piece("Black");
+		testOthPieceLayout[COLUMN_4][ROW_3] = new Piece("Black");
+		testOthPieceLayout[COLUMN_4][ROW_4] = new Piece("White");
 		
     	
     	try {
@@ -119,7 +125,7 @@ public class Human extends AbstractPlayer{
 		}
 		
     	
-    	if(testHuman2.move(4, 2, testPC2) == true) {
+    	if(testHuman2.move(INCREMENT_FOUR, INCREMENT_TWO, testPC2) == true) {
     		System.out.println("Human.move Evaluated: Correct");
     	} else {
     		System.out.println("Human.move Evaluated: Incorrect");
