@@ -107,21 +107,28 @@ public class C4SaveManager {
    * @param the current games board state
    * @return boolean
    */
-  public boolean saveData(String gameType, C4AndOthelloBoardStore board, int time, String name1, String name2, String playerType1, String playerType2, int turn) throws IOException{
+  public boolean saveData(String gameType, C4AndOthelloBoardStore board, int time, String name1, String name2,
+                          String playerType1, String playerType2, int turn) throws IOException{
     System.out.println("Saving....");
     nameFile(SAVE);
     m_FileName = PATH+ m_FileName +FILETYPE;
     m_Writer = new CSVWriter(new FileWriter(m_FileName));
     m_Data = new ArrayList<String[]>();
     m_LoadBoard = board.getBoard();
+
     for (int i = 0; i < BOARD_ROWS; i++) {
       for (int j = 0; j < BOARD_COLS; j++) {
         if (m_LoadBoard[j][i].getColour().equals("Red")){
-          m_Data.add(new String[] {gameType, String.valueOf(j), String.valueOf(i), m_LoadBoard[j][i].getColour(), name1, playerType1, String.valueOf(turn), String.valueOf(time)});
+          m_Data.add(new String[] {gameType, String.valueOf(j), String.valueOf(i), m_LoadBoard[j][i].getColour(),
+                     name1, playerType1, String.valueOf(turn), String.valueOf(time)});
+
         } else if (m_LoadBoard[j][i].getColour().equals("Yellow")){
-          m_Data.add(new String[] {gameType, String.valueOf(j), String.valueOf(i), m_LoadBoard[j][i].getColour(), name2, playerType2, String.valueOf(turn), String.valueOf(time)});
+          m_Data.add(new String[] {gameType, String.valueOf(j), String.valueOf(i), m_LoadBoard[j][i].getColour(),
+                     name2, playerType2, String.valueOf(turn), String.valueOf(time)});
+
         } else {
-          m_Data.add(new String[] {gameType, String.valueOf(j), String.valueOf(i), m_LoadBoard[j][i].getColour(), "", "", String.valueOf(turn), String.valueOf(time)});
+          m_Data.add(new String[] {gameType, String.valueOf(j), String.valueOf(i),
+                     m_LoadBoard[j][i].getColour(), "", "", String.valueOf(turn), String.valueOf(time)});
         }
       }
     }
@@ -132,11 +139,12 @@ public class C4SaveManager {
   }
 
   /**
-   * Called the save file sected by the user, if sucessful the data is loaded else false is retured
+   * Calls the save file selected by the user, if successful the data is loaded else false is returned
    *
    * @return boolean
    */
   public boolean loadData() throws IOException{
+
     //nameFile(LOAD);
     showFileBrowser();
     System.out.println(m_FileName);
@@ -152,29 +160,31 @@ public class C4SaveManager {
   }
 
   /**
-   * Reads the data from the selected file and adds it to the temp 2d array for baord
+   * Reads the data from the selected file and adds it to the temp 2d array for board
    *
    * @return boolean
    */
   private boolean readGrid() throws IOException{
+
     String[] row = null;
     Piece piece;
+
     while((row = m_CSVReader.readNext()) != null) {
       if (row[0].equals("C4")) {
-        if (row[3].equals("Red")){
+        if (row[THIRD_ROW].equals("Red")){
           piece = new Piece("Red");
-          m_LoadName1 = row[4];
-          m_LoadPlayerType1 = row[5];
-        } else if (row[3].equals("Yellow")){
-          m_LoadName2 = row[4];
-          m_LoadPlayerType2 = row[5];
+          m_LoadName1 = row[FOURTH_ROW];
+          m_LoadPlayerType1 = row[FIFTH_ROW];
+        } else if (row[THIRD_ROW].equals("Yellow")){
+          m_LoadName2 = row[FOURTH_ROW];
+          m_LoadPlayerType2 = row[FIFTH_ROW];
           piece = new Piece("Yellow");
         } else {
           piece = new Piece("");
         }
         m_LoadGameType = row[0];
-        m_LoadTime = Integer.parseInt(row[7]);
-        m_LoadTurn = Integer.parseInt(row[6]);
+        m_LoadTime = Integer.parseInt(row[SEVENTH_ROW]);
+        m_LoadTurn = Integer.parseInt(row[SIXTH_ROW]);
         m_Connect4GameLogic.getBoard().setPiece2(piece, Integer.parseInt(row[1]), Integer.parseInt(row[2]));
       } else {
         JOptionPane.showMessageDialog(null, "Incorrect File");
@@ -183,9 +193,12 @@ public class C4SaveManager {
     }
     System.out.println("Load Test Data (C4):");
     m_CSVReader.close();
+
     for (int i = 0; i < BOARD_ROWS; i++) {
       for (int j = 0; j < BOARD_COLS; j++) {
-      System.out.println(m_LoadGameType + j+", " +i + ", "+ m_Connect4GameLogic.getBoard().getBoard()[j][i].getColour() + ", "+ m_LoadTime+ ", "+ m_LoadName1+ ", "+ m_LoadName2+ ", "+ m_LoadPlayerType1+ ", "+ m_LoadPlayerType2 + ", " + m_LoadTurn);
+      System.out.println(m_LoadGameType + j+", " +i + ", "+ m_Connect4GameLogic.getBoard().getBoard()[j][i].getColour()
+                         + ", "+ m_LoadTime+ ", "+ m_LoadName1+ ", "+ m_LoadName2+ ", "+ m_LoadPlayerType1+
+                         ", "+ m_LoadPlayerType2 + ", " + m_LoadTurn);
       }
     }
     return true;
@@ -211,15 +224,20 @@ public class C4SaveManager {
   }
 
   /**
-   * Checks if the slected file exists
+   * Checks if the selected file exists
    *
    * @return boolean
    */
   private boolean fileFound(){
+
     try{
+
       m_CSVReader = new CSVReader(new FileReader(m_FileName));
+
     } catch (FileNotFoundException e){
+
       System.out.println("Input file not found.");
+
       return false;
     }
     return true;
@@ -231,8 +249,11 @@ public class C4SaveManager {
    * @return boolean
    */
   private boolean nameFile(String op) throws IOException{
+
     try{
+
       m_FileName = JOptionPane.showInputDialog("Enter "+ op +" Name");
+
     } catch (Exception e){
       e.printStackTrace();
     }
@@ -240,6 +261,7 @@ public class C4SaveManager {
   }
 
   public static void main(String[] args) throws IOException{
+
     Piece[][] newBoard = new Piece[BOARD_ROWS][BOARD_COLS];
     Connect4GameLogic connect4GameLogic = new Connect4GameLogic();
     C4SaveManager c4SaveManager = new C4SaveManager();
@@ -284,13 +306,12 @@ public class C4SaveManager {
   private static final String FILETYPE = ".csv";
   private static final int BOARD_ROWS = 7;
   private static final int BOARD_COLS = 10;
-  private static final String LOAD = "load";
   private static final String SAVE = "save";
-  private static final int TIME = 60;
+  private static final int SEVENTH_ROW = 7;
   private static final int FIFTH_ROW = 5;
   private static final int SIXTH_ROW = 6;
   private static final int FOURTH_ROW = 4;
   private static final int THIRD_ROW = 3;
-  private static final int SECOND_ROW = 2;
+
 
 }
