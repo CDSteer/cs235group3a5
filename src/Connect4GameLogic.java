@@ -1,22 +1,18 @@
 /**
- * @file Connect4GameLogic.java
- *
  * @author I.C. Skinner
- *
  * @date 18 Feb '14
- *
  * @see AbstractGameImplementation.java
- *
  * @brief This class controls the Connect4 logic.
- *
- *	This class controls the 'flow' of the game, specific to Connect4 such as
+ * @details This class controls the 'flow' of the game, specific to Connect4 such as
  *	checking if there are 4 of the same coloured pieces in a vertical,
  *	horizontal or diagonal line and setting the winning player accordingly.
+ *
  */
+
 public class Connect4GameLogic extends AbstractGameImplementation{
 
 	/**
-	 *	Connect 4 constructor
+	 * connect 4 constructor
 	 */
 	public Connect4GameLogic(){
 		/* Set the board given the symbolic constants */
@@ -37,7 +33,7 @@ public class Connect4GameLogic extends AbstractGameImplementation{
 
 	/**
 	 *	A setter method for the winning move.
-	 *	@param	winningMove		Integer representing a winning connect4 move.
+	 *	@param	winningMove	Integer representing a winning connect4 move.
 	 *	@return null
 	 */
 	private void setWinningMove(int winningMove){
@@ -54,7 +50,7 @@ public class Connect4GameLogic extends AbstractGameImplementation{
 
     /**
 	 *	A setter method for the winning column (i) position
-	 *  @param i			Row position of a winning piece.
+	 *  @param i Row position of a winning piece.
 	 *	@return null
 	 */
 	private void setWinningi(int i){
@@ -63,7 +59,7 @@ public class Connect4GameLogic extends AbstractGameImplementation{
 
 	/**
 	 *	A 'get' (access) method for the winning row (j) position
-	 *	@return	j	Column position of a winning piece.
+	 *	@return	j Column position of a winning piece.
 	 */
 	public int getWinningj(){
 		return m_Winning_j;
@@ -71,7 +67,7 @@ public class Connect4GameLogic extends AbstractGameImplementation{
 
 	/**
 	 *	A setter method for the winning row (j) position
-	 *	@param j			Column position of a winning piece.
+	 *	@param j Column position of a winning piece.
 	 *	@return null
 	 */
 	private void setWinningj(int j){
@@ -80,7 +76,7 @@ public class Connect4GameLogic extends AbstractGameImplementation{
 
 	/**
 	 *	A 'get' (access) method to get the piece at coordinates (column,row).
-	 *	@return	Piece	Existing or new Piece if position is not empty or empty.
+	 *	@return	Piece Existing or new Piece if position is not empty or empty.
 	 */
 	public Piece getPiece(int column, int row) {
 		if (getBoard().isEmpty(column,row) == true) {
@@ -92,9 +88,9 @@ public class Connect4GameLogic extends AbstractGameImplementation{
 
 	/**
 	 *	A setter method which sets a piece object at a position.
-	 *	@param	column	Column position on a board.
-	 *	@param	row		Row Position on a board.
-	 *	@param	player	Player object which is the player setting a piece.
+	 *	@param	column Column position on a board.
+	 *	@param	row Row Position on a board.
+	 *	@param	player Player object which is the player setting a piece.
 	 *	@return null
 	 */
 	public void setPiece(int column, int row, AbstractPlayer player){
@@ -126,7 +122,7 @@ public class Connect4GameLogic extends AbstractGameImplementation{
 
 	/**
 	 *	A setter method which sets the winner games winner.
-	 *	@param	p	Piece object used by the user.
+	 *	@param	p Piece object used by the user.
 	 *	@return null
 	 */
 	public void setWinner(Piece p) {
@@ -142,8 +138,8 @@ public class Connect4GameLogic extends AbstractGameImplementation{
 	 *	override is necessary so that the moment the player enters their
 	 *	winning piece the game is done and doesn't require an additional click
 	 *	to display winner.
-	 *	@param	player	Player object which is the player to take a turn.
-	 *	@return boolean	Returns true or false depending on conditions.
+	 *	@param	player Player object which is the player to take a turn.
+	 *	@return boolean Returns true or false depending on conditions.
 	 */
 	public boolean checkTakeableTurn(AbstractPlayer player) {
 		if(checkWin() == true){
@@ -156,9 +152,9 @@ public class Connect4GameLogic extends AbstractGameImplementation{
 
 	/**
 	 * 	checkValid method checks to see if the players attempted move is valid.
-	 *	@param	column	Column position of the attempted played piece.
-	 *	@param	row		Row position of the attempted played piece.
-	 *	@param	player	Player object which is the player attempting a move.
+	 *	@param	column Column position of the attempted played piece.
+	 *	@param	row	Row position of the attempted played piece.
+	 *	@param	player Player object which is the player attempting a move.
 	 *	@return	boolean	Returns true of false based depending on conditions.
 	 */
 	public boolean checkValid(int column, int row, AbstractPlayer player){
@@ -254,7 +250,7 @@ public class Connect4GameLogic extends AbstractGameImplementation{
 		return boardFull;
 	}
 
-    /*
+    
     public static void main(String[] args){
 		Connect4GameLogic c4gamelogic = new Connect4GameLogic();
 		AbstractPlayer testPlayer = new Human();
@@ -279,11 +275,10 @@ public class Connect4GameLogic extends AbstractGameImplementation{
 		 * 
 		 */
 		 
-		 /**
+		 
 		c4gamelogic.getBoard().setPiece(testPiece, 0, 0);
 		
 		c4gamelogic.setPiece(0, 0, testPlayer);
-		*/
 		
 		/* 
 		 * If top piece is still yellow then setPiece did nothing which is correct.
@@ -293,15 +288,15 @@ public class Connect4GameLogic extends AbstractGameImplementation{
 		 * 
 		 */
 		 
-		 /**
+		 
 		if(c4gamelogic.getBoard().getBoard()[0][0].getColour().equals("Yellow")){
 			System.out.println("Connect4GameLogic::testSetPieceFalse has been successful");
 		}else{
 			System.out.println("Connect4GameLogic::testSetPieceFalse has not been successful");
 		}
-		*/
+		
 	
-		/**
+		
 		try{
 		
 			c4gamelogic.setPiece(42, 42, testPlayer);
@@ -347,14 +342,14 @@ public class Connect4GameLogic extends AbstractGameImplementation{
 		
 		
     }
-    */
+    
 
-	/** Member variables to store the winning move and position */
+	//Member variables to store the winning move and position
 	private int m_Winning_Move;
 	private int m_Winning_i;
 	private int m_Winning_j;
 
-	/** Symbolic constants */
+	// Symbolic constants
 	private final int DRAW = 3;
 
 	private final int TOP_ROW = 0;

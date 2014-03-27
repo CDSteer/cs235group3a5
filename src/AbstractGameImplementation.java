@@ -1,13 +1,8 @@
 /**
- * @file AbstractGameImplementation.java
- *
  * @author I.C. Skinner
- *
  * @date 18 Feb '14
- *
  * @brief This class is inherited by Connect4 and Othello.
- *
- * This class controls the "flow" of the game such as creating the
+ * @details This class controls the "flow" of the game such as creating the
  * board, instantiating the players and creating the methods to be
  * inherited by both games.
  *

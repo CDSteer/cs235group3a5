@@ -1,12 +1,10 @@
 import java.util.Random;
 
-
 /**
- *
- * @file OthEasyAI.java
  * @author Thomas Werner
+ * @date Mar 18, 2014
  * @brief Allows an 'Easy' AI to generate moves in a game of Othello
- * @detail An AI that generates moves by generating 2 numbers at random and checking
+ * @details An AI that generates moves by generating 2 numbers at random and checking
  * 		   if it is a valid move
  *
  */

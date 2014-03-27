@@ -11,11 +11,9 @@ import java.io.*;
 import javax.swing.*;
 
 /**
-*
-*@file OthSaveManager.java
-*@author Chris Jenkins
-*@brief Saves and loads Othello games
-*@detail Reads in a CSV to load game data
+* @author Chris Jenkins
+* @brief Saves and loads Othello games
+* @details Reads in a CSV to load game data
 * or records game data by writing to a CSV
 *
 */

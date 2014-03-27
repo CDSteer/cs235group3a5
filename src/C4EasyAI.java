@@ -1,12 +1,10 @@
 import java.util.Random;
 
-
 /**
- *
- * @file C4EasyAI.java
  * @author Thomas Werner
+ * @date Mar 18, 2014
  * @brief Allows an 'Easy' AI to generate moves in a game of Connect 4
- * @detail An AI that generates moves by generating a number at random and checking
+ * @details An AI that generates moves by generating a number at random and checking
  * 		   if it is a valid move
  *
  */

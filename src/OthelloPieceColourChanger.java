@@ -1,14 +1,4 @@
-/**
- * @file OthelloPieceColourChanger.java
- *
- * @author A. Keskin
- *
- * @date 25 Feb '14
- *
- * @brief Animates the Othello board pieces.
- *
- * @detail When passed a piece object, this class returns the appropriate flipping ImageIcon
- */
+
 
 import java.awt.*;
 import java.awt.image.*;
@@ -17,6 +7,13 @@ import javax.imageio.*;
 import javax.swing.*;
 import java.awt.event.*;
 import javax.swing.event.*;
+
+/**
+ * @author A. Keskin
+ * @date 25 Feb '14
+ * @brief Animates the Othello board pieces.
+ * @details When passed a piece object, this class returns the appropriate flipping ImageIcon
+ */
 
 public class OthelloPieceColourChanger extends JFrame {
 

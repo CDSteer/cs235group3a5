@@ -1,17 +1,13 @@
-/**
- * @file AbstractPlayer.java
- *
- * @author A.Alakeel
- *
- * @date 25 Feb '14
- *
- * @brief Store the name of the Player and their colour.
- *
- *  This class describes that whether a Player can make a move or not. It can also tell
- *  if it is his turn. The Player can change his name, set the colour of a piece.
- */
-
 import java.awt.event.*;
+
+/**
+ * @author A.Alakeel
+ * @date 25 Feb '14
+ * @brief Store the name of the Player and their colour.
+ * @details This class describes that whether a Player can make a move or not. It can also tell
+ *  if it is his turn. The Player can change his name, set the colour of a piece.
+ *  
+ */
 
 abstract public class AbstractPlayer {
 
