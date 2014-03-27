@@ -13,8 +13,8 @@ public class OthEasyAI {
 	// Class Constants
 	private static final int BOARD_ROWS = 8;
 	private static final int BOARD_COLS = 8;
-	private static final int PLAYER_ONE = 0;
 	private static final int PLAYER_TWO = 1;
+    private static final int MOVE_SELECT_VALUE = 2;
 
 	// Misc Variables
 	private Random m_rand;
@@ -31,7 +31,7 @@ public class OthEasyAI {
 	 */
 	public int[] selectMove(ProgramController PC) {
 
-		m_selectedMoves = new int[2];
+		m_selectedMoves = new int[MOVE_SELECT_VALUE];
 		m_rand = new Random();
 		m_validMove = false;
 
@@ -74,10 +74,10 @@ public class OthEasyAI {
 		int testRow = selectedMoves[0];
 		int testCol = selectedMoves[1];
 		if(testPC.getGame().checkValid(testRow, testCol, testPC.getGame().getPlayer(PLAYER_TWO)) == true) {
-			System.out.println("C4EasyAI.selectCol Evaulated: Correct");
+			System.out.println("C4EasyAI.selectCol Evaluated: Correct");
 		}
 		else {
-			System.out.println("C4EasyAI.selectCol Evaulated: Incorrect");
+			System.out.println("C4EasyAI.selectCol Evaluated: Incorrect");
 		}
 		
 	}
