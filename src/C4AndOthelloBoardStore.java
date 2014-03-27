@@ -102,10 +102,10 @@ public class C4AndOthelloBoardStore {
     public static void main(String[] args) {
 
             m_BoardStore = new C4AndOthelloBoardStore();
-            m_BoardStore.setBoard(8, 8);
+            m_BoardStore.setBoard(NORMAL_BOARD_SIZE, NORMAL_BOARD_SIZE);
             // get the right size values.
 
-        if(m_BoardStore.getBoardWidth() == 8 && m_BoardStore.getBoardHeight() == 8) {
+        if(m_BoardStore.getBoardWidth() == NORMAL_BOARD_SIZE && m_BoardStore.getBoardHeight() == NORMAL_BOARD_SIZE) {
             System.out.println("C4AndOthelloBoardStore Test One NormalSize Evaluated: Correct");
         } else {
             System.out.println("C4AndOthelloBoardStore Test One NormalSize Evaluated: Incorrect");
@@ -127,10 +127,10 @@ public class C4AndOthelloBoardStore {
         // Set board with sizes very big.
 
             m_BoardStore = new C4AndOthelloBoardStore();
-            m_BoardStore.setBoard(800, 800);
+            m_BoardStore.setBoard(LARGE_BOARD_SIZE, LARGE_BOARD_SIZE);
             // get the right size values.
 
-        if(m_BoardStore.getBoardWidth() == 800 && m_BoardStore.getBoardHeight() == 800) {
+        if(m_BoardStore.getBoardWidth() == LARGE_BOARD_SIZE && m_BoardStore.getBoardHeight() == LARGE_BOARD_SIZE) {
             System.out.println("C4AndOthelloBoardStore Test Three BigSize Evaluated: Correct");
         } else {
             System.out.println("C4AndOthelloBoardStore Test Three BigSize Evaluated: Incorrect");
@@ -141,9 +141,9 @@ public class C4AndOthelloBoardStore {
         try {
 
             m_BoardStore = new C4AndOthelloBoardStore();
-            m_BoardStore.setBoard(-1, -1);
+            m_BoardStore.setBoard(NEGATIVE_BOARD_SIZE, NEGATIVE_BOARD_SIZE);
 
-            if(m_BoardStore.getBoardWidth() == -1 && m_BoardStore.getBoardHeight() == -1) {
+            if(m_BoardStore.getBoardWidth() == NEGATIVE_BOARD_SIZE && m_BoardStore.getBoardHeight() == NEGATIVE_BOARD_SIZE) {
 
                 System.out.println("C4AndOthelloBoardStore Test Four MinusSize Evaluated: Correct");
             }
@@ -157,13 +157,13 @@ public class C4AndOthelloBoardStore {
             // create a board and try to set piece outside the board.
 
             m_BoardStore = new C4AndOthelloBoardStore();
-            m_BoardStore.setBoard(8, 8);
+            m_BoardStore.setBoard(NORMAL_BOARD_SIZE, NORMAL_BOARD_SIZE);
             m_Piece = new Piece("black");
-            m_BoardStore.setPiece(m_Piece, 10, 10);
+            m_BoardStore.setPiece(m_Piece, OUTSIDE_BOARD, OUTSIDE_BOARD);
 
             // maybe it just stores the data. no change on the board.
 
-        if(m_BoardStore.getBoard()[10][10].getColour().equals ("black")) {
+        if(m_BoardStore.getBoard()[OUTSIDE_BOARD][OUTSIDE_BOARD].getColour().equals ("black")) {
 
             System.out.println("C4AndOthelloBoardStore Test Five OutsideBoard Evaluated: Correct");
         }
@@ -179,9 +179,9 @@ public class C4AndOthelloBoardStore {
             // set piece in a negative position which is not exist.
 
             m_BoardStore = new C4AndOthelloBoardStore();
-            m_BoardStore.setBoard(8, 8);
+            m_BoardStore.setBoard(NORMAL_BOARD_SIZE, NORMAL_BOARD_SIZE);
             m_Piece = new Piece("black");
-            m_BoardStore.setPiece(m_Piece, -1, -1);
+            m_BoardStore.setPiece(m_Piece, NEGATIVE_BOARD_SIZE, NEGATIVE_BOARD_SIZE);
 
             // maybe it just stores the data. no change on the board.
 
@@ -198,12 +198,12 @@ public class C4AndOthelloBoardStore {
         // set a black piece on the edge of the board
 
             m_BoardStore = new C4AndOthelloBoardStore();
-            m_BoardStore.setBoard(8, 8);
+            m_BoardStore.setBoard(NORMAL_BOARD_SIZE, NORMAL_BOARD_SIZE);
             m_Piece = new Piece("black");
-            m_BoardStore.setPiece(m_Piece, 0, 7);
+            m_BoardStore.setPiece(m_Piece, 0, ROW_SEVEN);
             // yeah! there is a black piece!
 
-        if(m_BoardStore.getBoard()[0][7].getColour().equals ("black")) {
+        if(m_BoardStore.getBoard()[0][ROW_SEVEN].getColour().equals ("black")) {
             System.out.println("C4AndOthelloBoardStore Test Seven BlackOnSide Evaluated: Correct");
         } else {
             System.out.println("C4AndOthelloBoardStore Test Seven BlackOnSide Evaluated: Incorrect");
@@ -216,17 +216,17 @@ public class C4AndOthelloBoardStore {
          */
 
             m_BoardStore = new C4AndOthelloBoardStore();
-            m_BoardStore.setBoard(8, 8);
+            m_BoardStore.setBoard(NORMAL_BOARD_SIZE, NORMAL_BOARD_SIZE);
             // set a black piece on column 0, row 7.
             m_Piece = new Piece("black");
-            m_BoardStore.setPiece(m_Piece, 0, 7);
+            m_BoardStore.setPiece(m_Piece, 0, ROW_SEVEN);
             // set a white piece again on column 0, row 7.
             m_Piece2 = new Piece("white");
-            m_BoardStore.setPiece(m_Piece2, 0, 7);
+            m_BoardStore.setPiece(m_Piece2, 0, ROW_SEVEN);
             // you cannot put the white piece here !!!
 
 
-        if(m_BoardStore.getBoard()[0][7].getColour().equals ("black")) {
+        if(m_BoardStore.getBoard()[0][ROW_SEVEN].getColour().equals ("black")) {
             System.out.println("C4AndOthelloBoardStore Test Eight Override Evaluated: Correct");
         } else {
             System.out.println("C4AndOthelloBoardStore Test Eight Override Evaluated: Incorrect");
@@ -244,6 +244,11 @@ public class C4AndOthelloBoardStore {
     private static C4AndOthelloBoardStore m_BoardStore;
     private static Piece m_Piece;
     private static Piece m_Piece2;
+    private static final int ROW_SEVEN = 7;
+    private static final int NORMAL_BOARD_SIZE = 8;
+    private static final int OUTSIDE_BOARD = 10;
+    private static final int LARGE_BOARD_SIZE = 800;
+    private static final int NEGATIVE_BOARD_SIZE = -1;
 
     /** Symbolic constant */
     private final int HAS_PIECE_OBJECT = 1;
