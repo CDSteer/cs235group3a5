@@ -424,17 +424,17 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 	public void arrowPointer(int x, int y) throws IOException{
 		//final BufferedImage arrow_Image = ImageIO.read(new File("../Images/Connect4arrow.png"));
 		//final BufferedImage blank_Image = ImageIO.read(new File("../Images/Connect4Background.png"));
-		
+
 		final BufferedImage arrow_Image;
-		
+
 		final BufferedImage blank_Image = ImageIO.read(new File("../Images/Connect4Background.png"));
-		
-		if(getTurn() == PLAYER_ONE) {
-			arrow_Image = ImageIO.read(new File("../Images/Connect4RedArrow.png"));
+
+		if(getTurn() % 2 == PLAYER_ONE) {
+			arrow_Image = ImageIO.read(new File("../Images/Connect4arrow.png"));
 		} else {
-			arrow_Image = ImageIO.read(new File("../Images/Connect4YellowArrow.png"));
+			arrow_Image = ImageIO.read(new File("../Images/Connect4arrowYellow.png"));
 		}
-		
+
 		int hidden;
 		for(int i = 0; i < getBoard().getBoardWidth(); i++){
 			hidden = getLabel(i,0).getDisplayedMnemonic();
@@ -458,10 +458,10 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 	*	@return null
 	*/
 	public void dropPiece(int x, int y, BufferedImage piece_Image) throws IOException{
-		
-		if(getIsC4() == false){ 
+
+		if(getIsC4() == false){
 			setImage(x,y,(new ImageIcon(piece_Image)));
-			return; 
+			return;
 		}
 		final int boardHeight = C4_BOARD_HEIGHT - 1;
 		final int width = x;
@@ -532,7 +532,7 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 						if(getIsC4() == false) {
 							setImage(x,y,(new OthelloPieceColourChanger().flip(board.getBoard()[x][y])));
 						}
-						
+
 						getLabel(x,y).setDisplayedMnemonic(IMAGE_SIZE_500);
 					} else {
 						BufferedImage piece_Image = ImageIO.read(new File("../Images/" + colour2 + "Piece.png"));
@@ -898,10 +898,10 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 		  setTurnLabel();
 			setNewGameButton();
 			setSaveButton();
-			setTurnNumberLabel("Turn: 1" );
+			setTurnNumberLabel("Turn: " + turn );
 			setTimerLabel();
 			startTimer();
-			m_Turn = turn;
+			System.out.println(turn);
 			m_Time = time;
 
   		for (int i = 0; i < 7; i++) {
