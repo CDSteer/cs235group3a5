@@ -399,12 +399,7 @@ public class SplashScreen extends JFrame{
 	 * Takes no arguments
 	 */
     public static void main(String args[]) {
-<<<<<<< HEAD
-        /* testing to call GUI method
-        SplashScreen splashScreen = new SplashScreen();
-        splashScreen.initSplash();
-        */
-=======
+
 
     	/*
     	 * Test One
@@ -416,7 +411,7 @@ public class SplashScreen extends JFrame{
     	} catch(Exception e) {
     		System.out.println("SplashScreen.constructor Evaulated: Incorrect");
     	}
-    	
+
     	/*
     	 * Test Two
     	 * Calling the SplashScreen.initSplash method
@@ -424,11 +419,11 @@ public class SplashScreen extends JFrame{
     	try{
     		SplashScreen testScreen2 = new SplashScreen();
     		testScreen2.initSplash();
-    		System.out.println("SplashScreen.initSplash Evaulated: Correct");		
+    		System.out.println("SplashScreen.initSplash Evaulated: Correct");
     	} catch(Exception e) {
     		System.out.println("SplashScreen.initSplash Evaulated: Incorrect");
     	}
-    	
+
     	/*
     	 * Test Three
     	 * Calling the SplashScreen.initPlayerOptions method
@@ -436,11 +431,11 @@ public class SplashScreen extends JFrame{
     	try{
     		SplashScreen testScreen3 = new SplashScreen();
     		testScreen3.initPlayerOptions();
-    		System.out.println("SplashScreen.initPlayerOptions Evaulated: Correct");		
+    		System.out.println("SplashScreen.initPlayerOptions Evaulated: Correct");
     	} catch(Exception e) {
     		System.out.println("SplashScreen.initPlayerOptions Evaulated: Incorrect");
     	}
-    	
+
     	/*
     	 * Test Four
     	 * Calling the SplashScreen.initPlayerNaming method
@@ -448,11 +443,11 @@ public class SplashScreen extends JFrame{
     	try{
     		SplashScreen testScreen4 = new SplashScreen();
     		testScreen4.initPlayerNaming();
-    		System.out.println("SplashScreen.initPlayerNaming Evaulated: Correct");		
+    		System.out.println("SplashScreen.initPlayerNaming Evaulated: Correct");
     	} catch(Exception e) {
     		System.out.println("SplashScreen.initPlayerNaming Evaulated: Incorrect");
     	}
-    	
+
     	/*
     	 * Test Five
     	 * Calling the SplashScreen.randomNameGen method
@@ -465,12 +460,10 @@ public class SplashScreen extends JFrame{
         	} else {
         		System.out.println("SplashScreen.randomNameGen Evaluated: Correct");
         	}
-    			
+
     	} catch(Exception e) {
     		System.out.println("SplashScreen.randomNameGen: Error in SplashScreen constructor");
     	}
-    	
-    	
->>>>>>> FETCH_HEAD
+
     }
 }
