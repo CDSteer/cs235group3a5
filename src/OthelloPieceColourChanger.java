@@ -1,12 +1,6 @@
 
-
-import java.awt.*;
-import java.awt.image.*;
 import java.io.*;
-import javax.imageio.*;
 import javax.swing.*;
-import java.awt.event.*;
-import javax.swing.event.*;
 
 /**
  * @author A. Keskin
@@ -16,12 +10,6 @@ import javax.swing.event.*;
  */
 
 public class OthelloPieceColourChanger extends JFrame {
-
-	private JLabel container;
-	private ImageIcon blackToWhite;
-	private ImageIcon whiteToBlack;
-    private static OthelloPieceColourChanger m_ColourChanger;
-    private static ImageIcon m_ImageIcon;
 
 	public OthelloPieceColourChanger(){}
 

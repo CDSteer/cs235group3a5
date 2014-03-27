@@ -22,6 +22,7 @@ public class OthHardAI {
     private final int INCREMENT_2 = 2;
     private final int DECREMENT_2 = 2;
     private final int SELECTED_MOVES_2 = 2;
+
 	
 	private final String PLAYER_ONE_PIECE_COLOUR = "Black";
 	private final String PLAYER_TWO_PIECE_COLOUR = "White";
@@ -352,6 +353,10 @@ public class OthHardAI {
 	 * Takes no arguments
 	 */
 	public static void main(String[] args) {
+
+        final int TEST_POSITION_FIVE = 5;
+        final int TEST_POSITION_FOUR = 4;
+        final int SELECTED_MOVES_TWO = 2;
 		
 		/*
 		 * Test One
@@ -366,15 +371,18 @@ public class OthHardAI {
 		testBoard.setBoardHeight(BOARD_HEIGHT);
 		testBoard.setBoard(BOARD_WIDTH, BOARD_HEIGHT);
 		testPC.setBoard(testBoard);
-		int[] selectedMoves = new int[2];
+
+		int[] selectedMoves = new int[SELECTED_MOVES_TWO];
 		selectedMoves = testAI.selectMove(testPC);
+
 		int testRow = selectedMoves[0];
 		int testCol = selectedMoves[1];
+
 		if(testPC.getGame().checkValid(testRow, testCol, testPC.getGame().getPlayer(PLAYER_TWO)) == true) {
-			System.out.println("OthHardAI.selectMove Evaulated: Correct");
+			System.out.println("OthHardAI.selectMove Evaluated: Correct");
 		}
 		else {
-			System.out.println("OthHardAI.selectMove Evaulated: Incorrect");
+			System.out.println("OthHardAI.selectMove Evaluated: Incorrect");
 		}
 		
 		/*
@@ -389,18 +397,21 @@ public class OthHardAI {
 		testBoard2.setBoardWidth(BOARD_WIDTH);
 		testBoard2.setBoardHeight(BOARD_HEIGHT);
 		testBoard2.setBoard(BOARD_WIDTH, BOARD_HEIGHT);
-		testBoard2.setPiece2(new Piece("Black"), 5, 4);
-		testBoard2.setPiece2(new Piece("White"), 5, 5);
+		testBoard2.setPiece2(new Piece("Black"), TEST_POSITION_FIVE, TEST_POSITION_FOUR);
+		testBoard2.setPiece2(new Piece("White"), TEST_POSITION_FIVE, TEST_POSITION_FIVE);
 		testPC2.setBoard(testBoard2);
-		int[] selectedMoves2 = new int[2];
+
+		int[] selectedMoves2 = new int[SELECTED_MOVES_TWO];
 		selectedMoves2 = testAI2.selectMove(testPC2);
+
 		int testRow2 = selectedMoves2[0];
 		int testCol2 = selectedMoves2[1];
+
 		if(testPC.getGame().checkValid(testRow2, testCol2, testPC2.getGame().getPlayer(PLAYER_TWO)) == true) {
-			System.out.println("OthHardAI.selectMove Evaulated: Correct");
+			System.out.println("OthHardAI.selectMove Evaluated: Correct");
 		}
 		else {
-			System.out.println("OthHardAI.selectMove Evaulated: Incorrect");
+			System.out.println("OthHardAI.selectMove Evaluated: Incorrect");
 		}
 	}
 
