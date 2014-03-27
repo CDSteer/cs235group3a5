@@ -1,13 +1,12 @@
 cs235group3a5
 ============
 
-Compiling:
+## Compiling:
 
-— In terminal navigate to /src
-— Enter: javac Main.java
+- In terminal navigate to /src
+- Enter: javac Main.java
 
-Running:
-
-— After compiling
-— In terminal navigate to /src
-— Enter java Main
+## Running:
+- After compiling
+- In terminal navigate to /src
+- Enter java Main
