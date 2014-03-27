@@ -201,7 +201,7 @@ public class OthSaveManager {
 		JFrame frame = new JFrame();
 		FileDialog fc = new FileDialog(frame, "Load a Game Save", FileDialog.LOAD);
 		//set default directory
-		fc.setDirectory("../SAVEDATA/");
+		fc.setDirectory(PATH);
 		//set file format
 		fc.setFile("*.csv");
 		//enable the file dialog
@@ -293,7 +293,7 @@ public class OthSaveManager {
 private static String player1Name;
 private static String player2Name;
 
-private static final String PATH ="../SAVEDATA/";
+private static final String PATH ="../SAVEDATA/OTH/";
 private static final String FILETYPE = ".csv";
 private static final int BOARD_ROWS = 8;
 private static final int BOARD_COLS = 8;
