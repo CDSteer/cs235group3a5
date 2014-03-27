@@ -340,10 +340,10 @@ public class SplashScreen extends JFrame{
             } else {
                 ProgramController controller = new ProgramController();
                 controller.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                m_playerNames.setVisible(false);
                 try {
                     controller.ProgramController(gameChoice, playState, player1name, player2name);
                 } catch (IOException e) {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
             }
@@ -356,6 +356,8 @@ public class SplashScreen extends JFrame{
         m_playerNames.setLocationRelativeTo(null);
         m_playerNames.setDefaultCloseOperation(EXIT_ON_CLOSE);
         m_playerNames.setResizable(false);
+        
+        
 
     }
 

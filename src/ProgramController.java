@@ -133,7 +133,6 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 		m_Constraints.gridx = saveButtonGridX;
 		m_Constraints.gridwidth = NEW_GAME_GRID_WIDTH;
 		m_Container.add(m_SaveButton, m_Constraints);
-		//m_SaveButton.addActionListener(m_Handler);
 		actListner2 = new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				System.out.println("Test save button");
@@ -151,6 +150,32 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 		};
 		// action listener for the save button
     m_SaveButton.addActionListener(actListner2);
+	}
+	
+	ActionListener actListner3;
+	/**
+	 *	Create Save Game button and actionlistener
+	 *	@return null
+	 */
+	private void setMainMenuButton(){
+		m_MainMenuButton = new JButton("Main Menu");
+		m_Constraints.gridy = mainMenuButtonGridY;
+		m_Constraints.gridx = mainMenuButtonGridX;
+		m_Constraints.gridwidth = NEW_GAME_GRID_WIDTH;
+		m_Container.add(m_MainMenuButton, m_Constraints);
+		//m_SaveButton.addActionListener(m_Handler);
+		actListner3 = new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				System.out.println("Back to main menu...");
+				setVisible(false);
+				System.out.println("Start back up splash screen...");
+				SplashScreen splash = new SplashScreen();
+				splash.initSplash();
+				
+			}
+		};
+		// action listener for the save button
+		m_MainMenuButton.addActionListener(actListner3);
 	}
 
 
@@ -817,6 +842,7 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
     setTurnLabel();
 		setNewGameButton();
 		setSaveButton();
+		setMainMenuButton();
 		setTurnNumberLabel("Turn: 1");
 		setTimerLabel();
 		startTimer();
@@ -909,6 +935,7 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 	  setTurnLabel();
 		setNewGameButton();
 		setSaveButton();
+		setMainMenuButton();
 		setTurnNumberLabel("Turn: " + turn );
 		setTimerLabel();
 		startTimer();
@@ -1011,13 +1038,13 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 	private final int CONTAINER_64 = 64;
 	private final int CONTAINER_22 = 22;
 	private final int ADD_TWO = 2;
-	private final int SUBTRACT_FOUR = 4;
-	private final int SUBTRACT_SEVEN = 7;
-	private final int ADD_FOUR = 4;
+	private final int SUBTRACT_FOUR = 4;;
 	private final int turnLabelGridY = 8;
 	private final int turnLabelGridX = 1;
-	private final int saveButtonGridY = 22;
+	private final int saveButtonGridY = 23;
 	private final int saveButtonGridX = 3;
+	private final int mainMenuButtonGridY = 23;
+	private final int mainMenuButtonGridX = 5;
 	private final int C4_BOARD_HEIGHT = 7;
 	private final int REMAINDER_2 = 2;
 
@@ -1062,6 +1089,7 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
     private JLabel[][] m_Image_Labels;
 	private JButton m_NewGameButton;
 	private JButton m_SaveButton;
+	private JButton m_MainMenuButton;
 	private JLabel m_TurnLabel;
 	private JLabel m_TimerLabel;
 	private JLabel m_TurnNumberLabel;
