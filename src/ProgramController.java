@@ -422,17 +422,17 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 	public void arrowPointer(int x, int y) throws IOException{
 		//final BufferedImage arrow_Image = ImageIO.read(new File("../Images/Connect4arrow.png"));
 		//final BufferedImage blank_Image = ImageIO.read(new File("../Images/Connect4Background.png"));
-		
+
 		BufferedImage arrow_Image;
-		
+
 		BufferedImage blank_Image = ImageIO.read(new File("../Images/Connect4Background.png"));
-		
+
 		if(getTurn() % 2 == PLAYER_ONE) {
 			arrow_Image = ImageIO.read(new File("../Images/Connect4arrow.png"));
 		} else {
 			arrow_Image = ImageIO.read(new File("../Images/Connect4arrowYellow.png"));
 		}
-		
+
 		int hidden;
 		for(int i = 0; i < getBoard().getBoardWidth(); i++){
 			hidden = getLabel(i,0).getDisplayedMnemonic();
@@ -456,10 +456,10 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 	*	@return null
 	*/
 	public void dropPiece(int x, int y, BufferedImage piece_Image) throws IOException{
-		
-		if(getIsC4() == false){ 
+
+		if(getIsC4() == false){
 			setImage(x,y,(new ImageIcon(piece_Image)));
-			return; 
+			return;
 		}
 		final int boardHeight = C4_BOARD_HEIGHT - 1;
 		final int width = x;
@@ -530,7 +530,7 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 						if(getIsC4() == false) {
 							setImage(x,y,(new OthelloPieceColourChanger().flip(board.getBoard()[x][y])));
 						}
-						
+
 						getLabel(x,y).setDisplayedMnemonic(IMAGE_SIZE_500);
 					} else {
 						BufferedImage piece_Image = ImageIO.read(new File("../Images/" + colour2 + "Piece.png"));
@@ -856,81 +856,16 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 
 
   void ProgramController(int gameState, int playerState, String player1Name, String player2Name, Piece[][] board, int turn, int time) throws IOException{
-<<<<<<< HEAD
 		m_Loading = true;
+		setIsC4(gameState);
 		System.out.println(playerState);
+		if(this.getIsC4() == true){
+			m_GameType = "C4";
+		} else {
+			m_GameType = "Oth";
+		}
 		player1 = player1Name;
   	player2 = player2Name;
-
-  	setIsC4(gameState);
-=======
-  		m_Loading = true;
-  		System.out.println(playerState);
-  		player1 = player1Name;
-    	player2 = player2Name;
-
-    	setIsC4(gameState);
-
-    	if (playerState == 0) {
-    		m_Player1Type = "Human";
-    		m_Player2Type = "Human";
-    		m_playerSelection = HUMAN;
-    	} else if (playerState == 1) {
-    		m_playerSelection = EASY_AI;
-    	} else if (playerState == 2) {
-    		m_playerSelection = HARD_AI;
-    	}
-
-  	//AI stuff
-  		if(m_playerSelection == EASY_AI) {
-  			if(this.getIsC4() == true) {
-  				m_Player2Type = "Easy";
-  				System.out.println("Set Easy C4 AI");
-  				m_c4EasyAI = new C4EasyAI();
-  			} else {
-  				m_Player2Type = "Easy";
-  				m_othEasyAI = new OthEasyAI();
-  			}
-  		} else if(m_playerSelection == HARD_AI) {
-  			if(this.getIsC4() == true) {
-  				m_Player2Type = "Hard";
-  				System.out.println("Set Hard C4 AI");
-  				m_c4HardAI = new C4HardAI();
-  			} else {
-  				m_Player2Type = "Hard";
-  				m_othHardAI = new OthHardAI();
-  			}
-  		}
-
-  		setGame(player1, player2);
-  		setBoard();
-			setContainer();
-			setImages();
-		  setTurnLabel();
-			setNewGameButton();
-			setSaveButton();
-			setTurnNumberLabel("Turn: 1" );
-			setTimerLabel();
-			startTimer();
-			m_Turn = turn;
-			m_Time = time;
-
-  		for (int i = 0; i < 7; i++) {
-  		  for (int j = 0; j < 10; j++) {
-  		  	if (board[j][i].getColour() == "Red"){
-  		  		Piece piece = new Piece("Red");
-  		  		getGame().getBoard().setPiece2(piece ,j,i);
-  		  	}else if (board[j][i].getColour() == "Yellow"){
-  		  		Piece piece = new Piece("Yellow");
-						getGame().getBoard().setPiece2(piece, j, i);
-					} else {
-						// Piece piece = new Piece(" ");
-						// getGame().getBoard().setPiece2(piece, j, i);
-					}
-  		    System.out.println( j+", " +i + ", "+ getGame().getBoard().getBoard()[j][i].getColour());
-  		  }
-  		}
->>>>>>> FETCH_HEAD
 
   	if (playerState == 0) {
   		m_Player1Type = "Human";
@@ -942,30 +877,24 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
   		m_playerSelection = HARD_AI;
   	}
 
-  	if(this.getIsC4() == true){
-  		m_GameType = "C4";
-  	} else {
-  		m_GameType = "Oth";
-  	}
-
-	//AI stuff
+  	//AI stuff
 		if(m_playerSelection == EASY_AI) {
 			if(this.getIsC4() == true) {
 				m_Player2Type = "Easy";
 				System.out.println("Set Easy C4 AI");
-				c4EasyAI = new C4EasyAI();
+				m_c4EasyAI = new C4EasyAI();
 			} else {
 				m_Player2Type = "Easy";
-				othEasyAI = new OthEasyAI();
+				m_othEasyAI = new OthEasyAI();
 			}
 		} else if(m_playerSelection == HARD_AI) {
 			if(this.getIsC4() == true) {
 				m_Player2Type = "Hard";
 				System.out.println("Set Hard C4 AI");
-				c4HardAI = new C4HardAI();
+				m_c4HardAI = new C4HardAI();
 			} else {
 				m_Player2Type = "Hard";
-				othHardAI = new OthHardAI();
+				m_othHardAI = new OthHardAI();
 			}
 		}
 
@@ -981,25 +910,76 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 		startTimer();
 		System.out.println(turn);
 		m_Time = time;
+  	if (m_GameType.equals("C4")){
+  		for (int i = 0; i < 7; i++) {
+  		  for (int j = 0; j < 10; j++) {
+  		  	if (board[j][i].getColour() == "Red"){
+  		  		Piece piece = new Piece("Red");
+  		  		getGame().getBoard().setPiece2(piece ,j,i);
+  		  	}else if (board[j][i].getColour() == "Yellow"){
+  		  		Piece piece = new Piece("Yellow");
+						getGame().getBoard().setPiece2(piece, j, i);
+					} else {
+						// Piece piece = new Piece(" ");
+						// getGame().getBoard().setPiece2(piece, j, i);
+					}
+  		    System.out.println( j+", " +i + ", "+ getGame().getBoard().getBoard()[j][i].getColour());
+  		  }
+  		}
+  	}else if (m_GameType.equals("Oth")) {
+  		for (int i = 0; i < 8; i++) {
+  		  for (int j = 0; j < 8; j++) {
+  		  	if (board[j][i].getColour() == "Black"){
+  		  		Piece piece = new Piece("Black");
+  		  		getGame().getBoard().setPiece2(piece ,j,i);
+  		  	}else if (board[j][i].getColour() == "White"){
+  		  		Piece piece = new Piece("White");
+						getGame().getBoard().setPiece2(piece, j, i);
+					} else {
+						// Piece piece = new Piece(" ");
+						// getGame().getBoard().setPiece2(piece, j, i);
+					}
+  		    //System.out.println( j+", " +i + ", "+ getGame().getBoard().getBoard()[j][i].getColour());
+  		  }
+  		}
+  	}
 
-		for (int i = 0; i < 7; i++) {
-		  for (int j = 0; j < 10; j++) {
-		  	if (board[j][i].getColour() == "Red"){
-		  		Piece piece = new Piece("Red");
-		  		getGame().getBoard().setPiece2(piece ,j,i);
-		  	}else if (board[j][i].getColour() == "Yellow"){
-		  		Piece piece = new Piece("Yellow");
-					getGame().getBoard().setPiece2(piece, j, i);
-				} else {
-					// Piece piece = new Piece(" ");
-					// getGame().getBoard().setPiece2(piece, j, i);
-				}
-		    System.out.println( j+", " +i + ", "+ getGame().getBoard().getBoard()[j][i].getColour());
-		  }
+  	if (playerState == 0) {
+  		m_Player1Type = "Human";
+  		m_Player2Type = "Human";
+  		m_playerSelection = HUMAN;
+  	} else if (playerState == 1) {
+  		m_playerSelection = EASY_AI;
+  	} else if (playerState == 2) {
+  		m_playerSelection = HARD_AI;
+  	}
+
+	//AI stuff
+		if(m_playerSelection == EASY_AI) {
+			if(this.getIsC4() == true) {
+				m_Player2Type = "Easy";
+				System.out.println("Set Easy C4 AI");
+				m_c4EasyAI = new C4EasyAI();
+			} else {
+				m_Player2Type = "Easy";
+				m_othEasyAI = new OthEasyAI();
+			}
+		} else if(m_playerSelection == HARD_AI) {
+			if(this.getIsC4() == true) {
+				m_Player2Type = "Hard";
+				System.out.println("Set Hard C4 AI");
+				m_c4HardAI = new C4HardAI();
+			} else {
+				m_Player2Type = "Hard";
+				m_othHardAI = new OthHardAI();
+			}
 		}
 
-
-		update(getGame().getBoard(), "Red", "Yellow");
+		if (m_GameType.equals("C4")){
+			update(getGame().getBoard(), "Red", "Yellow");
+		} else {
+			update(getGame().getBoard(), "Black", "White");
+		}
 		//no idea
 		pack();
 	  setLocationRelativeTo(null);
@@ -1020,8 +1000,8 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 	private final int EASY_CHOICE = 1;
 	private final int HARD_CHOICE = 2;
 	private final int HUMAN_CHOICE = 0;
-  
-	// Size and Math Constants    
+
+	// Size and Math Constants
 	private final int TIMER_GRID_WIDTH = 10;
     private final int TURN_GRID_WIDTH = 8;
 	private final int NEW_GAME_GRID_WIDTH = 2;
@@ -1038,12 +1018,12 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 	private final int saveButtonGridX = 3;
 	private final int C4_BOARD_HEIGHT = 7;
 	private final int REMAINDER_2 = 2;
-	
+
 	// Time Related Constants
 	private final int WAIT_TIME = 1500;
 	private final int DROP_DELAY = 100;
 	private final int ONE_SECOND_INTERVAL = 1000;
-	
+
 	// Image Size Constants
 	private final int IMAGE_SIZE_100 = 100;
 	private final int IMAGE_SIZE_200 = 200;
@@ -1060,28 +1040,20 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 	private String player2;
 	private int m_playerSelection;
 
-	// Timer initialisation and member variables 
+	// Timer initialisation and member variables
 	private Timer m_Timer;
 	private static int m_Time;
 
-	// Member variable that stores which game is being played, if false then othello is being played 
-    private static boolean m_IsC4;
+	// Member variable that stores which game is being played, if false then othello is being played
+  private static boolean m_IsC4;
 
-<<<<<<< HEAD
 	/* Member variable that stores game being played */
   private static AbstractGameImplementation m_Game;
   private String m_GameType;
   private C4SaveManager c4SaveManager =  new C4SaveManager();
   private OthSaveManager othSaveManager = new OthSaveManager();
   private boolean m_Loading = false;
-=======
-	// Member variable that stores game being played
-    private static AbstractGameImplementation m_Game;
 
-    private C4SaveManager c4SaveManager =  new C4SaveManager();
-    private boolean m_Loading = false;
-  
->>>>>>> FETCH_HEAD
 	/** Initialisation of UI elements */
 	private static BufferedImage m_Background_Image;
     private C4AndOthelloBoardStore m_Board;
@@ -1093,14 +1065,14 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 	private JLabel m_TurnNumberLabel;
     private Container m_Container;
 	private GridBagConstraints m_Constraints;
-	
-	
+
+
 	// Variables holding AI Objects
 	private C4EasyAI m_c4EasyAI;
 	private C4HardAI m_c4HardAI;
 	private OthEasyAI m_othEasyAI;
 	private OthHardAI m_othHardAI;
-	
+
 	// Variables used in making AI moves
 	private int m_AIC4Col;
 	private int[] m_AIOthMoves;
@@ -1109,6 +1081,6 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 	private boolean m_checkAIMove;
 	private AbstractPlayer[] m_players;
 	private boolean m_waiting;
-	 
+
 
 }
