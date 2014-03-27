@@ -6,13 +6,14 @@ import java.util.Random;
  * @author Thomas Werner
  * @brief Allows a 'Hard' AI to generate moves in a game of Connect 4
  * @detail An AI that generates moves by attempting to extend existing lines of 2 or 3,
- * 	       or by randomly generating 2 numbers if none are available
+ * 	       blocking player lines of 3, or by randomly generating a number if none are available
  * 
  */
 public class C4HardAI {
 
-	private final int BOARD_HEIGHT = 7;
-	private final int BOARD_WIDTH = 10;
+	// Class Constants
+	private static final int BOARD_HEIGHT = 7;
+	private static final int BOARD_WIDTH = 10;
 	private final int PLAYER_ONE = 0;
 	private final int PLAYER_TWO = 1;
 	private final int EMPTY = 2;
@@ -26,22 +27,30 @@ public class C4HardAI {
     private final int BOUNDARY_3 = 3;
     private final String PLAYER_ONE_PIECE_COLOUR = "Red";
 	private final String PLAYER_TWO_PIECE_COLOUR = "Yellow";
-	
-	private Random m_rand;
-	private int m_selectedCol;
-	private boolean m_validMove;
+		
+	// Arrays that hold board state and intermediate calculating states
 	private int[][] m_boardState = new int[BOARD_WIDTH][BOARD_HEIGHT];
 	private int[] m_possibleMoves3;
 	private int[] m_possibleMoves2;
 	private int[] m_blockColMoves;
 	private int[] m_blockRowMoves;
+	
+	// booleans to check what length of line has been found
 	private boolean m_lineFound3;
 	private boolean m_lineFound2;
 	private boolean m_lineFoundAny;
+	
+	// Misc variables
+	private Random m_rand;
+	private int m_selectedCol;
+	private boolean m_validMove;
 	private Piece m_currentPiece;
 	
-	/*
-	 * Not working yet! Theory is there though
+	
+	/**
+	 * Generated a valid move in connect4 by
+	 * @param PC allows the current board state to be determined
+	 * @return a int representing the selected move
 	 */
 	public int selectCol(ProgramController PC) {
 		
@@ -56,9 +65,8 @@ public class C4HardAI {
 		m_lineFoundAny = false;
 		m_validMove = false;
 		
-		// Trying as [ROW][COLUMN] first
 		
-		// Clears m_boardState		
+		// Clear the board state and associated array states		
 		for(int i = 0; i < BOARD_WIDTH; i++) {
 			for(int j = 0; j < BOARD_HEIGHT; j++) {
 				m_boardState[i][j] = EMPTY;
@@ -105,15 +113,12 @@ public class C4HardAI {
 					m_selectedCol = m_rand.nextInt(BOARD_WIDTH);
 					if(m_blockRowMoves[m_selectedCol] == VALID) {
 						m_validMove = true;
-						System.out.println("ROW BLOCKED");
 						return m_selectedCol;
 					}
 				}
 			}
 		}
-		
-
-		
+	
 		boolean examine1 = extendCols();
 		boolean examine2 = extendRows();
 		boolean examine3 = extendRightDiag();
@@ -124,7 +129,6 @@ public class C4HardAI {
 		}
 		
 		if(m_lineFound3 == true) {
-			System.out.println("Line of 3 found!");
 			while(m_validMove == false) {
 				m_selectedCol = m_rand.nextInt(BOARD_WIDTH);
 				if(m_possibleMoves3[m_selectedCol] == VALID) {
@@ -133,7 +137,6 @@ public class C4HardAI {
 				}
 			}
 		} else if(m_lineFound2 == true) {
-			System.out.println("Line of 2 found!");
 			while(m_validMove == false) {
 				m_selectedCol = m_rand.nextInt(BOARD_WIDTH);
 				if(m_possibleMoves2[m_selectedCol] == VALID) {
@@ -142,7 +145,6 @@ public class C4HardAI {
 				}
 			}
 		} else {
-			System.out.println("No Line Found!");
 			while(m_validMove == false) {
 				m_selectedCol = m_rand.nextInt(BOARD_WIDTH);
 				m_validMove = PC.getGame().checkValid(m_selectedCol, 0, PC.getGame().getPlayer(PLAYER_TWO));
@@ -154,6 +156,10 @@ public class C4HardAI {
 		
 	}
 	
+	/**
+	 * Checks if an AI Player column extends from each position
+	 * @return boolean true if any column of 2 or 3 is found
+	 */
 	private boolean extendCols() {
 		
 		boolean movesFound = false;
@@ -197,6 +203,10 @@ public class C4HardAI {
 		}
 	}
 	
+	/**
+	 * Checks if an AI Player row extends from each position
+	 * @return boolean true if any row of 2 or 3 is found
+	 */
 	private boolean extendRows() {
 		
 		boolean movesFound = false;
@@ -247,6 +257,10 @@ public class C4HardAI {
 		
 	}
 	
+	/**
+	 * Checks if an AI Player RightDiagonal extends from each position
+	 * @return boolean true if any RightDiagonal of 2 or 3 is found
+	 */
 	private boolean extendRightDiag() {
 		
 		boolean movesFound = false;
@@ -303,6 +317,10 @@ public class C4HardAI {
 		
 	}
 	
+	/**
+	 * Checks if an AI Player LeftDiagonal extends from each position
+	 * @return boolean true if any LeftDiagonal of 2 or 3 is found
+	 */
 	private boolean extendLeftDiag() {
 		
 		boolean movesFound = false;
@@ -353,6 +371,10 @@ public class C4HardAI {
 		
 	}
 	
+	/**
+	 * Checks if a Human Player column extends from each position
+	 * @return boolean true if any Human Player column of 3 is found
+	 */
 	private boolean blockPlayerCols() {
 		
 		boolean playerColsFound = false;
@@ -374,6 +396,10 @@ public class C4HardAI {
 		return playerColsFound;
 	}
 	
+	/**
+	 * Checks if a Human Player row extends from each position
+	 * @return boolean true if any Human Player row of 3 is found
+	 */
 	private boolean blockPlayerRows() {
 		
 		boolean playerRowsFound = false;
@@ -407,6 +433,85 @@ public class C4HardAI {
 		}
 		
 		return playerRowsFound;
+	}
+	
+	/**
+	 * Main method for class tests on C4HardAI
+	 * Takes no arguments
+	 */
+	public static void main(String[] args) {
+		
+		final int MAX_COL = BOARD_HEIGHT-2;
+		final int INC1 = 1;
+		final int INC2 = 2;
+		final int INC3 = 3;
+		
+		
+		/*
+		 * Test One
+		 * Calling C4HardAI.selectCol on an empty C4 Board.
+		 */
+		ProgramController testPC = new ProgramController();
+		C4AndOthelloBoardStore testBoard = new C4AndOthelloBoardStore();
+		C4HardAI testAI = new C4HardAI();
+		testPC.setIsC4(0);
+		testPC.setGame("player1", "player2");
+		testBoard.setBoardHeight(BOARD_HEIGHT);
+		testBoard.setBoardHeight(BOARD_WIDTH);
+		testBoard.setBoard(BOARD_WIDTH, BOARD_HEIGHT);
+		int selectedCol = testAI.selectCol(testPC);
+		if(selectedCol >= 0 && selectedCol < BOARD_WIDTH) {
+			System.out.println("C4HardAI.selectCol Evaulated: Correct");
+		}
+		else {
+			System.out.println("C4HardAI.selectCol Evaulated: Incorrect");
+		}
+		
+		/*
+		 * Test Two
+		 * Calling C4HardAI.selectCol to extend a line of 3 AI counters.
+		 */
+		ProgramController testPC2 = new ProgramController();
+		C4AndOthelloBoardStore testBoard2 = new C4AndOthelloBoardStore();
+		C4HardAI testAI2 = new C4HardAI();
+		testPC2.setIsC4(0);
+		testPC2.setGame("player1", "player2");
+		testBoard2.setBoardHeight(BOARD_HEIGHT);
+		testBoard2.setBoardWidth(BOARD_WIDTH);
+		testBoard2.setBoard(BOARD_WIDTH, BOARD_HEIGHT);
+		testPC2.setBoard(testBoard2);
+		
+		Piece[][] testPieceLayout = new Piece[BOARD_WIDTH][BOARD_HEIGHT];
+		for (int i = 0; i < BOARD_HEIGHT; i++) {
+	  		  for (int j = 0; j < BOARD_WIDTH; j++) {
+	  			  testPieceLayout[j][i] = new Piece("");
+	  		  }
+		}
+	  		
+		testPieceLayout[0][MAX_COL] = new Piece("Yellow");
+		testPieceLayout[INC1][MAX_COL] = new Piece("Yellow");
+		testPieceLayout[INC2][MAX_COL] = new Piece("Yellow");
+		testPieceLayout[INC3][MAX_COL] = new Piece("");
+		try {
+			// Only applicable arguments are 'testPieceLayout'
+			testPC2.ProgramController(0, 2, "player1", "player2", testPieceLayout, 1, 1);
+		} catch (Exception e) {
+			System.out.println("Error setting layout in Test 2 OthHardAI");
+			e.printStackTrace();
+		} finally {
+			testPC2.setVisible(false);
+		}
+		
+		
+		int selectedCol2 = testAI2.selectCol(testPC2);
+		System.out.println(selectedCol2);
+		if(selectedCol2 == INC3) {
+			System.out.println("C4HardAI.selectCol Evaulated: Correct");
+		}
+		else {
+			System.out.println("C4HardAI.selectCol Evaulated: Incorrect");
+		}
+
 	}
 	
 }

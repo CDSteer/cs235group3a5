@@ -162,6 +162,7 @@ public class C4SaveManager {
     String[] row = null;
     Piece piece;
     while((row = m_CSVReader.readNext()) != null) {
+<<<<<<< HEAD
       if (row[0].equals("C4")) {
         if (row[3].equals("Red")){
           piece = new Piece("Red");
@@ -177,6 +178,22 @@ public class C4SaveManager {
         m_LoadGameType = row[0];
         m_LoadTime = Integer.parseInt(row[7]);
         m_LoadTurn = Integer.parseInt(row[6]);
+=======
+        System.out.println(row[SECOND_ROW]);
+      if (row[SECOND_ROW].equals("Red")){
+        piece = new Piece("Red");
+        m_LoadName1 = row[SECOND_ROW];
+        m_LoadPlayerType1 = row[FOURTH_ROW];
+      } else if (row[SECOND_ROW].equals("Yellow")){
+        m_LoadName2 = row[THIRD_ROW];
+        m_LoadPlayerType2 = row[FOURTH_ROW];
+        piece = new Piece("Yellow");
+      } else {
+        piece = new Piece("");
+      }
+      m_LoadTime = Integer.parseInt(row[SIXTH_ROW]);
+      m_LoadTurn = Integer.parseInt(row[FIFTH_ROW]);
+>>>>>>> FETCH_HEAD
 
         m_Connect4GameLogic.getBoard().setPiece2(piece, Integer.parseInt(row[1]), Integer.parseInt(row[2]));
       }
@@ -244,8 +261,12 @@ public class C4SaveManager {
     Connect4GameLogic connect4GameLogic = new Connect4GameLogic();
     C4SaveManager c4SaveManager = new C4SaveManager();
     C4AndOthelloBoardStore board = new C4AndOthelloBoardStore();
+<<<<<<< HEAD
     String gameType = "C4";
     int time = 60;
+=======
+  
+>>>>>>> FETCH_HEAD
     String name1 = "Dave";
     String name2 = "Hal-2000";
     String playerType1 = "Human";
@@ -254,7 +275,7 @@ public class C4SaveManager {
 
     for (int i = 0; i < BOARD_ROWS; i++) {
       for (int j = 0; j < BOARD_COLS; j++) {
-        if (i == 5){
+        if (i == FIFTH_ROW)
           connect4GameLogic.setPiece(j, i, connect4GameLogic.getPlayer(0));
         }
         connect4GameLogic.setPiece(j, i, connect4GameLogic.getPlayer(1));
@@ -285,4 +306,11 @@ public class C4SaveManager {
   private static final int BOARD_COLS = 10;
   private static final String LOAD = "load";
   private static final String SAVE = "save";
+  private static final int TIME = 60;
+  private static final int FIFTH_ROW = 5;
+  private static final int SIXTH_ROW = 6;
+  private static final int FOURTH_ROW = 4;
+  private static final int THIRD_ROW = 3; 
+  private static final int SECOND_ROW = 2;
+  
 }
