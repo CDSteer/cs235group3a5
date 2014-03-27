@@ -422,8 +422,19 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 	*	@return null
 	*/
 	public void arrowPointer(int x, int y) throws IOException{
-		final BufferedImage arrow_Image = ImageIO.read(new File("../Images/Connect4arrow.png"));
+		//final BufferedImage arrow_Image = ImageIO.read(new File("../Images/Connect4arrow.png"));
+		//final BufferedImage blank_Image = ImageIO.read(new File("../Images/Connect4Background.png"));
+		
+		final BufferedImage arrow_Image;
+		
 		final BufferedImage blank_Image = ImageIO.read(new File("../Images/Connect4Background.png"));
+		
+		if(getTurn() == PLAYER_ONE) {
+			arrow_Image = ImageIO.read(new File("../Images/Connect4RedArrow.png"));
+		} else {
+			arrow_Image = ImageIO.read(new File("../Images/Connect4YellowArrow.png"));
+		}
+		
 		int hidden;
 		for(int i = 0; i < getBoard().getBoardWidth(); i++){
 			hidden = getLabel(i,0).getDisplayedMnemonic();
