@@ -198,7 +198,7 @@ public class C4SaveManager {
     JFrame frame = new JFrame();
     FileDialog fc = new FileDialog(frame, "Load a Game Save", FileDialog.LOAD);
     //set default directory
-    fc.setDirectory("../SAVEDATA/");
+    fc.setDirectory(PATH);
     //set file format
     fc.setFile("*.csv");
     //enable the file dialog
@@ -282,7 +282,7 @@ public class C4SaveManager {
       System.out.println("Returning to menu......");
     }
   }
-  private static final String PATH = "../SAVEDATA/";
+  private static final String PATH = "../SAVEDATA/C4/";
   private static final String FILETYPE = ".csv";
   private static final int BOARD_ROWS = 7;
   private static final int BOARD_COLS = 10;
