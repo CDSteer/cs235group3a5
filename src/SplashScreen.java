@@ -13,6 +13,7 @@ import java.io.File;
  * @author Jamie I Davies
  * @date March 25, 2014
  * @brief This class creates all the swing objects for the Splash Screen of the game
+ * 
  */
 public class SplashScreen extends JFrame{
 
