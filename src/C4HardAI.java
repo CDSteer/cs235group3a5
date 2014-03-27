@@ -441,7 +441,7 @@ public class C4HardAI {
 	 */
 	public static void main(String[] args) {
 		
-		final int MAX_COL = BOARD_HEIGHT-2;
+		final int MAX_COL = BOARD_HEIGHT -2;
 		final int INC1 = 1;
 		final int INC2 = 2;
 		final int INC3 = 3;
@@ -461,10 +461,10 @@ public class C4HardAI {
 		testBoard.setBoard(BOARD_WIDTH, BOARD_HEIGHT);
 		int selectedCol = testAI.selectCol(testPC);
 		if(selectedCol >= 0 && selectedCol < BOARD_WIDTH) {
-			System.out.println("C4HardAI.selectCol Evaulated: Correct");
+			System.out.println("C4HardAI.selectCol Evaluated: Correct");
 		}
 		else {
-			System.out.println("C4HardAI.selectCol Evaulated: Incorrect");
+			System.out.println("C4HardAI.selectCol Evaluated: Incorrect");
 		}
 		
 		/*
@@ -494,7 +494,7 @@ public class C4HardAI {
 		testPieceLayout[INC3][MAX_COL] = new Piece("");
 		try {
 			// Only applicable arguments are 'testPieceLayout'
-			testPC2.ProgramController(0, 2, "player1", "player2", testPieceLayout, 1, 1);
+			testPC2.ProgramController(0, INC2, "player1", "player2", testPieceLayout, 1, 1);
 		} catch (Exception e) {
 			System.out.println("Error setting layout in Test 2 OthHardAI");
 			e.printStackTrace();
@@ -506,10 +506,10 @@ public class C4HardAI {
 		int selectedCol2 = testAI2.selectCol(testPC2);
 		System.out.println(selectedCol2);
 		if(selectedCol2 == INC3) {
-			System.out.println("C4HardAI.selectCol Evaulated: Correct");
+			System.out.println("C4HardAI.selectCol Evaluated: Correct");
 		}
 		else {
-			System.out.println("C4HardAI.selectCol Evaulated: Incorrect");
+			System.out.println("C4HardAI.selectCol Evaluated: Incorrect");
 		}
 
 	}

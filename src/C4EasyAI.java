@@ -68,10 +68,10 @@ public class C4EasyAI {
 		testPC.setBoard(testBoard);
 		int selectedCol = testAI.selectCol(testPC);
 		if(selectedCol >= 0 && selectedCol < BOARD_WIDTH) {
-			System.out.println("C4EasyAI.selectCol Evaulated: Correct");
+			System.out.println("C4EasyAI.selectCol Evaluated: Correct");
 		}
 		else {
-			System.out.println("C4EasyAI.selectCol Evaulated: Incorrect");
+			System.out.println("C4EasyAI.selectCol Evaluated: Incorrect");
 		}
 		
 		/*
@@ -93,10 +93,10 @@ public class C4EasyAI {
 		
 		int selectedCol2 = testAI2.selectCol(testPC2);
 		if(selectedCol2 >= 0 && selectedCol2 < BOARD_WIDTH) {
-			System.out.println("C4EasyAI.selectCol Evaulated: Correct");
+			System.out.println("C4EasyAI.selectCol Evaluated: Correct");
 		}
 		else {
-			System.out.println("C4EasyAI.selectCol Evaulated: Incorrect");
+			System.out.println("C4EasyAI.selectCol Evaluated: Incorrect");
 		}
 		
 	}
