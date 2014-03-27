@@ -1,13 +1,8 @@
 /**
- * \file Board.java
- *
- * \author X. Chen, Tested by Curtis Lewis
- *
- * \date 22 Feb '14
- *
- * \brief Stores information about a Piece object.
- *
- * Stores a piece object in a specific board position by having 2 identical
+ * @author X. Chen, Tested by Curtis Lewis
+ * @date 22 Feb '14
+ * @brief Stores information about a Piece object.
+ * @details Stores a piece object in a specific board position by having 2 identical
  * 2D arrays where one stores an integer which corresponds to the other having
  * a piece at the same index location.
  *

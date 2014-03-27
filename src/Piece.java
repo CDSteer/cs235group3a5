@@ -1,14 +1,9 @@
 
 /**
- * @file Piece.java
- *
  * @author A.Alakeel, Cameron Steer
- *
  * @date 25 Feb '14
- *
  * @brief Change colour of a Piece
- *
- * This class can change the colour of a piece to any desired
+ * @details This class can change the colour of a piece to any desired
  * colour. It stores the colour of a Piece, so that it can then
  * be used to get the colour of the
  * piece.

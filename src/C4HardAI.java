@@ -1,11 +1,10 @@
 import java.util.Random;
 
 /**
- * 
- * @file C4HardAI.java
  * @author Thomas Werner
+ * @date Mar 18, 2014
  * @brief Allows a 'Hard' AI to generate moves in a game of Connect 4
- * @detail An AI that generates moves by attempting to extend existing lines of 2 or 3,
+ * @details An AI that generates moves by attempting to extend existing lines of 2 or 3,
  * 	       blocking player lines of 3, or by randomly generating a number if none are available
  * 
  */

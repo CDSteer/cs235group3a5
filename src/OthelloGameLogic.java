@@ -1,14 +1,10 @@
 /**
- * @file OthelloGameLogic.java
- *
  * @author J. Bailey
- *
  * @date 22 Feb '14
- *
  * @brief This controls the flow of the game, specific to Othello.
- *
  * This controls how the game works when the user selects to play Othello,
  * such as when a flip is possible, and when a win is detected.
+ * 
  */
 
 public class OthelloGameLogic extends AbstractGameImplementation {

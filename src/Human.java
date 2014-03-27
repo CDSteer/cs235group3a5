@@ -1,18 +1,13 @@
+import java.io.*;
+
 /**
- * @file Human.java
- *
- * @author G.D. Damabel
- *
- * @date 24 Feb '14
- *
+ * @author G.D. Damabel *
+ * @date 24 Feb '14 *
  * @brief Gets and returns Player move.
- *
- * @detail The Human class is intended to create two players, checks if player move is valid and then
+ * @details The Human class is intended to create two players, checks if player move is valid and then
  * 		   pass the information to the program controller class to set the piece on the game board,
  *         update the game board and checks if that is a winning move.
  */
-
-import java.io.*;
 
 public class Human extends AbstractPlayer{
 	

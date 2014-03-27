@@ -3,11 +3,10 @@
 import java.util.Random;
 
 /**
- * 
- * @file OthHardAI.java
  * @author Thomas Werner
+ * @date Mar 24, 2014
  * @brief Allows a 'Hard' AI to generate moves in a game of Othello
- * @detail An AI that generates moves by selecting moves that flip the most amount of counters,
+ * @details An AI that generates moves by selecting moves that flip the most amount of counters,
  * 		   and randomly selecting a move if there is no highest.
  * 
  */

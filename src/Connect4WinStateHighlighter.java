@@ -1,20 +1,16 @@
-/**
- * @file Connect4WinStateHighlighter.java
- *
- * @author I.C. Skinner
- *
- * @date 18 Feb '14
- *
- * @brief This highlights the winning pieces in Connect4.
- *
- * This class will highlight the winning pieces after a game of
- * Connect4 has been played through to completion.
- */
-
 import java.awt.image.*;
 import java.io.*;
 import javax.imageio.*;
 import javax.swing.*;
+
+/**
+ * @author I.C. Skinner
+ * @date 18 Feb '14
+ * @brief This highlights the winning pieces in Connect4
+ * This class will highlight the winning pieces after a game of
+ * Connect4 has been played through to completion.
+ * 
+ */
 
 public class Connect4WinStateHighlighter{
 	/**

@@ -11,11 +11,9 @@ import java.io.*;
 import javax.swing.*;
 
 /**
- *
- * @file C4SaveManager.java
  * @author Cameron Steer
- * @brief Saves and loads a connect 4 games
- * @detail Reads in a CSV file in order to load a game state,
+ * @brief Saves and loads a connect 4 game
+ * @details Reads in a CSV file in order to load a game state,
  * or writes to a CSV file in order to save the games state.
  *
  */
