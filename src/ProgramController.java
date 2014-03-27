@@ -136,10 +136,13 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 				System.out.println("Test save button");
 				try{
 					if (m_GameType.equals("C4")){
-						if (c4SaveManager.saveData(m_GameType, m_Board, m_Time, m_Game.getPlayer(PLAYER_ONE).getName(), m_Game.getPlayer(PLAYER_TWO).getName(), m_Player1Type, m_Player2Type, m_Turn));
-						JOptionPane.showMessageDialog(null, "Save Success");
+						if (c4SaveManager.saveData(m_GameType, m_Board, m_Time, m_Game.getPlayer(PLAYER_ONE).getName(),
+                                m_Game.getPlayer(PLAYER_TWO).getName(), m_Player1Type, m_Player2Type, m_Turn));
+						        JOptionPane.showMessageDialog(null, "Save Success");
+
 					} else {
-						othSaveManager.saveData(m_GameType, m_Board, m_Time, m_Game.getPlayer(PLAYER_ONE).getName(), m_Game.getPlayer(PLAYER_TWO).getName(), m_Player1Type, m_Player2Type, m_Turn);
+						othSaveManager.saveData(m_GameType, m_Board, m_Time, m_Game.getPlayer(PLAYER_ONE).getName(),
+                                m_Game.getPlayer(PLAYER_TWO).getName(), m_Player1Type, m_Player2Type, m_Turn);
 					}
 				} catch (IOException e){
 					System.out.println("Can't Save Data");
@@ -165,6 +168,7 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 		//m_SaveButton.addActionListener(m_Handler);
 		actListner3 = new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
+
 				System.out.println("Back to main menu...");
 				setVisible(false);
 				System.out.println("Start back up splash screen...");
@@ -220,7 +224,7 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 		m_TurnNumberLabel = new JLabel(labelString);
 		m_Constraints.gridy = getBoard().getBoardHeight() + ADD_TWO;
 		m_Constraints.gridx = getBoard().getBoardWidth() / DIVIDE_BY_TWO - SUBTRACT_FOUR;
-		m_Constraints.gridwidth = 2;
+		m_Constraints.gridwidth = INCREMENT_TWO;
 		m_Container.add(m_TurnNumberLabel, m_Constraints);
 	}
 	/**
@@ -231,7 +235,8 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 		m_Container = getContentPane();
     m_Container.setLayout(new GridBagLayout());
 		m_Constraints = new GridBagConstraints();
-		this.setMinimumSize(new Dimension(CONTAINER_64 * getBoard().getBoardWidth(), CONTAINER_64 * getBoard().getBoardHeight() + CONTAINER_22));
+		this.setMinimumSize(new Dimension(CONTAINER_64 * getBoard().getBoardWidth(),
+                CONTAINER_64 * getBoard().getBoardHeight() + CONTAINER_22));
 	}
 
 	/** Getter method to return timer label value
@@ -362,7 +367,7 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 
 	/**
 	 *	Method that is performed when a user has taken their turn so the board's UI elements
-	 *	are updated to whomever's turn it is
+	 *	are updated to whoever's turn it is
 	 *	@param event - action performed event
 	 *	@return null
 	*/
@@ -377,7 +382,7 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 			try {
 				update(getGame().getBoard(), colour1, colour2);
 			} catch (IOException e) {
-				System.out.println("IOException error @ ProgramController::acionPerformed()");
+				System.out.println("IOException error @ ProgramController::actionPerformed()");
 			}
 
 			setTurn(0); //Reset turn to 0.
@@ -450,8 +455,8 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 
 	/**
 	* Animation of mouse pointing at row in Connect 4
-	*	@param  x	x coordinate of mouse clicked postion
-	*	@param	y   y coordinate of mouse clicked postion
+	*	@param  x	x coordinate of mouse clicked position
+	*	@param	y   y coordinate of mouse clicked position
 	*	@throws	IOException
 	*	@return null
 	*/
@@ -463,7 +468,7 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 
 		BufferedImage blank_Image = ImageIO.read(new File("../Images/Connect4Background.png"));
 
-		if(getTurn() % 2 == PLAYER_ONE) {
+		if(getTurn() % REMAINDER_2 == PLAYER_ONE) {
 			arrow_Image = ImageIO.read(new File("../Images/Connect4arrow.png"));
 		} else {
 			arrow_Image = ImageIO.read(new File("../Images/Connect4arrowYellow.png"));
@@ -485,8 +490,8 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 
 	/**
 	* Animation of falling piece
-	*	@param  x	x coordinate of mouse clicked postion
-	*	@param	y   y coordinate of mouse clicked postion
+	*	@param  x	x coordinate of mouse clicked position
+	*	@param	y   y coordinate of mouse clicked position
 	*	@param	piece_Image      pieces image
 	*	@throws	IOException
 	*	@return null
@@ -846,7 +851,7 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 		setBoard();
 		setContainer();
 		setImages();
-    setTurnLabel();
+        setTurnLabel();
 		setNewGameButton();
 		setSaveButton();
 		setMainMenuButton();
@@ -862,7 +867,7 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
   		m_playerSelection = EASY_AI;
   			//hide turn label
   		m_TurnNumberLabel.setVisible(false);
-  	} else if (playerState == 2) {
+  	} else if (playerState == HARD_CHOICE) {
   			m_playerSelection = HARD_AI;
   			//hide turn label
   			m_TurnNumberLabel.setVisible(false);
@@ -896,7 +901,9 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
   }
 
 
-  void ProgramController(int gameState, int playerState, String player1Name, String player2Name, Piece[][] board, int turn, int time) throws IOException{
+  void ProgramController(int gameState, int playerState, String player1Name, String player2Name, Piece[][] board,
+                         int turn, int time) throws IOException{
+
 		m_Loading = true;
 		setIsC4(gameState);
 		System.out.println(playerState);
@@ -906,7 +913,7 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 			m_GameType = "Oth";
 		}
 		player1 = player1Name;
-  	player2 = player2Name;
+  	    player2 = player2Name;
 
   	if (playerState == 0) {
   		m_Player1Type = "Human";
@@ -916,7 +923,7 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
   		m_playerSelection = EASY_AI;
   		//hide turn label
   		m_TurnNumberLabel.setVisible(false);
-  	} else if (playerState == 2) {
+  	} else if (playerState == HARD_CHOICE) {
   		m_playerSelection = HARD_AI;
   		//hide turn label
   		m_TurnNumberLabel.setVisible(false);
@@ -947,7 +954,7 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 		setBoard();
 		setContainer();
 		setImages();
-	  setTurnLabel();
+	    setTurnLabel();
 		setNewGameButton();
 		setSaveButton();
 		setMainMenuButton();
@@ -956,9 +963,10 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 		startTimer();
 		System.out.println(turn);
 		m_Time = time;
+
   	if (m_GameType.equals("C4")){
-  		for (int i = 0; i < 7; i++) {
-  		  for (int j = 0; j < 10; j++) {
+  		for (int i = 0; i < LOOP_MAX_C4_ONE; i++) {
+  		  for (int j = 0; j < LOOP_MAX_C4_TWO; j++) {
   		  	if (board[j][i].getColour() == "Red"){
   		  		Piece piece = new Piece("Red");
   		  		getGame().getBoard().setPiece2(piece ,j,i);
@@ -970,8 +978,8 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
   		  }
   		}
   	}else if (m_GameType.equals("Oth")) {
-  		for (int i = 0; i < 8; i++) {
-  		  for (int j = 0; j < 8; j++) {
+  		for (int i = 0; i < LOOP_MAX; i++) {
+  		  for (int j = 0; j < LOOP_MAX; j++) {
   		  	if (board[j][i].getColour() == "Black"){
   		  		Piece piece = new Piece("Black");
   		  		getGame().getBoard().setPiece2(piece, j, i);
@@ -992,7 +1000,7 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
   		m_Player1Type = "Human";
   		m_Player2Type = "Easy";
   		m_playerSelection = EASY_AI;
-  	} else if (playerState == 2) {
+  	} else if (playerState == HUMAN_AND_HARD_CHOICE) {
   		m_Player1Type = "Human";
   		m_Player2Type = "Hard";
   		m_playerSelection = HARD_AI;
@@ -1026,7 +1034,7 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 		}
 		//no idea
 		pack();
-	  setLocationRelativeTo(null);
+	    setLocationRelativeTo(null);
 		setVisible(true);
 		m_Loading = false;
   }
@@ -1043,7 +1051,11 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 	private final int PLAYER_2 = 2;
 	private final int EASY_CHOICE = 1;
 	private final int HARD_CHOICE = 2;
-	private final int HUMAN_CHOICE = 0;
+	private final int HUMAN_AND_HARD_CHOICE = 2;
+    private final int LOOP_MAX = 8;
+    private final int LOOP_MAX_C4_ONE = 7;
+    private final int LOOP_MAX_C4_TWO = 10;
+    private final int INCREMENT_TWO = 2;
 
 	// Size and Math Constants
 	private final int TIMER_GRID_WIDTH = 10;
