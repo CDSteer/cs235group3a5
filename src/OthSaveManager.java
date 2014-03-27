@@ -118,9 +118,7 @@ public class OthSaveManager {
 		m_LoadBoard = board.getBoard();
 		for (int i = 0; i < BOARD_ROWS; i++) {
 		  for (int j = 0; j < BOARD_COLS; j++) {
-		  	System.out.println("really? , " + m_LoadBoard[j][i].getColour());
 		    if (m_LoadBoard[j][i].getColour().equals("Black")){
-		    	System.out.println("really? , " + m_LoadBoard[j][i].getColour());
 		      m_Data.add(new String[] {gameType, String.valueOf(j), String.valueOf(i), m_LoadBoard[j][i].getColour(), name1, playerType1, String.valueOf(turn), String.valueOf(time)});
 		    } else if (m_LoadBoard[j][i].getColour().equals("White")){
 		      m_Data.add(new String[] {gameType, String.valueOf(j), String.valueOf(i), m_LoadBoard[j][i].getColour(), name2, playerType2, String.valueOf(turn), String.valueOf(time)});
@@ -141,10 +139,7 @@ public class OthSaveManager {
 
 	public boolean loadData() throws IOException{
 		showFileBrowser();
-		System.out.println(m_FileName);
 		m_FileName = PATH+ m_FileName;
-		System.out.println(m_FileName);
-
 		if (fileFound()){
 			if (readGrid()){
 				return true;
