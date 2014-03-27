@@ -50,4 +50,37 @@ public class Piece {
 		changeColour(colour);
 	}
 	//, String name, String playerType
+	
+	/**
+	 * Main method for testing the Piece class
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		
+		/*
+		 * Test One
+		 * Calling the Piece class constructor
+		 */
+		try {
+			Piece testPiece1 = new Piece("Black");
+			System.out.println("Piece.constructor Evaluated: Correct");
+		} catch(Exception e) {
+			System.out.println("Piece.constructor Evaluated: Incorrect");
+		}
+		
+		/*
+		 * Test Two
+		 * Calling the get and set methods for the m_Colour variable
+		 */
+		
+		Piece testPiece2 = new Piece("Red");
+		testPiece2.changeColour("Yellow");
+		if(testPiece2.getColour().equals("Yellow")) {
+			System.out.println("Piece.changeColour Evaluated: Correct");
+		} else {
+			System.out.println("Piece.changeColour Evaluated: Incorrect");
+		}
+		
+		
+	}
 }
