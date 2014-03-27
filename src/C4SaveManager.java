@@ -132,7 +132,6 @@ public class C4SaveManager {
         }
       }
     }
-
     m_Writer.writeAll(m_Data);
     m_Writer.close();
     return true;
@@ -144,13 +143,8 @@ public class C4SaveManager {
    * @return boolean
    */
   public boolean loadData() throws IOException{
-
-    //nameFile(LOAD);
     showFileBrowser();
-    System.out.println(m_FileName);
     m_FileName = PATH+ m_FileName;
-    System.out.println(m_FileName);
-
     if (fileFound()){
       readGrid();
     } else {

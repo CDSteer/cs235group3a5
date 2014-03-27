@@ -1038,6 +1038,71 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 		setVisible(true);
 		m_Loading = false;
   }
+  
+  /**
+   * Main method for testing ProgramController class
+   * void ProgramController method tests all other methods of the ProgramController class
+   */
+  public static void main(String[] args) {
+	  
+	  final int C4_HEIGHT = 7;
+	  final int C4_WIDTH = 10;
+	  final int OTH_WIDTH = 8;
+	  final int OTH_HEIGHT = 8;
+	  final int TEST_VALUE = 1;
+	  final int SET_C4 = 0;
+	  final int SET_NOT_C4 = 1;
+	  
+	  /*
+	   * Test One
+	   * Creating an instance of ProgramController for a C4 Game
+	   */
+	  ProgramController testPC1 = new ProgramController();
+	  testPC1.setIsC4(0);
+	  testPC1.setGame("player1", "player2");
+		
+	  Piece[][] testPieceLayout = new Piece[C4_WIDTH][C4_HEIGHT];
+	  for (int i = 0; i < C4_HEIGHT; i++) {
+		  for (int j = 0; j < C4_WIDTH; j++) {
+			  testPieceLayout[j][i] = new Piece("");
+	  	  }
+	  }
+	  		
+	  try {
+			
+		  testPC1.ProgramController(SET_C4, 0, "player1", "player2", testPieceLayout, TEST_VALUE, TEST_VALUE);
+		  System.out.println("ProgramController C4 Test Evaluated: Correct");
+	  } catch (Exception e) {
+		  System.out.println("ProgramController C4 Test Evaluated: Incorrect");
+	  } finally {
+		  testPC1.setVisible(false);
+	  }
+		
+	  /*
+	   * Test Two
+	   * Creating an instance of ProgramController for an Othello Game
+	   */
+	  ProgramController testPC2 = new ProgramController();
+	  testPC2.setIsC4(1);
+	  testPC2.setGame("player1", "player2");
+			
+	  Piece[][] testPieceLayout2 = new Piece[OTH_WIDTH][OTH_HEIGHT];
+	  for (int i = 0; i < OTH_HEIGHT; i++) {
+		  for (int j = 0; j < OTH_WIDTH; j++) {
+			  testPieceLayout2[j][i] = new Piece("");
+		  }
+	  }
+		  		
+	  try {
+				
+		  testPC2.ProgramController(SET_NOT_C4, 0, "player1", "player2", testPieceLayout2, TEST_VALUE, TEST_VALUE);
+		  System.out.println("ProgramController Othello Test Evaluated: Correct");
+	  } catch (Exception e) {
+		  System.out.println("ProgramController Othello Test Evaluated: Incorrect");
+	  } finally {
+		  testPC2.setVisible(false);
+	  }
+  }
 
     // Class Constants
     // AI and Player Number Constants
