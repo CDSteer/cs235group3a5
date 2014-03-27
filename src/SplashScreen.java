@@ -168,12 +168,13 @@ public class SplashScreen extends JFrame{
             }
             ProgramController controller = new ProgramController();
             controller.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            System.out.println(c4SaveManager.getLoadPlayerType2());
             if (c4SaveManager.getLoadPlayerType2().equals("Human")){
                 playState = 0;
             } else if (c4SaveManager.getLoadPlayerType2().equals("Easy")) {
                 playState = 1;
             } else if (c4SaveManager.getLoadPlayerType2().equals("Hard")) {
-                playState = 3;
+                playState = 2;
             }
             gameChoice = 0;
             player1name = c4SaveManager.getLoadName1();

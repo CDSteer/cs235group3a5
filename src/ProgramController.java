@@ -140,7 +140,7 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 				System.out.println("Test save button");
 				try{
 
-				  c4SaveManager.saveData(m_Board, m_Time, m_Game.getPlayer(PLAYER_ONE).getName(), m_Game.getPlayer(PLAYER_TWO).getName(), m_Player1Type, m_Player1Type, m_Turn);
+				  c4SaveManager.saveData(m_Board, m_Time, m_Game.getPlayer(PLAYER_ONE).getName(), m_Game.getPlayer(PLAYER_TWO).getName(), m_Player1Type, m_Player2Type, m_Turn);
 				} catch (IOException e){
 					System.out.println("Can't Save Data");
 				  e.printStackTrace();
@@ -854,6 +854,7 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 
   void ProgramController(int gameState, int playerState, String player1Name, String player2Name, Piece[][] board, int turn, int time) throws IOException{
   		m_Loading = true;
+  		System.out.println(playerState);
   		player1 = player1Name;
     	player2 = player2Name;
 
@@ -873,6 +874,7 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
   		if(m_playerSelection == EASY_AI) {
   			if(this.getIsC4() == true) {
   				m_Player2Type = "Easy";
+  				System.out.println("Set Easy C4 AI");
   				c4EasyAI = new C4EasyAI();
   			} else {
   				m_Player2Type = "Easy";
@@ -881,6 +883,7 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
   		} else if(m_playerSelection == HARD_AI) {
   			if(this.getIsC4() == true) {
   				m_Player2Type = "Hard";
+  				System.out.println("Set Hard C4 AI");
   				c4HardAI = new C4HardAI();
   			} else {
   				m_Player2Type = "Hard";
