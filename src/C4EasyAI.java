@@ -12,11 +12,13 @@ import java.util.Random;
  */
 public class C4EasyAI {
 
-	private final int BOARD_HEIGHT = 7;
-	private final int BOARD_WIDTH = 10;
+	// Class Constants
+	private static final int BOARD_HEIGHT = 7;
+	private static final int BOARD_WIDTH = 10;
 	private final int PLAYER_ONE = 0;
 	private final int PLAYER_TWO = 1;
 
+	// Misc Variables
 	private Random m_rand;
 	private int m_selectedCol;
 	private boolean m_validMove;
@@ -37,11 +39,66 @@ public class C4EasyAI {
 		while(m_validMove == false) {
 			m_selectedCol = 0;
 			m_selectedCol = m_rand.nextInt(BOARD_WIDTH);
-			System.out.println("Randomed: " + m_selectedCol);
 			m_validMove = PC.getGame().checkValid(m_selectedCol, 0, PC.getGame().getPlayer(PLAYER_TWO));
 		}
 
 		return m_selectedCol;
+	}
+	
+	/**
+	 * Main method for class tests on C4EasyAI
+	 * Takes no arguments
+	 */
+	public static void main(String[] args) {
+		
+		final int TEST_CONSTANT_2 = 2;
+		
+		/*
+		 * Test One
+		 * Calling C4EasyAI.selectCol on an empty C4 Board.
+		 */
+		ProgramController testPC = new ProgramController();
+		C4AndOthelloBoardStore testBoard = new C4AndOthelloBoardStore();
+		C4EasyAI testAI = new C4EasyAI();
+		testPC.setIsC4(0);
+		testPC.setGame("player1", "player2");
+		testBoard.setBoardHeight(BOARD_HEIGHT);
+		testBoard.setBoardWidth(BOARD_WIDTH);
+		testBoard.setBoard(BOARD_WIDTH, BOARD_HEIGHT);
+		testPC.setBoard(testBoard);
+		int selectedCol = testAI.selectCol(testPC);
+		if(selectedCol >= 0 && selectedCol < BOARD_WIDTH) {
+			System.out.println("C4EasyAI.selectCol Evaulated: Correct");
+		}
+		else {
+			System.out.println("C4EasyAI.selectCol Evaulated: Incorrect");
+		}
+		
+		/*
+		 * Test Two
+		 * Calling C4EasyAI.selectCol on a partially filled C4 Board.
+		 */
+		ProgramController testPC2 = new ProgramController();
+		C4AndOthelloBoardStore testBoard2 = new C4AndOthelloBoardStore();
+		C4EasyAI testAI2 = new C4EasyAI();
+		testPC2.setIsC4(0);
+		testPC2.setGame("player1", "player2");
+		testBoard2.setBoardHeight(BOARD_HEIGHT);
+		testBoard2.setBoardHeight(BOARD_WIDTH);
+		testBoard2.setBoard(BOARD_WIDTH, BOARD_HEIGHT);	
+		for(int i = 0; i < BOARD_WIDTH; i++) {
+			testBoard2.setPiece(new Piece("Red"), i, BOARD_HEIGHT - TEST_CONSTANT_2);
+		}
+		testPC2.setBoard(testBoard2);
+		
+		int selectedCol2 = testAI2.selectCol(testPC2);
+		if(selectedCol2 >= 0 && selectedCol2 < BOARD_WIDTH) {
+			System.out.println("C4EasyAI.selectCol Evaulated: Correct");
+		}
+		else {
+			System.out.println("C4EasyAI.selectCol Evaulated: Incorrect");
+		}
+		
 	}
 
 }

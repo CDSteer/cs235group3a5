@@ -12,11 +12,13 @@ import java.util.Random;
  */
 public class OthEasyAI {
 
-	private final int BOARD_ROWS = 8;
-	private final int BOARD_COLS = 8;
-	private final int PLAYER_ONE = 0;
-	private final int PLAYER_TWO = 1;
+	// Class Constants
+	private static final int BOARD_ROWS = 8;
+	private static final int BOARD_COLS = 8;
+	private static final int PLAYER_ONE = 0;
+	private static final int PLAYER_TWO = 1;
 
+	// Misc Variables
 	private Random m_rand;
 	private int[] m_selectedMoves;
 	private int m_selectedRow;
@@ -48,5 +50,37 @@ public class OthEasyAI {
 
 		return m_selectedMoves;
 
+	}
+	
+	/**
+	 * Main method for class tests on OthEasyAI
+	 * Takes no arguments
+	 */
+	public static void main(String[] args) {
+		
+		/*
+		 * Test One
+		 * Calling OthEasyAI.selectCol on an Oth Board with default starting state.
+		 */
+		ProgramController testPC = new ProgramController();
+		C4AndOthelloBoardStore testBoard = new C4AndOthelloBoardStore();
+		OthEasyAI testAI = new OthEasyAI();
+		testPC.setIsC4(1);
+		testPC.setGame("player1", "player2");
+		testBoard.setBoardWidth(BOARD_ROWS);
+		testBoard.setBoardHeight(BOARD_COLS);
+		testBoard.setBoard(BOARD_ROWS, BOARD_COLS);
+		testPC.setBoard(testBoard);
+		int[] selectedMoves = new int[2];
+		selectedMoves = testAI.selectMove(testPC);
+		int testRow = selectedMoves[0];
+		int testCol = selectedMoves[1];
+		if(testPC.getGame().checkValid(testRow, testCol, testPC.getGame().getPlayer(PLAYER_TWO)) == true) {
+			System.out.println("C4EasyAI.selectCol Evaulated: Correct");
+		}
+		else {
+			System.out.println("C4EasyAI.selectCol Evaulated: Incorrect");
+		}
+		
 	}
 }
