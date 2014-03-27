@@ -62,11 +62,41 @@ public class Connect4WinStateHighlighter{
 			System.out.println("Must have been a draw!");
 		}
 	}
-	/*
+	
 	public static void main(String[] args){
 		// Testing
+		AbstractGameImplementation game = new Connect4GameLogic();
+		Connect4WinStateHighlighter testHighlight = new Connect4WinStateHighlighter();
+		JLabel[][] board = new JLabel[game.getBoard().getBoardWidth()][game.getBoard().getBoardHeight()];
+		
+		for(int y = 0; y < game.getBoard().getBoardHeight(); y++){
+			for(int x = 0; x < game.getBoard().getBoardWidth(); x++){
+				board[x][y] = new JLabel();
+			}
+		}
+		
+		/* Player 1 has won the game */
+		
+		game.setWinner(1);
+		
+		try {
+			testHighlight.Connect4WinStateHighlighter(0, 0, board, game);
+		} catch (IOException e) {
+			System.out.println("Connect4WinStateHighlighter()::setWinner(1) - Exception found");
+		}
+		
+		/* Player 2 has won the game */
+		
+		game.setWinner(2);
+		
+		try{
+			testHighlight.Connect4WinStateHighlighter(0, 0, board, game);
+		}catch(IOException e){
+			System.out.println("Connect4WinStateHighLighter()::setWinner(2) - Exception found");
+		}
+		
 	}
-	*/
+	
 	/** Symbolic constants */
 	private final int HORIZONTAL_WIN = 0;
 	private final int VERTICAL_WIN = 1;
