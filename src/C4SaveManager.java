@@ -153,20 +153,20 @@ public class C4SaveManager {
     String[] row = null;
     Piece piece;
     while((row = m_CSVReader.readNext()) != null) {
-      System.out.println(row[2]);
-      if (row[2].equals("Red")){
+        System.out.println(row[SECOND_ROW]);
+      if (row[SECOND_ROW].equals("Red")){
         piece = new Piece("Red");
-        m_LoadName1 = row[3];
-        m_LoadPlayerType1 = row[4];
-      } else if (row[2].equals("Yellow")){
-        m_LoadName2 = row[3];
-        m_LoadPlayerType2 = row[4];
+        m_LoadName1 = row[SECOND_ROW];
+        m_LoadPlayerType1 = row[FOURTH_ROW];
+      } else if (row[SECOND_ROW].equals("Yellow")){
+        m_LoadName2 = row[THIRD_ROW];
+        m_LoadPlayerType2 = row[FOURTH_ROW];
         piece = new Piece("Yellow");
       } else {
         piece = new Piece("");
       }
-      m_LoadTime = Integer.parseInt(row[6]);
-      m_LoadTurn = Integer.parseInt(row[5]);
+      m_LoadTime = Integer.parseInt(row[SIXTH_ROW]);
+      m_LoadTurn = Integer.parseInt(row[FIFTH_ROW]);
 
       m_Connect4GameLogic.getBoard().setPiece2(piece, Integer.parseInt(row[0]), Integer.parseInt(row[1]));
     }
@@ -233,7 +233,7 @@ public class C4SaveManager {
     Connect4GameLogic connect4GameLogic = new Connect4GameLogic();
     C4SaveManager c4SaveManager = new C4SaveManager();
     C4AndOthelloBoardStore board = new C4AndOthelloBoardStore();
-    int time = 60;
+  
     String name1 = "Dave";
     String name2 = "Hal-2000";
     String playerType1 = "Human";
@@ -242,7 +242,7 @@ public class C4SaveManager {
 
     for (int i = 0; i < BOARD_ROWS; i++) {
       for (int j = 0; j < BOARD_COLS; j++) {
-        if (i == I_ROW){
+        if (i == FIFTH_ROW)
           connect4GameLogic.setPiece(j, i, connect4GameLogic.getPlayer(0));
         }
         connect4GameLogic.setPiece(j, i, connect4GameLogic.getPlayer(1));
@@ -272,5 +272,11 @@ public class C4SaveManager {
   private static final int BOARD_COLS = 10;
   private static final String LOAD = "load";
   private static final String SAVE = "save";
-  private static final int I_ROW = 5;
+  private static final int TIME = 60;
+  private static final int FIFTH_ROW = 5;
+  private static final int SIXTH_ROW = 6;
+  private static final int FOURTH_ROW = 4;
+  private static final int THIRD_ROW = 3; 
+  private static final int SECOND_ROW = 2;
+  
 }
