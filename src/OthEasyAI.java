@@ -16,6 +16,7 @@ public class OthEasyAI {
 	private final int BOARD_COLS = 8;
 	private final int PLAYER_ONE = 0;
 	private final int PLAYER_TWO = 1;
+    private final int SELECTED_MOVES_2 = 2;
 
 	private Random m_rand;
 	private int[] m_selectedMoves;
@@ -31,7 +32,7 @@ public class OthEasyAI {
 	 */
 	public int[] selectMove(ProgramController PC) {
 
-		m_selectedMoves = new int[2];
+		m_selectedMoves = new int[SELECTED_MOVES_2];
 		m_rand = new Random();
 		m_validMove = false;
 
