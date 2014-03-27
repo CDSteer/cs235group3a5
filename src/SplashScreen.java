@@ -168,6 +168,7 @@ public class SplashScreen extends JFrame{
             try{
               othSaveManager.loadData();
             } catch (IOException e){
+                JOptionPane.showMessageDialog(null, "Can't Load Data");
                 System.out.println("Can't Load Data");
                 e.printStackTrace();
             }
@@ -215,7 +216,8 @@ public class SplashScreen extends JFrame{
               c4SaveManager.loadData();
             } catch (IOException e){
                 System.out.println("Can't Load Data");
-              e.printStackTrace();
+                JOptionPane.showMessageDialog(null, "Can't Load Data");
+                e.printStackTrace();
             }
             ProgramController controller = new ProgramController();
             controller.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

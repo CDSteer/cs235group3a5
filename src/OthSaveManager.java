@@ -148,7 +148,9 @@ public class OthSaveManager {
 		System.out.println(m_FileName);
 
 		if (fileFound()){
-			readGrid();
+			if (readGrid()){
+				return true;
+			}
 		} else {
 			return false;
 		}
@@ -180,6 +182,9 @@ public class OthSaveManager {
 	      m_LoadTurn = Integer.parseInt(row[6]);
 
 	      m_othelloGameLogic.getBoard().setPiece2(piece, Integer.parseInt(row[1]), Integer.parseInt(row[2]));
+	    } else {
+	    	m_CSVReader.close();
+	    	return false;
 	    }
     }
     m_CSVReader.close();
@@ -219,8 +224,8 @@ public class OthSaveManager {
 		try{
 		  m_CSVReader = new CSVReader(new FileReader(m_FileName));
 		  } catch (FileNotFoundException e){
-			System.out.println("Input file not found.");
-			return false;
+				System.out.println("Input file not found.");
+				return false;
 			}
 			return true;
 		}
