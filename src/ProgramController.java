@@ -168,10 +168,14 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 				System.out.println("Back to main menu...");
 				setVisible(false);
 				System.out.println("Start back up splash screen...");
+						
+				m_Timer.stop(); //stop timer
+				m_TimerLabel = new JLabel("Time elapsed: 0s"); //reset timer label
+				setTime(0);//set time to zero
 				
-				m_TimerLabel = new JLabel("Time elapsed: 0s");
-				m_Timer.stop();
-				setTime(0);
+				setTurn(0); //Reset turn to zero
+				getTurnNumberLabel().setText("Turn: 1"); //reset turn count
+				
 				SplashScreen splash = new SplashScreen();
 				splash.initSplash();
 				
