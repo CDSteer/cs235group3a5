@@ -1,7 +1,6 @@
 import lib.opencsv.CSVReader;
 import lib.opencsv.CSVWriter;
 
-
 import java.awt.FileDialog;
 import javax.swing.*;
 import java.io.FileReader;
@@ -10,12 +9,6 @@ import java.io.StringWriter;
 import java.util.*;
 import java.io.*;
 import javax.swing.*;
-
-/**TODO:
-* - If empty saves file as null
-* - Overwrites save if same name
-* -
-*/
 
 /**
  *
@@ -37,6 +30,13 @@ public class C4SaveManager {
   private int m_option;
   private Connect4GameLogic m_Connect4GameLogic = new Connect4GameLogic();
 
+  private int m_LoadTime;
+  private String m_LoadName1;
+  private String m_LoadName2;
+  private String m_LoadPlayerType1;
+  private String m_LoadPlayerType2;
+  private int m_LoadTurn;
+
   /**
    * Returns the board thats loaded from the CSV file
    *
@@ -44,6 +44,54 @@ public class C4SaveManager {
    */
   public Connect4GameLogic getLoadGame(){
     return m_Connect4GameLogic;
+  }
+  /**
+   * Returns the timer thats loaded from the CSV file
+   *
+   * @return m_LoadTime
+   */
+  public int getLoadTime(){
+    return m_LoadTime;
+  }
+  /**
+   * Returns the player one name thats loaded from the CSV file
+   *
+   * @return m_LoadName1
+   */
+  public String getLoadName1(){
+    return m_LoadName1;
+  }
+  /**
+   * Returns the player two name thats loaded from the CSV file
+   *
+   * @return m_LoadName2
+   */
+  public String getLoadName2(){
+    return m_LoadName2;
+  }
+  /**
+   * Returns the player one type thats loaded from the CSV file
+   *
+   * @return m_LoadPlayerType1
+   */
+  public String getLoadPlayerType1(){
+    return m_LoadPlayerType1;
+  }
+  /**
+   * Returns the player two type thats loaded from the CSV file
+   *
+   * @return m_LoadPlayerType2
+   */
+  public String getLoadPlayerType2(){
+    return m_LoadPlayerType2;
+  }
+  /**
+   * Returns the turn thats loaded from the CSV file
+   *
+   * @return m_LoadTime
+   */
+  public int getLoadTurn(){
+    return m_LoadTime;
   }
 
   /**
@@ -108,15 +156,27 @@ public class C4SaveManager {
       System.out.println(row[2]);
       if (row[2].equals("Red")){
         piece = new Piece("Red");
+        m_LoadName1 = row[3];
+        m_LoadPlayerType1 = row[4];
       } else if (row[2].equals("Yellow")){
+        m_LoadName2 = row[3];
+        m_LoadPlayerType2 = row[4];
         piece = new Piece("Yellow");
       } else {
         piece = new Piece("");
       }
+      m_LoadTime = Integer.parseInt(row[6]);
+      m_LoadTurn = Integer.parseInt(row[5]);
 
       m_Connect4GameLogic.getBoard().setPiece2(piece, Integer.parseInt(row[0]), Integer.parseInt(row[1]));
     }
+    System.out.println("Load Test Data:");
     m_CSVReader.close();
+    for (int i = 0; i < BOARD_ROWS; i++) {
+      for (int j = 0; j < BOARD_COLS; j++) {
+      System.out.println(j+", " +i + ", "+ m_Connect4GameLogic.getBoard().getBoard()[j][i].getColour() + ", "+ m_LoadTime+ ", "+ m_LoadName1+ ", "+ m_LoadName2+ ", "+ m_LoadPlayerType1+ ", "+ m_LoadPlayerType2 + ", " + m_LoadTurn);
+      }
+    }
     return true;
   }
 

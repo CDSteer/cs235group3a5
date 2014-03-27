@@ -168,10 +168,16 @@ public class SplashScreen extends JFrame{
             }
             ProgramController controller = new ProgramController();
             controller.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            if (c4SaveManager.getLoadPlayerType2().equals("Human")){
+                playState = 0;
+            } else if (c4SaveManager.getLoadPlayerType2().equals("Easy")) {
+                playState = 1;
+            } else if (c4SaveManager.getLoadPlayerType2().equals("Hard")) {
+                playState = 3;
+            }
             gameChoice = 0;
-            playState = 0;
-            player1name = "steve";
-            player2name = "Woz";
+            player1name = c4SaveManager.getLoadName1();
+            player2name = c4SaveManager.getLoadName2();
 
             Connect4GameLogic connect4GameLogic = c4SaveManager.getLoadGame();
             C4AndOthelloBoardStore board = connect4GameLogic.getBoard();
@@ -183,7 +189,7 @@ public class SplashScreen extends JFrame{
                 }
             }
             try {
-                controller.ProgramController(gameChoice, playState, player1name, player2name, newBoard);
+                controller.ProgramController(gameChoice, playState, player1name, player2name, newBoard, c4SaveManager.getLoadTurn(), c4SaveManager.getLoadTime());
             } catch (IOException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();

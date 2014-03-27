@@ -28,16 +28,16 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 	public ProgramController getThis() {
 		return this;
 	}
-	
+
 	public boolean getWaiting() {
 		return m_waiting;
 	}
-	
+
 	public void setWaiting(boolean b) {
 		m_waiting = b;
 	}
-	
-	
+
+
 	/** Getter method to get the variable m_Time
 	 * @return m_Time -int that stores time elapsed
 	 */
@@ -358,12 +358,12 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 	 *	@return null
 	*/
   public void mouseClicked(MouseEvent e) {
-	  
+
 	  if(getWaiting() == true) {
 		  System.out.println("Waiting for AI Move...");
 		  return;
 	  }
-	  
+
 	  System.out.println("Clicked");
   	if(getGame().checkWin() == false){
       for(int y = 0; y<getBoard().getBoardHeight(); y++){
@@ -503,8 +503,11 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 						getLabel(x,y).setDisplayedMnemonic(IMAGE_SIZE_400);
 					} else {
 						BufferedImage piece_Image = ImageIO.read(new File("../Images/" + colour1 + "Piece.png"));
-						dropPiece(x,y,piece_Image);
-						// setImage(x, y, (new ImageIcon (piece_Image)));
+						if (m_Loading){
+							setImage(x, y, (new ImageIcon (piece_Image)));
+						} else {
+							dropPiece(x,y,piece_Image);
+						}
 						getLabel(x,y).setDisplayedMnemonic(IMAGE_SIZE_200);
 					}
 				} else if (board.getBoard()[x][y].getColour().equals(colour2)) {
@@ -516,12 +519,15 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 						getLabel(x,y).setDisplayedMnemonic(IMAGE_SIZE_500);
 					} else {
 						BufferedImage piece_Image = ImageIO.read(new File("../Images/" + colour2 + "Piece.png"));
-						dropPiece(x,y,piece_Image);
-						// setImage(x, y, (new ImageIcon (piece_Image)));
+						if (m_Loading){
+							setImage(x, y, (new ImageIcon (piece_Image)));
+						} else {
+							dropPiece(x,y,piece_Image);
+						}
 						getLabel(x,y).setDisplayedMnemonic(IMAGE_SIZE_300);
 					}
 				}else{
-					
+
 				}
   		}
 	}
@@ -572,7 +578,7 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 				checkMoveIsValid = m_players[0].move(x, y, this);
 				if(checkMoveableAI(m_players)) {
 					checkWinner(m_players);
-					return;		
+					return;
 				}
 				new Thread(
 						new Runnable(){
@@ -591,12 +597,12 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 								}
 							}
 						}).start();
-								
+
 			} else {
 				checkMoveIsValid = m_players[0].move(x, y, this);
 				if(checkMoveableAI(m_players)) {
 					checkWinner(m_players);
-					return;		
+					return;
 				}
 				if(checkMoveIsValid == true) {
 					new Thread(
@@ -628,7 +634,7 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 				checkMoveIsValid = m_players[0].move(x, y, this);
 				if(checkMoveableAI(m_players)) {
 					checkWinner(m_players);
-					return;		
+					return;
 				}
 				new Thread(
 						new Runnable(){
@@ -647,12 +653,12 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 								}
 							}
 						}).start();
-									
+
 			} else {
 				checkMoveIsValid = m_players[0].move(x, y, this);
 				if(checkMoveableAI(m_players)) {
 					checkWinner(m_players);
-					return;		
+					return;
 				}
 				if(checkMoveIsValid == true) {
 					new Thread(
@@ -677,7 +683,7 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 			}
 		}
 	}
-	
+
 	/**
 	*	Method that check who has won the game
 	*	@param AbstractPlayer 	take a player object into method
@@ -693,7 +699,7 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 			}
 		}
 	}
-	
+
 	/**
 	 *	Method that checks if a Human player has won in a VS AI game
 	 *	@param AbstractPlayer 	take a player object into method
@@ -703,11 +709,11 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 
 		if (getGame().checkTakeableTurn(players[1]) == false) {
 			return true;
-		} 
-		
+		}
+
 		return false;
 	}
-	
+
 
 	/**
 	 *	Method that checks who has won the game, displays the winner's name to a label
@@ -829,8 +835,8 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
   }
 
 
-  void ProgramController(int gameState, int playerState, String player1Name, String player2Name, Piece[][] board) throws IOException{
-
+  void ProgramController(int gameState, int playerState, String player1Name, String player2Name, Piece[][] board, int turn, int time) throws IOException{
+  		m_Loading = true;
   		player1 = player1Name;
     	player2 = player2Name;
 
@@ -875,6 +881,8 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 			setTurnNumberLabel("Turn: 1" );
 			setTimerLabel();
 			startTimer();
+			m_Turn = turn;
+			m_Time = time;
 
   		for (int i = 0; i < 7; i++) {
   		  for (int j = 0; j < 10; j++) {
@@ -898,28 +906,29 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
   		pack();
   	  setLocationRelativeTo(null);
   		setVisible(true);
+  		m_Loading = false;
     }
 
 	/* Symbolic constants */
-     private final int PLAYER_ONE = 0;
-	 private final int PLAYER_TWO = 1;
+  private final int PLAYER_ONE = 0;
+	private final int PLAYER_TWO = 1;
 
 	/* Member variables that store player info */
-	 private int m_Turn = 0;
-	 private String m_Player1, m_Player2;
+	private int m_Turn = 0;
+	private String m_Player1, m_Player2;
 
 	/* Timer initialisation and member variables */
-	 private Timer m_Timer;
-	 private static int m_Time;
+	private Timer m_Timer;
+	private static int m_Time;
 
 	/* Member variable that stores which game is being played, if false then othello is being played */
-     private static boolean m_IsC4;
+  private static boolean m_IsC4;
 
 	/* Member variable that stores game being played */
-     private static AbstractGameImplementation m_Game;
+  private static AbstractGameImplementation m_Game;
 
-     private C4SaveManager c4SaveManager =  new C4SaveManager();
-
+  private C4SaveManager c4SaveManager =  new C4SaveManager();
+  private boolean m_Loading = true;
 	/** Initialisation of UI elements */
 	private static BufferedImage m_Background_Image;
   private C4AndOthelloBoardStore m_Board;
@@ -976,7 +985,7 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
   private int HUMAN_CHOICE = 0;
   private int DROP_DELAY = 100;
   private int REMAINDER_2 = 2;
-  
+
   private int m_AIC4Col;
   private int[] m_AIOthMoves;
   private int m_AIOthRow;
