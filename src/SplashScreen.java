@@ -49,6 +49,8 @@ public class SplashScreen extends JFrame{
         m_options = new Main();
 
         m_playerNames = new Main();
+        
+        m_splash.setResizable(false);
 
     }
 
@@ -208,6 +210,7 @@ public class SplashScreen extends JFrame{
         m_options.setSize(PLAYER_JFRAME_WIDTH, PLAYER_JFRAME_HEIGHT);
         m_options.setLocationRelativeTo(null);
         m_options.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        m_options.setResizable(false);
     }
 
     public void initPlayerNaming() {
@@ -294,6 +297,7 @@ public class SplashScreen extends JFrame{
         m_playerNames.setSize(PLAYNAMES_JFRAME_WIDTH, PLAYNAMES_JFRAME_HEIGHT);
         m_playerNames.setLocationRelativeTo(null);
         m_playerNames.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        m_playerNames.setResizable(false);
 
     }
 
