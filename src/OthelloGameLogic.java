@@ -753,6 +753,7 @@ public class OthelloGameLogic extends AbstractGameImplementation {
 	 * @return null
 	 */
 	private void flipSouthWest(int x, int y, AbstractPlayer player) {
+
 		if (checkFlipSouthWest(x, y, player) == true) {
 			String playerColour = player.getColour();
             String otherPlayerColour = getOtherPlayerColour(player);
