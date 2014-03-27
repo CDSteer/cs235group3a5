@@ -133,12 +133,16 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 		m_Constraints.gridx = saveButtonGridX;
 		m_Constraints.gridwidth = NEW_GAME_GRID_WIDTH;
 		m_Container.add(m_SaveButton, m_Constraints);
-		//m_SaveButton.addActionListener(m_Handler);
 		actListner2 = new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				System.out.println("Test save button");
 				try{
-					c4SaveManager.saveData(m_GameType, m_Board, m_Time, m_Game.getPlayer(PLAYER_ONE).getName(), m_Game.getPlayer(PLAYER_TWO).getName(), m_Player1Type, m_Player2Type, m_Turn);
+					if (m_GameType.equals("C4")){
+						if (c4SaveManager.saveData(m_GameType, m_Board, m_Time, m_Game.getPlayer(PLAYER_ONE).getName(), m_Game.getPlayer(PLAYER_TWO).getName(), m_Player1Type, m_Player2Type, m_Turn));
+						JOptionPane.showMessageDialog(null, "Save Success");
+					} else {
+						othSaveManager.saveData(m_GameType, m_Board, m_Time, m_Game.getPlayer(PLAYER_ONE).getName(), m_Game.getPlayer(PLAYER_TWO).getName(), m_Player1Type, m_Player2Type, m_Turn);
+					}
 				} catch (IOException e){
 					System.out.println("Can't Save Data");
 				  e.printStackTrace();
@@ -147,6 +151,32 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 		};
 		// action listener for the save button
     m_SaveButton.addActionListener(actListner2);
+	}
+	
+	ActionListener actListner3;
+	/**
+	 *	Create Save Game button and actionlistener
+	 *	@return null
+	 */
+	private void setMainMenuButton(){
+		m_MainMenuButton = new JButton("Main Menu");
+		m_Constraints.gridy = mainMenuButtonGridY;
+		m_Constraints.gridx = mainMenuButtonGridX;
+		m_Constraints.gridwidth = NEW_GAME_GRID_WIDTH;
+		m_Container.add(m_MainMenuButton, m_Constraints);
+		//m_SaveButton.addActionListener(m_Handler);
+		actListner3 = new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				System.out.println("Back to main menu...");
+				setVisible(false);
+				System.out.println("Start back up splash screen...");
+				SplashScreen splash = new SplashScreen();
+				splash.initSplash();
+				
+			}
+		};
+		// action listener for the save button
+		m_MainMenuButton.addActionListener(actListner3);
 	}
 
 
@@ -813,6 +843,7 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
     setTurnLabel();
 		setNewGameButton();
 		setSaveButton();
+		setMainMenuButton();
 		setTurnNumberLabel("Turn: 1");
 		setTimerLabel();
 		startTimer();
@@ -905,6 +936,7 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 	  setTurnLabel();
 		setNewGameButton();
 		setSaveButton();
+		setMainMenuButton();
 		setTurnNumberLabel("Turn: " + turn );
 		setTimerLabel();
 		startTimer();
@@ -919,9 +951,6 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
   		  	}else if (board[j][i].getColour() == "Yellow"){
   		  		Piece piece = new Piece("Yellow");
 						getGame().getBoard().setPiece2(piece, j, i);
-					} else {
-						// Piece piece = new Piece(" ");
-						// getGame().getBoard().setPiece2(piece, j, i);
 					}
   		    System.out.println( j+", " +i + ", "+ getGame().getBoard().getBoard()[j][i].getColour());
   		  }
@@ -931,15 +960,12 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
   		  for (int j = 0; j < 8; j++) {
   		  	if (board[j][i].getColour() == "Black"){
   		  		Piece piece = new Piece("Black");
-  		  		getGame().getBoard().setPiece2(piece ,j,i);
+  		  		getGame().getBoard().setPiece2(piece, j, i);
   		  	}else if (board[j][i].getColour() == "White"){
   		  		Piece piece = new Piece("White");
 						getGame().getBoard().setPiece2(piece, j, i);
-					} else {
-						// Piece piece = new Piece(" ");
-						// getGame().getBoard().setPiece2(piece, j, i);
 					}
-  		    //System.out.println( j+", " +i + ", "+ getGame().getBoard().getBoard()[j][i].getColour());
+  		    System.out.println( j+", " +i + ", "+ getGame().getBoard().getBoard()[j][i].getColour());
   		  }
   		}
   	}
@@ -949,8 +975,12 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
   		m_Player2Type = "Human";
   		m_playerSelection = HUMAN;
   	} else if (playerState == 1) {
+  		m_Player1Type = "Human";
+  		m_Player2Type = "Easy";
   		m_playerSelection = EASY_AI;
   	} else if (playerState == 2) {
+  		m_Player1Type = "Human";
+  		m_Player2Type = "Hard";
   		m_playerSelection = HARD_AI;
   	}
 
@@ -1009,13 +1039,13 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 	private final int CONTAINER_64 = 64;
 	private final int CONTAINER_22 = 22;
 	private final int ADD_TWO = 2;
-	private final int SUBTRACT_FOUR = 4;
-	private final int SUBTRACT_SEVEN = 7;
-	private final int ADD_FOUR = 4;
+	private final int SUBTRACT_FOUR = 4;;
 	private final int turnLabelGridY = 8;
 	private final int turnLabelGridX = 1;
-	private final int saveButtonGridY = 22;
+	private final int saveButtonGridY = 23;
 	private final int saveButtonGridX = 3;
+	private final int mainMenuButtonGridY = 23;
+	private final int mainMenuButtonGridX = 5;
 	private final int C4_BOARD_HEIGHT = 7;
 	private final int REMAINDER_2 = 2;
 
@@ -1060,6 +1090,7 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
     private JLabel[][] m_Image_Labels;
 	private JButton m_NewGameButton;
 	private JButton m_SaveButton;
+	private JButton m_MainMenuButton;
 	private JLabel m_TurnLabel;
 	private JLabel m_TimerLabel;
 	private JLabel m_TurnNumberLabel;

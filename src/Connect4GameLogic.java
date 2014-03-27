@@ -256,7 +256,96 @@ public class Connect4GameLogic extends AbstractGameImplementation{
 
     /*
     public static void main(String[] args){
-		// Testing
+		Connect4GameLogic c4gamelogic = new Connect4GameLogic();
+		AbstractPlayer testPlayer = new Human();
+		testPlayer.setColour("Red");
+		
+		c4gamelogic.setPiece(0, 0, testPlayer);
+		if(c4gamelogic.getBoard().getBoard()[0][6].getColour().equals("Red")){
+			System.out.println("Connect4GameLogic::testSetPieceTrue has been successful");
+		}else{
+			System.out.println("Connect4GameLogic::testSetPieceTrue has not been successful");
+		}
+		
+		testPlayer.setColour("Red");
+
+		Piece testPiece = new Piece("Yellow");
+		
+		/* 
+		 * Set the top piece of the board to yellow. This is a quasi-hack because
+		 * now the top piece is occupied whilst everyone below it isn't and that 
+		 * wouldn't happen in the running implementation but it suffices here
+		 * for test purposes.
+		 * 
+		 */
+		 
+		 /**
+		c4gamelogic.getBoard().setPiece(testPiece, 0, 0);
+		
+		c4gamelogic.setPiece(0, 0, testPlayer);
+		*/
+		
+		/* 
+		 * If top piece is still yellow then setPiece did nothing which is correct.
+		 * Basically our implementation tests if a move is valid before setting a piece
+		 * and so won't set a piece if it's not valid anyway but we wanted to include
+		 * a test to show this.
+		 * 
+		 */
+		 
+		 /**
+		if(c4gamelogic.getBoard().getBoard()[0][0].getColour().equals("Yellow")){
+			System.out.println("Connect4GameLogic::testSetPieceFalse has been successful");
+		}else{
+			System.out.println("Connect4GameLogic::testSetPieceFalse has not been successful");
+		}
+		*/
+	
+		/**
+		try{
+		
+			c4gamelogic.setPiece(42, 42, testPlayer);
+		
+		}catch(Exception e){
+			System.out.println("Connect4GameLogic::testSetPiecesTooBig()");
+		}
+		
+		//try to set pieces that are too small
+		try{
+
+			c4gamelogic.setPiece(-42, -42, testPlayer);
+			
+		} catch (Exception e){
+			System.out.println("Connect4GameLogic::testSetPieceTooSmall()");
+		}
+		
+		try{
+			
+			c4gamelogic.checkValid(0, 0, testPlayer);
+		
+		} catch(Exception e){
+			System.out.println("Connect4GameLogic::testMoveIsValidTrue()");
+		}
+		
+		c4gamelogic.getBoard().setPiece(testPiece, 0, 0);
+		
+		if((c4gamelogic.checkValid(0, 0, testPlayer)==(false))){
+			System.out.println("Connect4GameLogic::testMoveIsValidFalse()");
+		}
+		
+		try{
+			c4gamelogic.checkValid(42, 42, testPlayer);
+		}catch(Exception e){
+			System.out.println("Connect4GameLogic::testMoveIsValidTooBig(");
+		}
+		
+		try{
+			c4gamelogic.checkValid(-42, -42, testPlayer);
+		}catch(Exception e){
+			System.out.println("Connect4GameLogic::testMoveIsValidTooSmall()");
+		}
+		
+		
     }
     */
 

@@ -30,7 +30,7 @@ public class C4SaveManager {
   private int m_option;
   private Connect4GameLogic m_Connect4GameLogic = new Connect4GameLogic();
 
-  private String m_LoadGameType;
+  private String m_LoadGameType = "";
   private int m_LoadTime;
   private String m_LoadName1;
   private String m_LoadName2;
@@ -178,30 +178,12 @@ public class C4SaveManager {
         m_LoadTime = Integer.parseInt(row[7]);
         m_LoadTurn = Integer.parseInt(row[6]);
         m_Connect4GameLogic.getBoard().setPiece2(piece, Integer.parseInt(row[1]), Integer.parseInt(row[2]));
+      } else {
+        JOptionPane.showMessageDialog(null, "Incorrect File");
+        return false;
       }
-
-
     }
-// =======
-//         System.out.println(row[SECOND_ROW]);
-//       if (row[SECOND_ROW].equals("Red")){
-//         piece = new Piece("Red");
-//         m_LoadName1 = row[SECOND_ROW];
-//         m_LoadPlayerType1 = row[FOURTH_ROW];
-//       } else if (row[SECOND_ROW].equals("Yellow")){
-//         m_LoadName2 = row[THIRD_ROW];
-//         m_LoadPlayerType2 = row[FOURTH_ROW];
-//         piece = new Piece("Yellow");
-//       } else {
-//         piece = new Piece("");
-//       }
-//       m_LoadTime = Integer.parseInt(row[SIXTH_ROW]);
-//       m_LoadTurn = Integer.parseInt(row[FIFTH_ROW]);
-// >>>>>>> FETCH_HEAD
-
-
-
-    System.out.println("Load Test Data:");
+    System.out.println("Load Test Data (C4):");
     m_CSVReader.close();
     for (int i = 0; i < BOARD_ROWS; i++) {
       for (int j = 0; j < BOARD_COLS; j++) {
