@@ -30,6 +30,7 @@ public class C4SaveManager {
   private int m_option;
   private Connect4GameLogic m_Connect4GameLogic = new Connect4GameLogic();
 
+  private String m_LoadGameType;
   private int m_LoadTime;
   private String m_LoadName1;
   private String m_LoadName2;
@@ -93,6 +94,14 @@ public class C4SaveManager {
   public int getLoadTurn(){
     return m_LoadTime;
   }
+  /**
+   * Returns the game type thats loaded from the CSV file
+   *
+   * @return m_LoadGameType
+   */
+  public String getLoadGameType(){
+    return m_LoadGameType;
+  }
 
   /**
    * Writes the current sate of the board to a new CSV file, named by the user
@@ -100,7 +109,7 @@ public class C4SaveManager {
    * @param the current games board state
    * @return boolean
    */
-  public boolean saveData(C4AndOthelloBoardStore board, int time, String name1, String name2, String playerType1, String playerType2, int turn) throws IOException{
+  public boolean saveData(String gameType, C4AndOthelloBoardStore board, int time, String name1, String name2, String playerType1, String playerType2, int turn) throws IOException{
     System.out.println("Saving....");
     nameFile(SAVE);
     m_FileName = PATH+ m_FileName +FILETYPE;
@@ -110,11 +119,11 @@ public class C4SaveManager {
     for (int i = 0; i < BOARD_ROWS; i++) {
       for (int j = 0; j < BOARD_COLS; j++) {
         if (m_LoadBoard[j][i].getColour().equals("Red")){
-          m_Data.add(new String[] { String.valueOf(j), String.valueOf(i), m_LoadBoard[j][i].getColour(), name1, playerType1, String.valueOf(turn), String.valueOf(time)});
+          m_Data.add(new String[] {gameType, String.valueOf(j), String.valueOf(i), m_LoadBoard[j][i].getColour(), name1, playerType1, String.valueOf(turn), String.valueOf(time)});
         } else if (m_LoadBoard[j][i].getColour().equals("Yellow")){
-          m_Data.add(new String[] { String.valueOf(j), String.valueOf(i), m_LoadBoard[j][i].getColour(), name2, playerType2, String.valueOf(turn), String.valueOf(time)});
+          m_Data.add(new String[] {gameType, String.valueOf(j), String.valueOf(i), m_LoadBoard[j][i].getColour(), name2, playerType2, String.valueOf(turn), String.valueOf(time)});
         } else {
-          m_Data.add(new String[] { String.valueOf(j), String.valueOf(i), m_LoadBoard[j][i].getColour(), "", "", String.valueOf(turn), String.valueOf(time)});
+          m_Data.add(new String[] {gameType, String.valueOf(j), String.valueOf(i), m_LoadBoard[j][i].getColour(), "", "", String.valueOf(turn), String.valueOf(time)});
         }
       }
     }
@@ -153,28 +162,30 @@ public class C4SaveManager {
     String[] row = null;
     Piece piece;
     while((row = m_CSVReader.readNext()) != null) {
-      System.out.println(row[2]);
-      if (row[2].equals("Red")){
-        piece = new Piece("Red");
-        m_LoadName1 = row[3];
-        m_LoadPlayerType1 = row[4];
-      } else if (row[2].equals("Yellow")){
-        m_LoadName2 = row[3];
-        m_LoadPlayerType2 = row[4];
-        piece = new Piece("Yellow");
-      } else {
-        piece = new Piece("");
-      }
-      m_LoadTime = Integer.parseInt(row[6]);
-      m_LoadTurn = Integer.parseInt(row[5]);
+      if (row[0].equals("C4")) {
+        if (row[3].equals("Red")){
+          piece = new Piece("Red");
+          m_LoadName1 = row[4];
+          m_LoadPlayerType1 = row[5];
+        } else if (row[3].equals("Yellow")){
+          m_LoadName2 = row[4];
+          m_LoadPlayerType2 = row[5];
+          piece = new Piece("Yellow");
+        } else {
+          piece = new Piece("");
+        }
+        m_LoadGameType = row[0];
+        m_LoadTime = Integer.parseInt(row[7]);
+        m_LoadTurn = Integer.parseInt(row[6]);
 
-      m_Connect4GameLogic.getBoard().setPiece2(piece, Integer.parseInt(row[0]), Integer.parseInt(row[1]));
+        m_Connect4GameLogic.getBoard().setPiece2(piece, Integer.parseInt(row[1]), Integer.parseInt(row[2]));
+      }
     }
     System.out.println("Load Test Data:");
     m_CSVReader.close();
     for (int i = 0; i < BOARD_ROWS; i++) {
       for (int j = 0; j < BOARD_COLS; j++) {
-      System.out.println(j+", " +i + ", "+ m_Connect4GameLogic.getBoard().getBoard()[j][i].getColour() + ", "+ m_LoadTime+ ", "+ m_LoadName1+ ", "+ m_LoadName2+ ", "+ m_LoadPlayerType1+ ", "+ m_LoadPlayerType2 + ", " + m_LoadTurn);
+      System.out.println(m_LoadGameType + j+", " +i + ", "+ m_Connect4GameLogic.getBoard().getBoard()[j][i].getColour() + ", "+ m_LoadTime+ ", "+ m_LoadName1+ ", "+ m_LoadName2+ ", "+ m_LoadPlayerType1+ ", "+ m_LoadPlayerType2 + ", " + m_LoadTurn);
       }
     }
     return true;
@@ -233,6 +244,7 @@ public class C4SaveManager {
     Connect4GameLogic connect4GameLogic = new Connect4GameLogic();
     C4SaveManager c4SaveManager = new C4SaveManager();
     C4AndOthelloBoardStore board = new C4AndOthelloBoardStore();
+    String gameType = "C4";
     int time = 60;
     String name1 = "Dave";
     String name2 = "Hal-2000";
@@ -246,10 +258,11 @@ public class C4SaveManager {
           connect4GameLogic.setPiece(j, i, connect4GameLogic.getPlayer(0));
         }
         connect4GameLogic.setPiece(j, i, connect4GameLogic.getPlayer(1));
+        System.out.println("Setting up testing: "+connect4GameLogic.getBoard().getBoard()[j][i].getColour());
       }
     }
 
-    c4SaveManager.saveData(connect4GameLogic.getBoard(), time, name1, name2, playerType1, playerType2, turn);
+    c4SaveManager.saveData(gameType, connect4GameLogic.getBoard(), time, name1, name2, playerType1, playerType2, turn);
     if (c4SaveManager.loadData()) {
       connect4GameLogic = c4SaveManager.getLoadGame();
       if (test){

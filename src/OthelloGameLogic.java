@@ -35,6 +35,13 @@ public class OthelloGameLogic extends AbstractGameImplementation {
         }
     }
 
+  	public void setPiece(int x, int y, AbstractPlayer player, boolean load) {
+  		if (load){
+  			String playerColour = player.getColour();
+        getBoard().setPiece(new Piece(playerColour), x, y);
+      }
+    }
+
 	/**
 	 * Creates the board, then place the starting pieces in the centre
 	 * of the board.

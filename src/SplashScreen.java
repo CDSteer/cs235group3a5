@@ -38,6 +38,7 @@ public class SplashScreen extends JFrame{
     private static boolean player1blank;
     private static boolean player2blank;
     private C4SaveManager c4SaveManager = new C4SaveManager();
+    private OthSaveManager othSaveManager = new OthSaveManager();
 
     /**
      * Set splash screen to visible
@@ -45,13 +46,9 @@ public class SplashScreen extends JFrame{
     public SplashScreen(){
         m_splash = new Main();
         m_splash.setVisible(true);
-
         m_options = new Main();
-
         m_playerNames = new Main();
-        
         m_splash.setResizable(false);
-
     }
 
     /**
@@ -178,7 +175,12 @@ public class SplashScreen extends JFrame{
             } else if (c4SaveManager.getLoadPlayerType2().equals("Hard")) {
                 playState = 2;
             }
-            gameChoice = 0;
+
+            if (c4SaveManager.getLoadGameType().equals("C4")){
+                gameChoice = 0;
+            } else if (c4SaveManager.getLoadGameType().equals("Oth")) {
+                gameChoice = 1;
+            }
             player1name = c4SaveManager.getLoadName1();
             player2name = c4SaveManager.getLoadName2();
 

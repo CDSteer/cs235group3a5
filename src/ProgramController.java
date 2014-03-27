@@ -134,13 +134,11 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 		m_Constraints.gridwidth = NEW_GAME_GRID_WIDTH;
 		m_Container.add(m_SaveButton, m_Constraints);
 		//m_SaveButton.addActionListener(m_Handler);
-
 		actListner2 = new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				System.out.println("Test save button");
 				try{
-
-				  c4SaveManager.saveData(m_Board, m_Time, m_Game.getPlayer(PLAYER_ONE).getName(), m_Game.getPlayer(PLAYER_TWO).getName(), m_Player1Type, m_Player2Type, m_Turn);
+					c4SaveManager.saveData(m_GameType, m_Board, m_Time, m_Game.getPlayer(PLAYER_ONE).getName(), m_Game.getPlayer(PLAYER_TWO).getName(), m_Player1Type, m_Player2Type, m_Turn);
 				} catch (IOException e){
 					System.out.println("Can't Save Data");
 				  e.printStackTrace();
@@ -803,6 +801,11 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 		player2 = player2Name;
 
 		setIsC4(gameState);
+		if(this.getIsC4() == true){
+			m_GameType = "C4";
+		} else {
+			m_GameType = "Oth";
+		}
 		setGame(player1, player2);
 		setBoard();
 		setContainer();
@@ -853,81 +856,87 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 
 
   void ProgramController(int gameState, int playerState, String player1Name, String player2Name, Piece[][] board, int turn, int time) throws IOException{
-  		m_Loading = true;
-  		System.out.println(playerState);
-  		player1 = player1Name;
-    	player2 = player2Name;
+		m_Loading = true;
+		System.out.println(playerState);
+		player1 = player1Name;
+  	player2 = player2Name;
 
-    	setIsC4(gameState);
+  	setIsC4(gameState);
 
-    	if (playerState == 0) {
-    		m_Player1Type = "Human";
-    		m_Player2Type = "Human";
-    		m_playerSelection = HUMAN;
-    	} else if (playerState == 1) {
-    		m_playerSelection = EASY_AI;
-    	} else if (playerState == 2) {
-    		m_playerSelection = HARD_AI;
-    	}
+  	if (playerState == 0) {
+  		m_Player1Type = "Human";
+  		m_Player2Type = "Human";
+  		m_playerSelection = HUMAN;
+  	} else if (playerState == 1) {
+  		m_playerSelection = EASY_AI;
+  	} else if (playerState == 2) {
+  		m_playerSelection = HARD_AI;
+  	}
 
-  	//AI stuff
-  		if(m_playerSelection == EASY_AI) {
-  			if(this.getIsC4() == true) {
-  				m_Player2Type = "Easy";
-  				System.out.println("Set Easy C4 AI");
-  				c4EasyAI = new C4EasyAI();
-  			} else {
-  				m_Player2Type = "Easy";
-  				othEasyAI = new OthEasyAI();
-  			}
-  		} else if(m_playerSelection == HARD_AI) {
-  			if(this.getIsC4() == true) {
-  				m_Player2Type = "Hard";
-  				System.out.println("Set Hard C4 AI");
-  				c4HardAI = new C4HardAI();
-  			} else {
-  				m_Player2Type = "Hard";
-  				othHardAI = new OthHardAI();
-  			}
-  		}
+  	if(this.getIsC4() == true){
+  		m_GameType = "C4";
+  	} else {
+  		m_GameType = "Oth";
+  	}
 
-  		setGame(player1, player2);
-  		setBoard();
-			setContainer();
-			setImages();
-		  setTurnLabel();
-			setNewGameButton();
-			setSaveButton();
-			setTurnNumberLabel("Turn: " + turn );
-			setTimerLabel();
-			startTimer();
-			System.out.println(turn);
-			m_Time = time;
+	//AI stuff
+		if(m_playerSelection == EASY_AI) {
+			if(this.getIsC4() == true) {
+				m_Player2Type = "Easy";
+				System.out.println("Set Easy C4 AI");
+				c4EasyAI = new C4EasyAI();
+			} else {
+				m_Player2Type = "Easy";
+				othEasyAI = new OthEasyAI();
+			}
+		} else if(m_playerSelection == HARD_AI) {
+			if(this.getIsC4() == true) {
+				m_Player2Type = "Hard";
+				System.out.println("Set Hard C4 AI");
+				c4HardAI = new C4HardAI();
+			} else {
+				m_Player2Type = "Hard";
+				othHardAI = new OthHardAI();
+			}
+		}
 
-  		for (int i = 0; i < 7; i++) {
-  		  for (int j = 0; j < 10; j++) {
-  		  	if (board[j][i].getColour() == "Red"){
-  		  		Piece piece = new Piece("Red");
-  		  		getGame().getBoard().setPiece2(piece ,j,i);
-  		  	}else if (board[j][i].getColour() == "Yellow"){
-  		  		Piece piece = new Piece("Yellow");
-						getGame().getBoard().setPiece2(piece, j, i);
-					} else {
-						// Piece piece = new Piece(" ");
-						// getGame().getBoard().setPiece2(piece, j, i);
-					}
-  		    System.out.println( j+", " +i + ", "+ getGame().getBoard().getBoard()[j][i].getColour());
-  		  }
-  		}
+		setGame(player1, player2);
+		setBoard();
+		setContainer();
+		setImages();
+	  setTurnLabel();
+		setNewGameButton();
+		setSaveButton();
+		setTurnNumberLabel("Turn: " + turn );
+		setTimerLabel();
+		startTimer();
+		System.out.println(turn);
+		m_Time = time;
+
+		for (int i = 0; i < 7; i++) {
+		  for (int j = 0; j < 10; j++) {
+		  	if (board[j][i].getColour() == "Red"){
+		  		Piece piece = new Piece("Red");
+		  		getGame().getBoard().setPiece2(piece ,j,i);
+		  	}else if (board[j][i].getColour() == "Yellow"){
+		  		Piece piece = new Piece("Yellow");
+					getGame().getBoard().setPiece2(piece, j, i);
+				} else {
+					// Piece piece = new Piece(" ");
+					// getGame().getBoard().setPiece2(piece, j, i);
+				}
+		    System.out.println( j+", " +i + ", "+ getGame().getBoard().getBoard()[j][i].getColour());
+		  }
+		}
 
 
-  		update(getGame().getBoard(), "Red", "Yellow");
-  		//no idea
-  		pack();
-  	  setLocationRelativeTo(null);
-  		setVisible(true);
-  		m_Loading = false;
-    }
+		update(getGame().getBoard(), "Red", "Yellow");
+		//no idea
+		pack();
+	  setLocationRelativeTo(null);
+		setVisible(true);
+		m_Loading = false;
+  }
 
 	/* Symbolic constants */
   private final int PLAYER_ONE = 0;
@@ -946,8 +955,9 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 
 	/* Member variable that stores game being played */
   private static AbstractGameImplementation m_Game;
-
+  private String m_GameType;
   private C4SaveManager c4SaveManager =  new C4SaveManager();
+  private OthSaveManager othSaveManager = new OthSaveManager();
   private boolean m_Loading = false;
 	/** Initialisation of UI elements */
 	private static BufferedImage m_Background_Image;
