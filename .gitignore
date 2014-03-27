@@ -5,6 +5,5 @@ src/lib/bean/
 *.jar
 *.war
 *.ear
-*.csv
 
 .DS_Store

@@ -23,6 +23,8 @@ public class OthelloPieceColourChanger extends JFrame {
 	private JLabel container;
 	private ImageIcon blackToWhite;
 	private ImageIcon whiteToBlack;
+    private static OthelloPieceColourChanger m_ColourChanger;
+    private static ImageIcon m_ImageIcon;
 
 	public OthelloPieceColourChanger(){}
 
@@ -66,5 +68,51 @@ public class OthelloPieceColourChanger extends JFrame {
 	}
 
 	public static void main(String[] args) throws IOException {
+
+        //	Tests whether the black to white gif animation from file equals the gif animation parsed
+        //	out from the ColourChange class.
+
+            m_ColourChanger = new OthelloPieceColourChanger();
+            m_ImageIcon = new ImageIcon("Images/BlackToWhitePiece.gif");
+
+
+        if(m_ColourChanger.flip(new Piece("White")).getImage().equals(m_ImageIcon.getImage())) {
+            System.out.println("OthelloPieceColourChanger Test One BlackToWhite Evaluated: Correct");
+        } else {
+            System.out.println("OthelloPieceColourChanger Test One BlackToWhite Evaluated: Incorrect");
+        }
+
+
+        //	Tests whether the white to black gif animation from file equals the gif animation parsed
+        //	out from the ColourChange class.
+
+            m_ColourChanger = new OthelloPieceColourChanger();
+            m_ImageIcon = new ImageIcon("Images/WhiteToBlackPiece.gif");
+
+
+        if(m_ColourChanger.flip(new Piece("Black")).getImage().equals (m_ImageIcon.getImage())) {
+            System.out.println("OthelloPieceColourChanger Test Two WhiteToBlack Evaluated: Correct");
+        } else {
+            System.out.println("OthelloPieceColourChanger Test Two WhiteToBlack Evaluated: Incorrect");
+        }
+
+
+        //	Tests if an incorrect string is inputted so that it doesn't output one of the GIFs and outputs
+        //	a blank ImageIcon.
+
+            m_ColourChanger = new OthelloPieceColourChanger();
+            m_ImageIcon = new ImageIcon();
+
+        try {
+         if(m_ColourChanger.flip(new Piece("Blue")).getImage().equals (m_ImageIcon.getImage())) {
+            System.out.println("OthelloPieceColourChanger Test Three BlankIcon Evaluated: Correct");
+        }
+
+        } catch (Exception e) {
+
+            System.out.println("OthelloPieceColourChanger Test Three BlankIcon Evaluated: Invalid String Entered");
+
+        }
+
 	}
 }

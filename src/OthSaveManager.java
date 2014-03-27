@@ -148,7 +148,9 @@ public class OthSaveManager {
 		System.out.println(m_FileName);
 
 		if (fileFound()){
-			readGrid();
+			if (readGrid()){
+				return true;
+			}
 		} else {
 			return false;
 		}
@@ -180,6 +182,9 @@ public class OthSaveManager {
 	      m_LoadTurn = Integer.parseInt(row[6]);
 
 	      m_othelloGameLogic.getBoard().setPiece2(piece, Integer.parseInt(row[1]), Integer.parseInt(row[2]));
+	    } else {
+	    	m_CSVReader.close();
+	    	return false;
 	    }
     }
     m_CSVReader.close();
@@ -196,7 +201,7 @@ public class OthSaveManager {
 		JFrame frame = new JFrame();
 		FileDialog fc = new FileDialog(frame, "Load a Game Save", FileDialog.LOAD);
 		//set default directory
-		fc.setDirectory("../SAVEDATA/");
+		fc.setDirectory(PATH);
 		//set file format
 		fc.setFile("*.csv");
 		//enable the file dialog
@@ -219,8 +224,8 @@ public class OthSaveManager {
 		try{
 		  m_CSVReader = new CSVReader(new FileReader(m_FileName));
 		  } catch (FileNotFoundException e){
-			System.out.println("Input file not found.");
-			return false;
+				System.out.println("Input file not found.");
+				return false;
 			}
 			return true;
 		}
@@ -288,7 +293,7 @@ public class OthSaveManager {
 private static String player1Name;
 private static String player2Name;
 
-private static final String PATH ="../SAVEDATA/";
+private static final String PATH ="../SAVEDATA/OTH/";
 private static final String FILETYPE = ".csv";
 private static final int BOARD_ROWS = 8;
 private static final int BOARD_COLS = 8;
