@@ -447,6 +447,11 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 	*	@return null
 	*/
 	public void dropPiece(int x, int y, BufferedImage piece_Image) throws IOException{
+		
+		if(getIsC4() == false){ 
+			setImage(x,y,(new ImageIcon(piece_Image)));
+			return; 
+		}
 		final int boardHeight = C4_BOARD_HEIGHT - 1;
 		final int width = x;
 		final int height = y;
@@ -496,10 +501,10 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 					getLabel(x,y).setDisplayedMnemonic(IMAGE_SIZE_100);
 				} else if (board.getBoard()[x][y].getColour().equals(colour1)) {
 					/*Check if it is not player2 piece*/
-					if (getIsC4() == false || hidden == IMAGE_SIZE_300 || hidden == IMAGE_SIZE_500) {
-						// OLD: setImage(x,y,(new OthelloPieceColourChanger().flip(board.getBoard()[x][y])));
-						BufferedImage piece_Image = ImageIO.read(new File("../Images/" + colour1 + "Piece.png"));
-						setImage(x, y, (new ImageIcon (piece_Image)));
+					if (hidden == IMAGE_SIZE_300 || hidden == IMAGE_SIZE_500) {
+						if(getIsC4() == false) {
+							setImage(x,y,(new OthelloPieceColourChanger().flip(board.getBoard()[x][y])));
+						}
 						getLabel(x,y).setDisplayedMnemonic(IMAGE_SIZE_400);
 					} else {
 						BufferedImage piece_Image = ImageIO.read(new File("../Images/" + colour1 + "Piece.png"));
@@ -512,10 +517,11 @@ public class ProgramController extends JFrame implements MouseListener, ActionLi
 					}
 				} else if (board.getBoard()[x][y].getColour().equals(colour2)) {
 					/*Check if it is not player1 piece*/
-					if (getIsC4() == false || hidden == IMAGE_SIZE_200 || hidden == IMAGE_SIZE_400) {
-						// OLD: setImage(x,y,(new OthelloPieceColourChanger().flip(board.getBoard()[x][y])));
-						BufferedImage piece_Image = ImageIO.read(new File("../Images/" + colour2 + "Piece.png"));
-						setImage(x, y, (new ImageIcon (piece_Image)));
+					if (hidden == IMAGE_SIZE_200 || hidden == IMAGE_SIZE_400) {
+						if(getIsC4() == false) {
+							setImage(x,y,(new OthelloPieceColourChanger().flip(board.getBoard()[x][y])));
+						}
+						
 						getLabel(x,y).setDisplayedMnemonic(IMAGE_SIZE_500);
 					} else {
 						BufferedImage piece_Image = ImageIO.read(new File("../Images/" + colour2 + "Piece.png"));
