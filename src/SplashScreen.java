@@ -305,18 +305,18 @@ public class SplashScreen extends JFrame{
 
     /**
      * method to get a random name for either the easy or hard computer player
-     * @return
+     * This provides the option to have multiple possible names for AI, though currently
+     * only 'Easy AI' and 'Hard AI' are used.
+     * @param difficulty int representing AI difficulty
+     * @return String representing player name
      */
     public String randomNameGen(int difficulty) {
         ArrayList<String> easyNames = new ArrayList();
         ArrayList<String> hardNames = new ArrayList();
         // add elements to easy list
-        easyNames.add("Cameron");
-        easyNames.add("Jamie");
+        easyNames.add("Easy AI");
         //add elements to hard list
-        hardNames.add("Chris");
-        hardNames.add("Curtis aka Impaler");
-        hardNames.add("Martin");
+        hardNames.add("Hard AI");
 
         //create two random generators
         Random easyRandomGen = new Random();Random hardRandomGen = new Random();
@@ -338,12 +338,76 @@ public class SplashScreen extends JFrame{
         return playerName;
     }
 
+    /**
+	 * Main method for class tests on SplashScreen
+	 * Takes no arguments
+	 */
     public static void main(String args[]) {
-        /* testing to call GUI method
-        SplashScreen splashScreen = new SplashScreen();
-        splashScreen.initSplash();
-        */
 
-
+    	/*
+    	 * Test One
+    	 * Calling the SplashScreen Constructor
+    	 */
+    	try {
+    		SplashScreen testScreen1 = new SplashScreen();
+    		System.out.println("SplashScreen.constructor Evaulated: Correct");
+    	} catch(Exception e) {
+    		System.out.println("SplashScreen.constructor Evaulated: Incorrect");
+    	}
+    	
+    	/*
+    	 * Test Two
+    	 * Calling the SplashScreen.initSplash method
+    	 */
+    	try{
+    		SplashScreen testScreen2 = new SplashScreen();
+    		testScreen2.initSplash();
+    		System.out.println("SplashScreen.initSplash Evaulated: Correct");		
+    	} catch(Exception e) {
+    		System.out.println("SplashScreen.initSplash Evaulated: Incorrect");
+    	}
+    	
+    	/*
+    	 * Test Three
+    	 * Calling the SplashScreen.initPlayerOptions method
+    	 */
+    	try{
+    		SplashScreen testScreen3 = new SplashScreen();
+    		testScreen3.initPlayerOptions();
+    		System.out.println("SplashScreen.initPlayerOptions Evaulated: Correct");		
+    	} catch(Exception e) {
+    		System.out.println("SplashScreen.initPlayerOptions Evaulated: Incorrect");
+    	}
+    	
+    	/*
+    	 * Test Four
+    	 * Calling the SplashScreen.initPlayerNaming method
+    	 */
+    	try{
+    		SplashScreen testScreen4 = new SplashScreen();
+    		testScreen4.initPlayerNaming();
+    		System.out.println("SplashScreen.initPlayerNaming Evaulated: Correct");		
+    	} catch(Exception e) {
+    		System.out.println("SplashScreen.initPlayerNaming Evaulated: Incorrect");
+    	}
+    	
+    	/*
+    	 * Test Five
+    	 * Calling the SplashScreen.randomNameGen method
+    	 */
+    	try{
+    		SplashScreen testScreen5 = new SplashScreen();
+    		String testName = testScreen5.randomNameGen(0);
+        	if(testName.equals("Easy AI")) {
+        		System.out.println("SplashScreen.randomNameGen Evaluated: Correct");
+        	} else {
+        		System.out.println("SplashScreen.randomNameGen Evaluated: Correct");
+        	}
+    			
+    	} catch(Exception e) {
+    		System.out.println("SplashScreen.randomNameGen: Error in SplashScreen constructor");
+    	}
+    	
+    	
     }
 }
