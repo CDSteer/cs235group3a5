@@ -384,8 +384,8 @@ public class SplashScreen extends JFrame{
      * @return String representing player name
      */
     public String randomNameGen(int difficulty) {
-        ArrayList<String> easyNames = new ArrayList();
-        ArrayList<String> hardNames = new ArrayList();
+        ArrayList<String> easyNames = new ArrayList<String>();
+        ArrayList<String> hardNames = new ArrayList<String>();
         // add elements to easy list
         easyNames.add("Easy AI");
         //add elements to hard list
